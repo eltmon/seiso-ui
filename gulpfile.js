@@ -5,7 +5,7 @@ var $ = require('gulp-load-plugins')({lazy: true});
 var del = require('del');
 
 gulp.task('clean', function() {
-	del(['build']);
+	del(['static']);
 })
 
 gulp.task('html:index', function() {
@@ -50,4 +50,4 @@ gulp.task('images', function() {
 			   .pipe(gulp.dest('./static/images'));
 });
 
-gulp.task('build', ['html', 'css', 'less', 'js', 'images']);
+gulp.task('build', ['clean', 'html', 'css', 'less', 'js', 'images']);
