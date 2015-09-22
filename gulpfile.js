@@ -9,7 +9,14 @@ gulp.task('clean', function() {
 })
 
 gulp.task('html:index', function() {
+	var opts = {
+		conditionals: true,
+		spare: true,
+		empty: true,
+		quotes: true
+	};
 	return gulp.src('src/client/index.html')
+			   .pipe($.minifyHtml(opts))
 			   .pipe(gulp.dest('./static'));
 });
 
@@ -21,9 +28,9 @@ gulp.task('html', function() {
 		quotes: true
 	};
 
-	return gulp.src('src/client/view/*.html')
+	return gulp.src(['src/client/view/**/*.html'])
 			   .pipe($.minifyHtml(opts))
-			   .pipe(gulp.dest('./static'));
+			   .pipe(gulp.dest('./static/view'));
 });
 
 gulp.task('css', function() {
@@ -50,4 +57,9 @@ gulp.task('images', function() {
 			   .pipe(gulp.dest('./static/images'));
 });
 
-gulp.task('build', ['clean', 'html', 'css', 'less', 'js', 'images']);
+gulp.task('fonts', function() {
+	return gulp.src('src/client/css/fonts/*.{eot,svg,ttf,woff,woff2}')
+			   .pipe(gulp.dest('./static/css/fonts'));
+});
+
+gulp.task('build', ['clean', 'html', 'html:index', 'css', 'less', 'js', 'images', 'fonts']);
