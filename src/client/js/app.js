@@ -19,73 +19,83 @@ var pageTitle = require('./util').pageTitle;
 var async = require('async');
 
 angular.module('uibs', [uibs]);
-var app = angular.module('seiso', [ 'ngRoute', 'ngSanitize', 'uibs', 'seisoFilters', 'seisoServices', 'seisoControllers' ]);
+var app = angular.module('seiso', [ 'ngRoute', 'ngSanitize', 'uibs', 'seisoFilters', 'seisoServices' ]);
 
 /**
  * 		Controllers
  */
 
-var seisoControllers = angular.module('seisoControllers', []);
-
 // General
-require('./controllers/home-controller.js')(seisoControllers);
-require('./controllers/globals-controller.js')(seisoControllers);
-require('./controllers/login-controller.js')(seisoControllers);
-require('./controllers/search-controller.js')(seisoControllers);
-require('./controllers/admin-controller.js')(seisoControllers);
+require('./controllers/home-controller.js')(app);
+require('./controllers/globals-controller.js')(app);
+require('./controllers/login-controller.js')(app);
+require('./controllers/search-controller.js')(app);
+require('./controllers/admin-controller.js')(app);
 
 // Eos Actions
-require('./controllers/service-instance/details/eos-actions/eos-convict-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/eos-actions/eos-deploy-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/eos-actions/eos-interrogate-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/eos-actions/eos-maintenance-mode-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/eos-actions/eos-reload-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/eos-actions/eos-set-active-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/eos-actions/eos-soak-controller.js')(seisoControllers);
+require('./controllers/service-instance/details/eos-actions/eos-convict-controller.js')(app);
+require('./controllers/service-instance/details/eos-actions/eos-deploy-controller.js')(app);
+require('./controllers/service-instance/details/eos-actions/eos-interrogate-controller.js')(app);
+require('./controllers/service-instance/details/eos-actions/eos-maintenance-mode-controller.js')(app);
+require('./controllers/service-instance/details/eos-actions/eos-reload-controller.js')(app);
+require('./controllers/service-instance/details/eos-actions/eos-set-active-controller.js')(app);
+require('./controllers/service-instance/details/eos-actions/eos-soak-controller.js')(app);
 
 // Data-center
-require('./controllers/data-center/details/data-center-details-controller.js')(seisoControllers);
-require('./controllers/data-center/list/data-center-list-controller.js')(seisoControllers);
+require('./controllers/data-center/details/data-center-details-controller.js')(app);
+require('./controllers/data-center/list/data-center-list-controller.js')(app);
 
 // Environment
-require('./controllers/environment/details/environment-details-controller.js')(seisoControllers);
-require('./controllers/environment/list/environment-list-controller.js')(seisoControllers);
+require('./controllers/environment/details/environment-details-controller.js')(app);
+require('./controllers/environment/list/environment-list-controller.js')(app);
 
 // Load Balancer
-require('./controllers/load-balancer/details/load-balancer-details-controller.js')(seisoControllers);
-require('./controllers/load-balancer/list/load-balancer-list-controller.js')(seisoControllers);
+require('./controllers/load-balancer/details/load-balancer-details-controller.js')(app);
+require('./controllers/load-balancer/list/load-balancer-list-controller.js')(app);
 
 // Machine
-require('./controllers/machine-details-controller.js')(seisoControllers);
+require('./controllers/machine-details-controller.js')(app);
 
 // Person
-require('./controllers/person/details/person-details-controller.js')(seisoControllers);
-require('./controllers/person/list/person-list-controller.js')(seisoControllers, app);
+
+require('./controllers/person/details/person-details-controller.js')(app);
+require('./controllers/person/list/person-list-controller.js')(app);
 
 // Service Instance
-require('./controllers/service-instance/details/service-instance-details-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/nodes/nodes-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/dependencies/service-instance-dependencies-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/dependencies/service-instance-dependents-controller.js')(seisoControllers);
-require('./controllers/service-instance/list/service-instance-list-controller.js')(seisoControllers, app);
+require('./controllers/service-instance/details/service-instance-details-controller.js')(app);
+require('./controllers/service-instance/details/nodes/nodes-controller.js')(app);
+require('./controllers/service-instance/details/dependencies/service-instance-dependencies-controller.js')(app);
+require('./controllers/service-instance/details/dependencies/service-instance-dependents-controller.js')(app);
+require('./controllers/service-instance/list/service-instance-list-controller.js')(app);
+
+require('./controllers/person/details/person-details-controller.js')(app);
+require('./controllers/person/list/person-list-controller.js')(app);
+
+// Service Instance
+require('./controllers/service-instance/details/service-instance-details-controller.js')(app);
+require('./controllers/service-instance/details/nodes/nodes-controller.js')(app);
+require('./controllers/service-instance/details/dependencies/service-instance-dependencies-controller.js')(app);
+require('./controllers/service-instance/details/dependencies/service-instance-dependents-controller.js')(app);
+require('./controllers/service-instance/list/service-instance-list-controller.js')(app);
+
 
 // Nodes
-require('./controllers/service-instance/details/dashboard/node-alerts-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/dashboard/node-breakdown-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/dashboard/node-summary-controller.js')(seisoControllers);
-require('./controllers/service-instance/details/dashboard/node-details-controller.js')(seisoControllers);
+require('./controllers/service-instance/details/dashboard/node-alerts-controller.js')(app);
+require('./controllers/service-instance/details/dashboard/node-breakdown-controller.js')(app);
+require('./controllers/service-instance/details/dashboard/node-summary-controller.js')(app);
+require('./controllers/service-instance/details/dashboard/node-details-controller.js')(app);
 
 // Service
-require('./controllers/service/details/service-details-controller.js')(seisoControllers);
-require('./controllers/service/details/service-instances-controller.js')(seisoControllers);
-require('./controllers/service/details/service-documentation-controller.js')(seisoControllers);
+require('./controllers/service/details/service-details-controller.js')(app);
+require('./controllers/service/details/service-instances-controller.js')(app);
+require('./controllers/service/details/service-documentation-controller.js')(app);
 
 // Other
-require('./controllers/status-list-controller.js')(seisoControllers);
-require('./controllers/type-list-controller.js')(seisoControllers);
+require('./controllers/status-list-controller.js')(app);
+require('./controllers/type-list-controller.js')(app);
 
 // MB
-require('./controllers/mb-controller.js')(seisoControllers);
+require('./controllers/mb-controller.js')(app);
 
 /**
  * 		Services
