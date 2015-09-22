@@ -1,8 +1,8 @@
 module.exports = function(app, title, path) {
 
-	app.controller('ListController', listController);
+	// app.controller('ListController', listController);
 
-	listController.$inject = ['$scope', 'v2Api'];
+	// listController.$inject = ['$scope', 'v2Api'];
 
 	function listController($scope, v2Api) {
 		$scope.listStatus = 'loading';
@@ -16,4 +16,6 @@ module.exports = function(app, title, path) {
 		}
 		v2Api.get(path, successHandler, errorHandler);
 	}
+
+	return ['$scope', 'v2Api', listController];
 };

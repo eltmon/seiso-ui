@@ -1,8 +1,10 @@
+var pageTitle = require('../util').pageTitle;
+
 module.exports = function(app, title, path, sortKey) {
 
-	app.controller('PagingController', pagingController);
+	// app.controller('PagingController', pagingController);
 
-	pagingController.$inject = ['$scope', 'paginationConfig', 'v1Api'];
+	// pagingController.$inject = ['$scope', 'paginationConfig', 'v1Api'];
 
 	function pagingController($scope, paginationConfig, v1Api) {
 		$scope.model.page.title = pageTitle(title);
@@ -38,4 +40,6 @@ module.exports = function(app, title, path, sortKey) {
 		$scope.model.currentPage = 1;
 		$scope.model.pageSelected();
 	}
+
+	return ['$scope', 'paginationConfig', 'v1Api', pagingController];
 };

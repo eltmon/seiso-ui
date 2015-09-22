@@ -60,14 +60,14 @@ require('./controllers/machine-details-controller.js')(seisoControllers);
 
 // Person
 require('./controllers/person/details/person-details-controller.js')(seisoControllers);
-require('./controllers/person/list/person-list-controller.js')(seisoControllers);
+require('./controllers/person/list/person-list-controller.js')(seisoControllers, app);
 
 // Service Instance
 require('./controllers/service-instance/details/service-instance-details-controller.js')(seisoControllers);
 require('./controllers/service-instance/details/nodes/nodes-controller.js')(seisoControllers);
 require('./controllers/service-instance/details/dependencies/service-instance-dependencies-controller.js')(seisoControllers);
 require('./controllers/service-instance/details/dependencies/service-instance-dependents-controller.js')(seisoControllers);
-require('./controllers/service-instance/list/service-instance-list-controller.js')(seisoControllers);
+require('./controllers/service-instance/list/service-instance-list-controller.js')(seisoControllers, app);
 
 // Nodes
 require('./controllers/service-instance/details/dashboard/node-alerts-controller.js')(seisoControllers);
