@@ -1,5 +1,10 @@
-var eosReloadController = function() {
-	var controller = function($scope, $http, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('EosReloadController', eosReloadController);
+
+	eosReloadController.$inject = [ '$scope', '$http', '$routeParams'];
+
+	function eosReloadController($scope, $http, $routeParams) {
 		var serviceInstanceKey = $routeParams.key;
 		$scope.submit = function() {
 			console.log("Reloading");
@@ -17,6 +22,5 @@ var eosReloadController = function() {
 					.success(successHandler)
 					.error(errorHandler);
 		};
-	};
-	return [ '$scope', '$http', '$routeParams', controller ];
+	}
 };

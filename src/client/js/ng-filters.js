@@ -21,7 +21,9 @@ var breakPackagesFilter = function() {
 };
 
 // Register filters
-angular.module('seisoFilters', [])
+module.exports = function(app) {
+	app.module('seisoFilters', [])
 		.filter('breakPaths', breakPathsFilter)
-		.filter('breakPackages', breakPackagesFilter)
-		;
+		.filter('breakPackages', breakPackagesFilter);
+};
+

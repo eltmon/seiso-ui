@@ -1,5 +1,10 @@
-var serviceInstanceDependentsController = function() {
-	var controller = function($scope, v2Api, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('ServiceInstanceDependentsController', serviceInstanceDependentsController);
+
+	serviceInstanceDependentsController.$inject = ['$scope', 'v2Api', '$routeParams'];
+
+	function serviceInstanceDependentsController($scope, v2Api, $routeParams) {
 		$scope.dependentsStatus = 'loading';
 		var siKey = $routeParams.key;
 		var path = "/v2/service-instance-dependencies/search/find-by-dependency?key=" + siKey;
@@ -11,6 +16,5 @@ var serviceInstanceDependentsController = function() {
 			$scope.dependentsStatus = 'error';
 		};
 		v2Api.get(path, successHandler, errorHandler);
-	};
-	return [ '$scope', 'v2Api', '$routeParams', controller ];
+	}
 };

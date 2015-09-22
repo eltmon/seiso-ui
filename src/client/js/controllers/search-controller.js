@@ -1,5 +1,11 @@
-var searchController = function() {
-	var controller = function($rootScope, $scope, SearchService, $location) {
+var pageTitle = require('../util').pageTitle;
+
+module.exports = function(app) {
+	app.controller('SearchController', SearchController);
+
+	SearchController.$inject = [ '$rootScope', '$scope', 'SearchService', '$location'];
+
+	function SearchController($rootScope, $scope, SearchService, $location) {
 		$scope.model.page.title = pageTitle('Search Results');
 		$scope.searchService = SearchService;
 		$scope.searchQuery = SearchService.getQuery();
@@ -12,5 +18,4 @@ var searchController = function() {
 			});
 		};
 	};
-	return [ '$rootScope', '$scope', 'SearchService', '$location', controller ];
 };

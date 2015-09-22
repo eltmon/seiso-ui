@@ -1,6 +1,11 @@
 // FIXME Break this up into multiple controllers so we don't have to load so much data at once. [WLW]
-var adminController = function() {
-	var controller = function($scope, $http) {
+module.exports = function(app) {
+
+	app.controller('adminController', adminController);
+
+	adminController.$inject = ['$scope', '$http'];
+
+	function adminController($scope, $http) {
 		$scope.model.page.title = pageTitle('Admin Console');
 		console.log('Getting health');
 		$http.get('health').success(function(data) {
@@ -32,5 +37,4 @@ var adminController = function() {
 			$scope.threads = data;
 		});
 	};
-	return [ '$scope', '$http', controller ];
 };

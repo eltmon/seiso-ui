@@ -1,5 +1,9 @@
-var serviceInstanceNodesController = function() {
-	var controller = function($scope, $http, paginationConfig, $routeParams) {
+module.exports = function(app) {
+	app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
+
+	serviceInstanceNodesController.$inject = ['$scope', '$http', 'paginationConfig', '$routeParams'];
+	
+	function serviceInstanceNodesController($scope, $http, paginationConfig, $routeParams) {
 		$scope.model.nodes = {
 			currentPage: 1,
 			pageSelected: function() {
@@ -23,6 +27,5 @@ var serviceInstanceNodesController = function() {
 			}
 		};
 		$scope.model.nodes.pageSelected();
-	};
-	return [ '$scope', '$http', 'paginationConfig', '$routeParams', controller ];
+	}
 };

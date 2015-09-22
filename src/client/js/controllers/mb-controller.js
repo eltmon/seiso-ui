@@ -1,11 +1,14 @@
-var mbController = function() {
-	var controller = function($scope) {
+module.exports = function(app) {
+
+	app.controller('MBController', mbController);
+
+	mbController.$inject = ['$scope'];
+
+	function mbController($scope) {
 		$scope.model.page.title = "Myers-Briggs Personality Types";
 	};
-	return [ '$scope', controller ];
-};
 
-var mbProfileController = function() {
+
 	var names = {
 			"infp" : "The Healer",
 			"infj" : "The Counselor",
@@ -24,7 +27,12 @@ var mbProfileController = function() {
 			"estj" : "The Supervisor",
 			"estp" : "The Dynamo"
 	};
-	var controller = function($scope, $http, $routeParams) {
+
+	app.controller('MBProfileController', mbProfileController);
+
+	mbProfileController.$inject = ['$scope', '$http', '$routeParams'];
+
+	function mbProfileController($scope, $http, $routeParams) {
 		var type = $routeParams.type;
 		
 		$scope.model.page.title = pageTitle(type.toUpperCase());
@@ -50,6 +58,7 @@ var mbProfileController = function() {
 		$http(request)
 				.success(successHandler)
 				.error(errorHandler);
-	};
-	return [ '$scope', '$http', '$routeParams', controller ];
+	}
 };
+
+

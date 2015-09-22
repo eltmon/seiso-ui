@@ -2,8 +2,8 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({lazy: true});
-var del = require('del');
-
+var wpConfig = require('./webpack.config.js');
+var config = require('./gulp/config');
 
 gulp.task('clean', function() {
 	return gulp.src('./static/*', {read: false})
@@ -47,10 +47,29 @@ gulp.task('less', ['clean'], function() {
 			   .pipe(gulp.dest('./static/css'))
 })
 
-gulp.task('js', ['clean'], function() {
-	return gulp.src('src/client/js/**/*.js')
-			   // .pipe($.uglify())
-			   .pipe($.concat('all.js'))
+gulp.task('bs:css', ['clean'], function() {
+  return gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css')
+             .pipe(gulp.dest('static/css/samurai'));
+});
+
+gulp.task('bs:js', ['clean'], function() {
+  return gulp.src('node_modules/bootstrap/dist/js/bootstrap.min.js')
+             .pipe(gulp.dest('static/js'));
+});
+
+gulp.task('jquery', ['clean'], function() {
+	return gulp.src('node_modules/jquery/dist/jquery.min.js')
+			   .pipe(gulp.dest('static/js'));
+});
+
+gulp.task('d3', ['clean'], function() {
+	return gulp.src('node_modules/d3/d3.min.js')
+			   .pipe(gulp.dest('static/js'));
+});
+
+gulp.task('webpack', ['clean'], function() {
+	return gulp.src('src/client/js/app.js')
+			   .pipe($.webpack(wpConfig))
 			   .pipe(gulp.dest('./static/js'));
 });
 
@@ -64,4 +83,8 @@ gulp.task('fonts', ['clean'], function() {
 			   .pipe(gulp.dest('./static/css/fonts'));
 });
 
-gulp.task('build', ['clean', 'html', 'html:index', 'css', 'less', 'js', 'images', 'fonts']);
+gulp.task('build', ['clean', 'webpack', 'html', 'd3', 'jquery', 'bs:css', 'bs:js', 'html:index', 'css', 'less', 'images', 'fonts']);
+
+gulp.task('watch', function() {
+	gulp.watch([config.paths.client], ['build']);
+});

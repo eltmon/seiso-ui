@@ -1,5 +1,10 @@
-var eosConvictController = function() {
-	var controller = function($scope, $http, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('EosConvictController', eosConvictController);
+
+	eosConvictController.$inject = [ '$scope', '$http', '$routeParams'];
+
+	function eosConvictController($scope, $http, $routeParams) {
 		var serviceInstanceKey = $routeParams.key;
 		$scope.form = {};
 		$scope.submit = function() {
@@ -25,6 +30,5 @@ var eosConvictController = function() {
 					.success(successHandler)
 					.error(errorHandler);
 		};
-	};
-	return [ '$scope', '$http', '$routeParams', controller ];
+	}
 };

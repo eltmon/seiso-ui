@@ -1,5 +1,10 @@
-var eosSetActiveController = function() {
-	var controller = function($scope, $http, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('EosSetActiveController', eosSetActiveController);
+
+	eosSetActiveController.$inject = ['$scope', '$http', '$routeParams'];
+
+	function eosSetActiveController($scope, $http, $routeParams) {
 		var serviceInstanceKey = $routeParams.key;
 		$scope.submit = function() {
 			console.log("Setting active");
@@ -17,6 +22,5 @@ var eosSetActiveController = function() {
 					.success(successHandler)
 					.error(errorHandler);
 		};
-	};
-	return [ '$scope', '$http', '$routeParams', controller ];
+	}
 };

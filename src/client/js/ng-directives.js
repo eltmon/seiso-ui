@@ -105,9 +105,10 @@ var rotationDetailsPopoverDirective = function() {
 };
 
 // Register directives
-angular.module('seiso')
-		.directive('ngEnter', enterDirective())
+module.exports = function(app) {
+	app.directive('ngEnter', enterDirective())
 		.directive('focus', focusDirective())
 		.directive('pieChart', pieChartDirective())
-		.directive('rotationDetailsPopover', rotationDetailsPopoverDirective())
-		;
+		.directive('rotationDetailsPopover', rotationDetailsPopoverDirective());
+};
+

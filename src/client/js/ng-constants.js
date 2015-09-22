@@ -6,6 +6,7 @@ var GENERAL_REGIONS = [
 ];
 
 // Register constants
-angular.module('seiso')
-		.constant('generalRegions', GENERAL_REGIONS)
-		;
+module.exports = function(app) {
+	app.constant('generalRegions', GENERAL_REGIONS);
+};
+		

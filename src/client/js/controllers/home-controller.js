@@ -1,5 +1,13 @@
-var homeController = function() {
-	var controller = function($scope, $http) {
+var pageTitle = require('../util').pageTitle;
+var async = require('async');
+
+module.exports = function(app) {
+
+	app.controller('HomeController', HomeController);
+
+	HomeController.$inject = ['$scope', '$http'];
+
+	function HomeController($scope, $http) {
 		$scope.model.page.title = pageTitle('Home');
 		$scope.serviceStatus = 'loading';
 		
@@ -43,6 +51,4 @@ var homeController = function() {
 			$scope.serviceStatus = 'loaded';
 		});
 	};
-	
-	return [ '$scope', '$http', controller ];
 };

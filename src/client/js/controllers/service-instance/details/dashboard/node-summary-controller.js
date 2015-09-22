@@ -1,5 +1,10 @@
-var nodeSummaryController = function() {
-	var controller = function($scope, $http, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('NodeSummaryController', nodeSummaryController);
+
+	nodeSummaryController.$inject = ['$scope', '$http', '$routeParams'];
+	
+	function nodeSummaryController($scope, $http, $routeParams) {
 		$scope.nodeStatsStatus = 'loading';
 		
 		var request = {
@@ -41,6 +46,5 @@ var nodeSummaryController = function() {
 		$http(request)
 				.success(successHandler)
 				.error(function() { $scope.nodeStatsStatus = 'error'; });
-	};
-	return [ '$scope', '$http', '$routeParams', controller ];
+	}
 };

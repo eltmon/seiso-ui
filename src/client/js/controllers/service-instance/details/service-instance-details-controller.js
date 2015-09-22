@@ -1,5 +1,10 @@
-var serviceInstanceDetailsController = function() {
-	var controller = function($scope, v2Api, $http, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('ServiceInstanceDetailsController', serviceInstanceDetailsController);
+
+	serviceInstanceDetailsController.$inject = ['$scope', 'v2Api', '$http', '$routeParams'];
+
+	function serviceInstanceDetailsController($scope, v2Api, $http, $routeParams) {
 		$scope.serviceInstanceStatus = 'loading';
 		var serviceInstanceKey = $routeParams.key;
 		var path = "/v2/service-instances/" + serviceInstanceKey;
@@ -40,6 +45,5 @@ var serviceInstanceDetailsController = function() {
 			$scope.serviceInstanceStatus = 'error';
 		}
 		v2Api.get(path, successHandler, errorHandler);
-	};
-	return [ '$scope', 'v2Api', '$http', '$routeParams', controller ];
+	}
 };

@@ -1,5 +1,10 @@
-var eosDeployController = function() {
-	var controller = function($scope, $http, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('EosDeployController', eosDeployController);
+
+	eosDeployController.$inject = [ '$scope', '$http', '$routeParams'];
+	
+	function eosDeployController($scope, $http, $routeParams) {
 		var serviceInstanceKey = $routeParams.key;
 		$scope.form = {};
 		$scope.submit = function() {
@@ -30,6 +35,5 @@ var eosDeployController = function() {
 					.success(successHandler)
 					.error(errorHandler);
 		};
-	};
-	return [ '$scope', '$http', '$routeParams', controller ];
+	}
 };

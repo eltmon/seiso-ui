@@ -1,5 +1,10 @@
-var dataCenterDetailsController = function() {
-	var controller = function($scope, v2Api, $http, paginationConfig, $routeParams) {
+module.exports = function(app) {
+	
+	app.controller('DataCenterDetailsController', dataCenterDetailsController);
+
+	dataCenterDetailsController.$inject = ['$scope', 'v2Api', '$http', 'paginationConfig', '$routeParams'];
+
+	function dataCenterDetailsController($scope, v2Api, $http, paginationConfig, $routeParams) {
 		(function getDataCenter() {
 			var successHandler = function(data) {
 				var dataCenter = data;
@@ -64,6 +69,5 @@ var dataCenterDetailsController = function() {
 		
 		$scope.model.serviceInstances.pageSelected();
 		$scope.model.loadBalancers.pageSelected();
-	};
-	return [ '$scope', 'v2Api', '$http', 'paginationConfig', '$routeParams', controller ];
+	}
 };

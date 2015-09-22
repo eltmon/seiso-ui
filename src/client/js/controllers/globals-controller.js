@@ -1,8 +1,15 @@
-var globalsController = function() {
-	var controller = function($rootScope, $scope, $http, authService) {
-		$scope.logout = authService.logout;
+
+
+module.exports = function(app) {
+	
+	app.controller('GlobalsController', globalsController);
+
+	globalsController.$inject = ['$rootScope', '$scope', '$http', 'AuthService'];
+
+	function globalsController($rootScope, $scope, $http, AuthService) {
+		$scope.logout = AuthService.logout;
 		
-		authService.checkAuthentication(false);
+		AuthService.checkAuthentication(false);
 		
 		var getGlobalData = function() {
 			var request = {
@@ -28,5 +35,4 @@ var globalsController = function() {
 		};
 		getGlobalData();
 	};
-	return [ '$rootScope', '$scope', '$http', 'AuthService', controller ];
 };

@@ -1,5 +1,10 @@
-var eosMaintenanceModeController = function() {
-	var controller = function($scope, $http, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('EosMaintenanceModeController', eosMaintenanceModeController);
+
+	eosMaintenanceModeController.$inject = ['$scope', '$http', '$routeParams'];
+	
+	function eosMaintenanceModeController($scope, $http, $routeParams) {
 		var serviceInstanceKey = $routeParams.key;
 		$scope.form = {};
 		$scope.submit = function() {
@@ -25,6 +30,5 @@ var eosMaintenanceModeController = function() {
 					.success(successHandler)
 					.error(errorHandler);
 		};
-	};
-	return [ '$scope', '$http', '$routeParams', controller ];
+	}
 };

@@ -1,5 +1,10 @@
-var nodeBreakdownController = function() {
-	var controller = function($scope, $http, $routeParams) {
+module.exports = function(app) {
+	
+	app.controller('NodeBreakdownController', nodeBreakdownController);
+
+	nodeBreakdownController.$inject = ['$scope', '$http', '$routeParams'];
+
+	function nodeBreakdownController($scope, $http, $routeParams) {
 		function getBreakdown(statusVar, path, resultVar) {
 			$scope[statusVar] = 'loading';
 			var request = {
@@ -17,6 +22,5 @@ var nodeBreakdownController = function() {
 		};
 		getBreakdown('healthBreakdownStatus', 'health-breakdown', 'healthBreakdown');
 		getBreakdown('rotationBreakdownStatus', 'rotation-breakdown', 'rotationBreakdown');
-	};
-	return [ '$scope', '$http', '$routeParams', controller ];
+	}
 };

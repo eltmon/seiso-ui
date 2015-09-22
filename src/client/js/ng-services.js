@@ -2,8 +2,10 @@
 // https://docs.angularjs.org/api/ngResource/service/$resource
 
 // TODO Separate service definitions from registrations, like we do in the other modules.
+module.exports = function(app) {
 
-angular.module('seisoServices', [])
+	
+	app.module('seisoServices', [])
 
 	// FIXME Don't block on the response
 	// Constructor function to create a service factory, which creates dependency-injected services.
@@ -152,6 +154,6 @@ angular.module('seisoServices', [])
 						callback();
 					});
 		};
-	}])
-	
-	;
+	}]);
+};
+

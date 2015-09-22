@@ -1,5 +1,10 @@
-var serviceDetailsController = function() {
-	var controller = function($scope, v2Api, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('ServiceDetailsController', serviceDetailsController);
+
+	serviceDetailsController.$inject = ['$scope', 'v2Api', '$routeParams'];
+
+	function serviceDetailsController($scope, v2Api, $routeParams) {
 		$scope.serviceStatus = 'loading';
 		var path = "/v2/services/" + $routeParams.key;
 		var successHandler = function(data) {
@@ -15,7 +20,5 @@ var serviceDetailsController = function() {
 			$scope.serviceStatus = 'error';
 		};
 		v2Api.get(path, successHandler, errorHandler);
-	};
-	
-	return [ '$scope', 'v2Api', '$routeParams', controller ];
+	}
 };

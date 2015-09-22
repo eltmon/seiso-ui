@@ -1,5 +1,10 @@
-var eosSoakController = function() {
-	var controller = function($scope, $http, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('EosSoakController', eosSoakController);
+
+	eosSoakController.$inject = ['$scope', '$http', '$routeParams'];
+	
+	function eosSoakController($scope, $http, $routeParams) {
 		var serviceInstanceKey = $routeParams.key;
 		$scope.form = {};
 		$scope.submit = function() {
@@ -23,6 +28,5 @@ var eosSoakController = function() {
 					.success(successHandler)
 					.error(errorHandler);
 		};
-	};
-	return [ '$scope', '$http', '$routeParams', controller ];
+	}
 };

@@ -1,5 +1,10 @@
-var environmentDetailsController = function() {
-	var controller = function($scope, v2Api, $http, paginationConfig, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('EnvironmentDetailsController', environmentDetailsController);
+
+	environmentDetailsController.$inject = ['$scope', 'v2Api', '$http', 'paginationConfig', '$routeParams'];
+
+	function environmentDetailsController($scope, v2Api, $http, paginationConfig, $routeParams) {
 		(function getEnvironment() {
 			var successHandler = function(data) {
 				var env = data;
@@ -37,7 +42,5 @@ var environmentDetailsController = function() {
 		};
 		
 		$scope.model.serviceInstances.pageSelected();
-	};
-	
-	return [ '$scope', 'v2Api', '$http', 'paginationConfig', '$routeParams', controller ];
+	}
 };

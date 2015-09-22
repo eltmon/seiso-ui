@@ -1,7 +1,7 @@
 // Maps API responses to UI-friendly structures.
 
 // Supports the data center list page.
-var organizeDataCenters = function(srcProviders, generalRegions) {
+exports.organizeDataCenters = function(srcProviders, generalRegions) {
 	var destProviders = {};
 	for (i = 0; i < srcProviders.length; i++) {
 	
@@ -31,14 +31,14 @@ var organizeDataCenters = function(srcProviders, generalRegions) {
 };
 
 // Adds percentages to the node stats object.
-var enrichNodeStats = function(nodeStats) {
+exports.enrichNodeStats = function(nodeStats) {
 	nodeStats.percentHealthy = 100 * (nodeStats.numHealthy / nodeStats.numNodes);
 	nodeStats.percentEnabled = 100 * (nodeStats.numEnabled / nodeStats.numNodes);
 	nodeStats.percentHealthyGivenEnabled = 100 * (nodeStats.numHealthyGivenEnabled / nodeStats.numEnabled);
 };
 
 // Supports the service instance details page.
-var nodePageToNodeRows = function(nodePage) {
+exports.nodePageToNodeRows = function(nodePage) {
 	var nodes = nodePage._embedded.items;
 	
 	// Build the node table, which is really a list of IP addresses grouped by node. [WLW]

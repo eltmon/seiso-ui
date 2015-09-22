@@ -1,5 +1,10 @@
-var nodeAlertsController = function() {
-	var controller = function($scope, v2Api, paginationConfig, $routeParams) {
+module.exports = function(app) {
+
+	app.controller('NodeAlertsController', nodeAlertsController);
+
+	nodeAlertsController.$inject = ['$scope', 'v2Api', 'paginationConfig', '$routeParams'];
+
+	function nodeAlertsController($scope, v2Api, paginationConfig, $routeParams) {
 		$scope.model.nodeAlerts = {
 			currentPage: 1,
 			pageSelected: function() {
@@ -21,6 +26,5 @@ var nodeAlertsController = function() {
 			}
 		};
 		$scope.model.nodeAlerts.pageSelected();
-	};
-	return [ '$scope', 'v2Api', 'paginationConfig', '$routeParams', controller ];
+	}
 };

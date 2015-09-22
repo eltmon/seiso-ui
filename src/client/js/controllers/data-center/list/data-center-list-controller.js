@@ -1,5 +1,10 @@
-var dataCenterListController = function() {
-	var controller = function($scope, v2Api, generalRegions) {
+module.exports = function(app) {
+	
+	app.controller('DataCenterListController', dataCenterListController);
+
+	dataCenterListController.$inject = ['$scope', 'v2Api', 'generalRegions'];
+
+	function dataCenterListController($scope, v2Api, generalRegions) {
 		$scope.listStatus = 'loading';
 		$scope.model.page.title = pageTitle('Data Centers');
 		
@@ -16,6 +21,4 @@ var dataCenterListController = function() {
 		}
 		v2Api.get(path, successHandler, errorHandler);
 	};
-	
-	return [ '$scope', 'v2Api', 'generalRegions', controller ];
 };
