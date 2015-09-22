@@ -13,7 +13,6 @@ $ npm install
 ### Build
 
 ```
-$ gulp clean
 $ gulp build
 ```
 
