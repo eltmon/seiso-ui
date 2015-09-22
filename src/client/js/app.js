@@ -89,6 +89,7 @@ require('./controllers/service-instance/details/dashboard/node-details-controlle
 require('./controllers/service/details/service-details-controller.js')(app);
 require('./controllers/service/details/service-instances-controller.js')(app);
 require('./controllers/service/details/service-documentation-controller.js')(app);
+require('../components/serviceList/serviceList.controller.js')(app);
 
 // Other
 require('./controllers/status-list-controller.js')(app);
@@ -137,7 +138,7 @@ app.config(['$httpProvider', '$routeProvider', 'paginationConfig', function($htt
 			.when('/nodes/:name', route('NodeDetails', 'items/node/details/node-details'))
 			.when('/people', route('PersonList', 'items/person/list/person-list'))
 			.when('/people/:username', route('PersonDetails', 'items/person/details/person-details'))
-			.when('/services', route('ServiceList', 'items/service/list/service-list'))
+			.when('/services', { controller: 'ServiceListController', templateUrl: 'view/serviceList/serviceList.html' })
 			.when('/services/:key', viewRoute("items/service/details/service-details"))
 			.when('/service-instances', route('ServiceInstanceList', 'items/service-instance/list/service-instance-list'))
 			.when('/service-instances/:key', viewRoute("items/service-instance/details/service-instance-details"))

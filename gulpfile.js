@@ -29,7 +29,10 @@ gulp.task('html', ['clean'], function() {
 		empty: true,
 		quotes: true
 	};
-	return gulp.src(['src/client/view/**/*.html'])
+	return gulp.src([
+           'src/client/components/**/*.html',
+           'src/client/view/**/*.html'
+         ])
 			   .pipe($.minifyHtml(opts))
 			   .pipe(gulp.dest('./static/view'));
 });
