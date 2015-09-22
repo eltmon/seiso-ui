@@ -62,11 +62,6 @@ gulp.task('jquery', ['clean'], function() {
 			   .pipe(gulp.dest('static/js'));
 });
 
-gulp.task('d3', ['clean'], function() {
-	return gulp.src('node_modules/d3/d3.min.js')
-			   .pipe(gulp.dest('static/js'));
-});
-
 gulp.task('webpack', ['clean'], function() {
 	return gulp.src('src/client/js/app.js')
 			   .pipe($.webpack(wpConfig))
