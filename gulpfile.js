@@ -78,7 +78,7 @@ gulp.task('webpack', ['clean'], function() {
 });
 
 gulp.task('vet', function() {
-	return gulp.src(config.paths.js)
+	return gulp.src(config.paths.components)
 			 .pipe($.if(args.verbose, $.print()))
              .pipe($.jscs({
                 fix: true
