@@ -1,4 +1,4 @@
-var pageTitle = require('./util').pageTitle;
+var pageTitle = require('../util/util').pageTitle;
 
 module.exports = function(app) {
 

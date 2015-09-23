@@ -30,12 +30,9 @@ gulp.task('html', ['clean'], function() {
 		empty: true,
 		quotes: true
 	};
-	return gulp.src([
-           'src/client/components/**/*.html',
-           'src/client/view/**/*.html'
-         ])
-			   .pipe($.minifyHtml(opts))
-			   .pipe(gulp.dest('./static/view'));
+	return gulp.src('src/client/components/**/*.html')
+			   // .pipe($.minifyHtml(opts))
+			   .pipe(gulp.dest(config.paths.out + 'view'));
 });
 
 gulp.task('css', ['clean'], function() {

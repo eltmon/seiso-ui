@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 
-    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Droid+Serif'>
+    <!-- <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Droid+Serif'> -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/samurai/samurai.css">
@@ -26,14 +26,14 @@
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <ng-include src="'view/navbar.html'"></ng-include>
+    <ng-include src="'view/home/navbar.html'"></ng-include>
     <div class="page-content">
       <div class="container">
         <div class="alert alert-info" ng-if="globals.motd" ng-bind-html="globals.motd.message"></div>
         <ng-view></ng-view>
       </div>
     </div>
-    <ng-include src="'view/footer.html'"></ng-include>
+    <ng-include src="'view/home/footer.html'"></ng-include>
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>

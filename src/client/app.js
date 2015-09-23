@@ -90,8 +90,8 @@ require('./components/service/details/service-documentation-controller.js')(app)
 require('./components/serviceList/serviceList.controller.js')(app);
 
 // Other
-require('./components/util/status-list-controller.js')(app);
-require('./components/util/type-list-controller.js')(app);
+require('./components/status/status-list-controller.js')(app);
+require('./components/type/type-list-controller.js')(app);
 
 // MB
 require('./components/mb/mb-controller.js')(app);
@@ -125,31 +125,31 @@ app.config(['$httpProvider', '$routeProvider', 'paginationConfig', function($htt
   
   $routeProvider
     .when('/', route('Home', 'home/home'))
-    .when('/search', route('Search', 'search/search'))
-    .when('/login', route('Login', 'login/login'))
+    .when('/search', route('Search', 'search'))
+    .when('/login', route('Login', 'auth/login'))
     .when('/admin', route('Admin', 'admin/index'))
     .when('/mb', viewRoute('mb/index'))
     .when('/mb/:type', viewRoute('mb/profile'))
-    .when('/data-centers', viewRoute('items/data-center/list/data-center-list'))
-    .when('/data-centers/:key', route('DataCenterDetails', 'items/data-center/details/data-center-details'))
-    .when('/environments', viewRoute('items/environment/list/environment-list'))
-    .when('/environments/:key', route('EnvironmentDetails', 'items/environment/details/environment-details')) 
-    .when('/load-balancers', route('LoadBalancerList', 'items/load-balancer/list/load-balancer-list'))
-    .when('/load-balancers/:name', route('LoadBalancerDetails', 'items/load-balancer/details/load-balancer-details'))
-    .when('/machines/:name', route('MachineDetails', 'items/machine/details/machine-details'))
-    .when('/nodes/:name', route('NodeDetails', 'items/node/details/node-details'))
-    .when('/people', route('PersonList', 'items/person/list/person-list'))
-    .when('/people/:username', route('PersonDetails', 'items/person/details/person-details'))
+    .when('/data-centers', viewRoute('data-center/list/data-center-list'))
+    .when('/data-centers/:key', route('DataCenterDetails', 'data-center/details/data-center-details'))
+    .when('/environments', viewRoute('environment/list/environment-list'))
+    .when('/environments/:key', route('EnvironmentDetails', 'environment/details/environment-details')) 
+    .when('/load-balancers', route('LoadBalancerList', 'load-balancer/list/load-balancer-list'))
+    .when('/load-balancers/:name', route('LoadBalancerDetails', 'load-balancer/details/load-balancer-details'))
+    .when('/machines/:name', route('MachineDetails', 'machine/machine-details'))
+    .when('/nodes/:name', route('NodeDetails', 'service-instance/details/nodes/details/node-details'))
+    .when('/people', route('PersonList', 'person/list/person-list'))
+    .when('/people/:username', route('PersonDetails', 'person/details/person-details'))
     .when('/services', {
       controller: 'ServiceListController',
       controllerAs: 'vm',
       templateUrl: 'view/serviceList/serviceList.html'
     })
-    .when('/services/:key', viewRoute('items/service/details/service-details'))
-    .when('/service-instances', route('ServiceInstanceList', 'items/service-instance/list/service-instance-list'))
-    .when('/service-instances/:key', viewRoute('items/service-instance/details/service-instance-details'))
-    .when('/statuses', route('StatusList', 'items/status/list/status-list'))
-    .when('/types', route('TypeList', 'items/type/list/type-list'))
+    .when('/services/:key', viewRoute('service/details/service-details'))
+    .when('/service-instances', route('ServiceInstanceList', 'service-instance/list/service-instance-list'))
+    .when('/service-instances/:key', viewRoute('service-instance/details/service-instance-details'))
+    .when('/statuses', route('StatusList', 'status/status-list'))
+    .when('/types', route('TypeList', 'type/type-list'))
     .otherwise({ redirectTo : '/' });
       
   // Pagination configuration. Is this the right place to do this?
