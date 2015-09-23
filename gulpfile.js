@@ -81,7 +81,7 @@ gulp.task('fonts', ['clean'], function() {
 			   .pipe(gulp.dest('./static/css/fonts'));
 });
 
-gulp.task('build', ['clean', 'webpack', 'html', 'd3', 'jquery', 'bs:css', 'bs:js', 'html:index', 'css', 'less', 'images', 'fonts']);
+gulp.task('build', ['clean', 'webpack', 'html', 'jquery', 'bs:css', 'bs:js', 'html:index', 'css', 'less', 'images', 'fonts']);
 
 gulp.task('watch', function() {
 	gulp.watch([config.paths.client], ['build']);
