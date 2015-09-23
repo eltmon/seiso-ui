@@ -14,8 +14,6 @@ var enrichNodeStats = require('./components/util/ng-mappers.js').enrichNodeStats
 var nodePageToNodeRows = require('./components/util/ng-mappers.js').nodePageToNodeRows;
 
 var util = require('./components/util/util');
-var route = util.route;
-var viewRoute = util.viewRoute;
 
 var app = angular.module('seiso', ['ngRoute', 'ngSanitize', 'seisoFilters', 'seisoServices', uibs]);
 
@@ -112,56 +110,11 @@ require('./components/util/ng-directives.js')(app);
 
 require('./components/util/ng-filters.js')(angular);
 
-
-app.config(['$httpProvider', '$routeProvider', 'paginationConfig', function($httpProvider, $routeProvider, paginationConfig) {    
-  $httpProvider.defaults.headers.common = {
-    // TODO Migrate toward application/hal+json
-    'Accept' : 'application/json',
-    // https://spring.io/blog/2015/01/12/the-login-page-angular-js-and-spring-security-part-ii 
-    'X-Requested-With' : 'XMLHttpRequest'
-  };
-  
-
-  
-  $routeProvider
-    .when('/', route('Home', 'home/home'))
-    .when('/search', route('Search', 'search'))
-    .when('/login', route('Login', 'auth/login'))
-    .when('/admin', route('Admin', 'admin/index'))
-    .when('/mb', viewRoute('mb/index'))
-    .when('/mb/:type', viewRoute('mb/profile'))
-    .when('/data-centers', viewRoute('data-center/list/data-center-list'))
-    .when('/data-centers/:key', route('DataCenterDetails', 'data-center/details/data-center-details'))
-    .when('/environments', viewRoute('environment/list/environment-list'))
-    .when('/environments/:key', route('EnvironmentDetails', 'environment/details/environment-details')) 
-    .when('/load-balancers', route('LoadBalancerList', 'load-balancer/list/load-balancer-list'))
-    .when('/load-balancers/:name', route('LoadBalancerDetails', 'load-balancer/details/load-balancer-details'))
-    .when('/machines/:name', route('MachineDetails', 'machine/machine-details'))
-    .when('/nodes/:name', route('NodeDetails', 'service-instance/details/nodes/details/node-details'))
-    .when('/people', route('PersonList', 'person/list/person-list'))
-    .when('/people/:username', route('PersonDetails', 'person/details/person-details'))
-    .when('/services', {
-      controller: 'ServiceListController',
-      controllerAs: 'vm',
-      templateUrl: 'view/service/list/service-list.html'
-    })
-    .when('/services/:key', viewRoute('service/details/service-details'))
-    .when('/service-instances', route('ServiceInstanceList', 'service-instance/list/service-instance-list'))
-    .when('/service-instances/:key', viewRoute('service-instance/details/service-instance-details'))
-    .when('/statuses', route('StatusList', 'status/status-list'))
-    .when('/types', route('TypeList', 'type/type-list'))
-    .otherwise({ redirectTo : '/' });
-      
-  // Pagination configuration. Is this the right place to do this?
-  paginationConfig.itemsPerPage = 50;
-  paginationConfig.maxSize = 7;
-  paginationConfig.boundaryLinks = true;
-  // FIXME Want to use &laquo;, &lsaquo;, etc., but Angular is escaping the &. [WLW] 
-  paginationConfig.firstText = '<<';
-  paginationConfig.previousText = '<';
-  paginationConfig.nextText = '>';
-  paginationConfig.lastText = '>>';
-}]);
+/**
+ *    Config
+ */
+require('./app.config.js')(app);
+require('./app.routes.js')(app);
 
 // TODO The functions here belong in a service. See
 // http://stackoverflow.com/questions/11938380/global-variables-in-angularjs/11938785#11938785
