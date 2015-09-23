@@ -101,6 +101,7 @@ require('./controllers/mb-controller.js')(app);
 /**
  * 		Services
  */
+require('../components/dataService/dataService.service.js')(app);
 require('./ng-services.js')(angular);
 
 /**
@@ -138,7 +139,11 @@ app.config(['$httpProvider', '$routeProvider', 'paginationConfig', function($htt
 			.when('/nodes/:name', route('NodeDetails', 'items/node/details/node-details'))
 			.when('/people', route('PersonList', 'items/person/list/person-list'))
 			.when('/people/:username', route('PersonDetails', 'items/person/details/person-details'))
-			.when('/services', { controller: 'ServiceListController', templateUrl: 'view/serviceList/serviceList.html' })
+			.when('/services', {
+        controller: 'ServiceListController',
+        controllerAs: 'vm',
+        templateUrl: 'view/serviceList/serviceList.html'
+      })
 			.when('/services/:key', viewRoute("items/service/details/service-details"))
 			.when('/service-instances', route('ServiceInstanceList', 'items/service-instance/list/service-instance-list'))
 			.when('/service-instances/:key', viewRoute("items/service-instance/details/service-instance-details"))
