@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({lazy: true});
+var args = require('yargs').argv;
 var wpConfig = require('./webpack.config.js');
 var config = require('./gulp/config');
 
@@ -69,6 +70,17 @@ gulp.task('webpack', ['clean'], function() {
 	return gulp.src('src/client/js/app.js')
 			   .pipe($.webpack(wpConfig))
 			   .pipe(gulp.dest('./static/js'));
+});
+
+gulp.task('vet', function() {
+	return gulp.src(config.paths.js)
+			 .pipe($.if(args.verbose, $.print()))
+             .pipe($.jscs({
+                fix: true
+             }))
+             .pipe($.jshint())
+             .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
+             .pipe($.jshint.reporter('fail'));
 });
 
 gulp.task('images', ['clean'], function() {
