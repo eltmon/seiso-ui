@@ -1,21 +1,21 @@
-<div id="page-spinner-panel" ng-hide="items">
+<div id="page-spinner-panel" ng-hide="vm.services">
   <i class="fa fa-spinner fa-spin fa-5x"></i>
 </div>
-<div ng-show="items">
+<div ng-show="vm.services">
   <div class="page-header">
     <ul class="breadcrumb">
       <li><a ng-href="{{uri()}}">Home</a></li>
     </ul>
     <h1>
       Services
-      <span ng-if="items.length === 0"><small>(0)</small></span>
-      <span ng-if="items.length &gt; 0"><small>({{lowerIndex}}-{{upperIndex}} of {{totalItems}})</small></span>
+      <span ng-if="vm.services.length === 0"><small>(0)</small></span>
+      <span ng-if="vm.services.length &gt; 0"><small>({{vm.lowerIndex}}-{{vm.upperIndex}} of {{vm.totalItems}})</small></span>
     </h1>
   </div>
-  <div ng-if="items.length === 0">
+  <div ng-if="vm.services.length === 0">
     <p><i class="fa fa-info-circle"></i> No services.</p>
   </div>
-  <div ng-if="items.length &gt; 0">
+  <div ng-if="vm.services.length &gt; 0">
     <div class="pagination-wrapper" ng-if="totalPages &gt; 1">
       <pagination total-items="totalItems" ng-model="model.currentPage" ng-change="model.pageSelected()" />
     </div>
@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="service in items | orderBy:'name'">
+        <tr ng-repeat="service in vm.services | orderBy:'name'">
           <td><a ng-href="{{uri('services', service.key)}}">{{service.name}}</a></td>
           <td>{{service.description}}</td>
         </tr>
