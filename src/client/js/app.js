@@ -1,8 +1,9 @@
 'use strict';
 
-//window.jQuery = window.$ = require('jquery');
+var jQuery = $ = require('jquery')(window);
+var async = require('async');
 
-// require('d3');
+require('d3');
 require('angular');
 require('angular-route');
 require('angular-sanitize');
@@ -16,10 +17,9 @@ var route = require('./util').route;
 var viewRoute = require('./util').viewRoute;
 var pageTitle = require('./util').pageTitle;
 
-var async = require('async');
 
-angular.module('uibs', [uibs]);
-var app = angular.module('seiso', [ 'ngRoute', 'ngSanitize', 'uibs', 'seisoFilters', 'seisoServices' ]);
+
+var app = angular.module('seiso', ['ngRoute', 'ngSanitize', 'seisoFilters', 'seisoServices', uibs]);
 
 /**
  * 		Controllers
