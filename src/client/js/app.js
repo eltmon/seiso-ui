@@ -17,8 +17,6 @@ var route = require('./util').route;
 var viewRoute = require('./util').viewRoute;
 var pageTitle = require('./util').pageTitle;
 
-
-
 var app = angular.module('seiso', ['ngRoute', 'ngSanitize', 'seisoFilters', 'seisoServices', uibs]);
 
 /**
@@ -108,7 +106,9 @@ require('./ng-services.js')(angular);
  * 		Constants
  */
 require('./ng-constants.js')(app);
+
 require('./ng-directives.js')(app);
+
 require('./ng-filters.js')(angular);
 
 
