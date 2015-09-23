@@ -1,0 +1,10 @@
+{
+	"node": true,
+	"sub": true,
+	"globals": {
+		"describe": true,
+		"$": true,
+		"angular": true,
+		"window": true
+	}
+}

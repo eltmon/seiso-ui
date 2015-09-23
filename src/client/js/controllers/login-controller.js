@@ -1,10 +1,10 @@
 module.exports = function(app) {
-	app.controller('LoginController', loginController);
+  app.controller('LoginController', loginController);
 
-	loginController.$inject = ['$scope', 'AuthService'];
+  loginController.$inject = ['$scope', 'AuthService'];
 
-	function loginController($scope, authService) {
-		$scope.credentials = {};
-		$scope.login = authService.login;
-	};
+  function loginController($scope, authService) {
+    $scope.credentials = {};
+    $scope.login = authService.login;
+  }
 };

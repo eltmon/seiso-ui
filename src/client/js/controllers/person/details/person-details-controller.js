@@ -1,3 +1,5 @@
+var pageTitle = require('../../../util').pageTitle;
+
 module.exports = function(app) {
 
 	app.controller('personDetailsController', personDetailsController);
@@ -13,6 +15,6 @@ module.exports = function(app) {
 		};
 		$http.get('/v2/people/' + $routeParams.username, { headers: { 'Accept': 'application/hal+json' } })
 				.success(successHandler)
-				.error(function() { alert('Error while getting person.'); })
+				.error(function() { console.log('Error while getting person.'); });
 	}
 };

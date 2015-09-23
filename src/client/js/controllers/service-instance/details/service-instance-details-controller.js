@@ -1,3 +1,5 @@
+var pageTitle = require('../../../util').pageTitle;
+
 module.exports = function(app) {
 
 	app.controller('ServiceInstanceDetailsController', serviceInstanceDetailsController);
@@ -7,7 +9,7 @@ module.exports = function(app) {
 	function serviceInstanceDetailsController($scope, v2Api, $http, $routeParams) {
 		$scope.serviceInstanceStatus = 'loading';
 		var serviceInstanceKey = $routeParams.key;
-		var path = "/v2/service-instances/" + serviceInstanceKey;
+		var path = '/v2/service-instances/' + serviceInstanceKey;
 		var successHandler = function(data) {
 			var serviceInstance = data;
 			var siEmbedded = serviceInstance._embedded;
@@ -36,14 +38,14 @@ module.exports = function(app) {
 			}
 			
 			$scope.setTabContent = function(name) {
-				$scope.tabContentUrl = "view/items/service-instance/details/" + name + ".html";
-			}
+				$scope.tabContentUrl = 'view/items/service-instance/details/' + name + '.html';
+			};
 		
 			$scope.serviceInstanceStatus = 'loaded';
 		};
 		var errorHandler = function() {
 			$scope.serviceInstanceStatus = 'error';
-		}
+		};
 		v2Api.get(path, successHandler, errorHandler);
 	}
 };
