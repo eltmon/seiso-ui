@@ -44,6 +44,11 @@ gulp.task('css', ['clean'], function() {
 			   .pipe(gulp.dest('./static/css'));
 });
 
+gulp.task('fontawesome', ['clean'], function() {
+	return gulp.src('node_modules/font-awesome/css/font-awesome.min.css')
+			   .pipe(gulp.dest('./static/css'));
+});
+
 gulp.task('less', ['clean'], function() {
 	return gulp.src('src/client/css/**/*.less')
 			   .pipe($.less())
@@ -53,7 +58,7 @@ gulp.task('less', ['clean'], function() {
 
 gulp.task('bs:css', ['clean'], function() {
   return gulp.src('node_modules/bootstrap/dist/css/bootstrap.min.css')
-             .pipe(gulp.dest('static/css/samurai'));
+             .pipe(gulp.dest('static/css'));
 });
 
 gulp.task('bs:js', ['clean'], function() {
@@ -67,8 +72,11 @@ gulp.task('jquery', ['clean'], function() {
 });
 
 gulp.task('webpack', ['clean'], function() {
-	return gulp.src('src/client/js/app.js')
+	return gulp.src('src/client/app.js')
+			   // .pipe($.ngAnnotate())
+			   // .pipe($.stripComments())
 			   .pipe($.webpack(wpConfig))
+			   // .pipe($.uglify())
 			   .pipe(gulp.dest('./static/js'));
 });
 
@@ -93,7 +101,7 @@ gulp.task('fonts', ['clean'], function() {
 			   .pipe(gulp.dest('./static/css/fonts'));
 });
 
-gulp.task('build', ['clean', 'webpack', 'html', 'jquery', 'bs:css', 'bs:js', 'html:index', 'css', 'less', 'images', 'fonts']);
+gulp.task('build', ['clean', 'webpack', 'html', 'jquery', 'bs:css', 'bs:js', 'html:index', 'css', 'fontawesome', 'less', 'images', 'fonts']);
 
 gulp.task('watch', function() {
 	gulp.watch([config.paths.client], ['build']);

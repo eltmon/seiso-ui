@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="seiso">
+<html lang="en" data-ng-app="seiso">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="-1">
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title ng-bind="model.page.title"></title>
+    <title data-ng-bind="model.page.title"></title>
     <base href="/" />
 
     <link rel="icon" type="image/png" href="images/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Droid+Serif"> -->
-    <link rel="stylesheet" type="text/css" href="css/samurai/bootstrap.min.css">
+
+    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Droid+Serif'>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/samurai/samurai.css">
     <link rel="stylesheet" type="text/css" href="css/samurai/extras.css">
     <link rel="stylesheet" type="text/css" href="css/samurai/variables.css">
+    ''
   </head>
-  <body ng-class="{wait: model.wait}" ng-controller="GlobalsController">
+  <body data-ng-class="{wait: model.wait}" data-ng-controller="GlobalsController">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
     <ng-include src="'view/navbar.html'"></ng-include>
     <div class="page-content">
       <div class="container">
@@ -27,12 +34,6 @@
       </div>
     </div>
     <ng-include src="'view/footer.html'"></ng-include>
-
-  <!--  // <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.min.js"></script> -->
-
-    <!-- TODO Use ocLazyLoad to load the controllers dynamically -->
-    <!-- https://github.com/ocombe/ocLazyLoad -->
-    <!-- http://blog.getelementsbyidea.com/load-a-module-on-demand-with-angularjs/ -->
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
