@@ -20,7 +20,7 @@
           <accordion close-others="true">
             <accordion-group is-open="status.open" ng-repeat="group in serviceGroups" style="opacity:0.8">
               <accordion-heading>
-                {{group.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                <a data-ng-click="getServices(group);"> {{group.name}} </a><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
               </accordion-heading>
               <div ng-if="group.services.length === 0">
                 <p>No services.</p>

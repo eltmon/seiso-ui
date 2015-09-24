@@ -5,35 +5,51 @@ module.exports = function(app) {
 
   app.controller('HomeController', HomeController);
 
-  HomeController.$inject = ['$scope', '$http'];
-
+  /* @ngInject */
   function HomeController($scope, $http) {
     $scope.model.page.title = pageTitle('Home');
     $scope.serviceStatus = 'loading';
     
     var getServiceGroups = function(doneCallback) {
-      $http.get('/v1/service-groups')
+      $http.get('http://localhost:8080/serviceGroups')
         .success(function(serviceGroups) { return doneCallback(null, serviceGroups); })
         .error(function(data) { return doneCallback(data, null); });
     };
-    
-    var getServices = function(doneCallback) {
-      // FIXME If there are more than 300 services, we won't catch them all. We need a JS client for getting the
-      // full list from the paging API. (The API will continue to page.) [WLW]
-      $http.get('/v1/services?page=0&size=300&sort=name&view=home')
-        .success(function(services) { return doneCallback(null, services); })
-        .error(function(data) { return doneCallback(data, null); });
+
+    $scope.getServices = function(group) {
+      if ($scope.serviceGroups[group.key].services.length > 0) {
+        console.log('services already fetched for group');
+        return;
+      }
+      console.log('fetching group services');
+      console.log(group._links.services.href);
+      console.log(group);
+      $http.get(group._links.services.href)
+        .then(function(res) {
+          $scope.serviceGroups[group.key].services = res.data._embedded.services;
+        }, function(err) {
+          console.log(err);
+        });
     };
     
+    // var getServices = function(doneCallback) {
+    //   // FIXME If there are more than 300 services, we won't catch them all. We need a JS client for getting the
+    //   // full list from the paging API. (The API will continue to page.) [WLW]
+    //   $http.get('http://localhost:8080/services')
+    //     .success(function(services) { return doneCallback(null, services); })
+    //     .error(function(data) { return doneCallback(data, null); });
+    // };
+    
     var iterator = function(f, doneCallback) { f(doneCallback); };
-    async.map([getServiceGroups, getServices], iterator, function(err, results) {
+    async.map([getServiceGroups], iterator, function(err, results) {
+      console.log(results);
       if (err) {
         $scope.serviceStatus = 'error';
         return;
       }
       
-      var serviceGroups = results[0];
-      var services = results[1];
+      var serviceGroups = results[0]._embedded.serviceGroups;
+      // var services = results[1]._embedded.services;
       var serviceGroupsMap = {};
       
       serviceGroups.push({ 'key' : '_ungrouped', 'name' : 'Ungrouped' });
@@ -42,12 +58,15 @@ module.exports = function(app) {
         serviceGroupsMap[group.key] = group;
       });
       
-      services.forEach(function(service) {
-        var key = (service.group === null ? '_ungrouped' : service.group.key);
-        serviceGroupsMap[key].services.push(service);
-      });
+      // services.forEach(function(service) {
+      //   console.log(service);
+      //   var key = (service.group === null ? '_ungrouped' : service.key);
+      //   serviceGroupsMap[service.key].services.push(service);
+
+      // });
       
-      $scope.serviceGroups = serviceGroups;
+      $scope.serviceGroups = serviceGroupsMap;
+      console.log(serviceGroupsMap);
       $scope.serviceStatus = 'loaded';
     });
   }

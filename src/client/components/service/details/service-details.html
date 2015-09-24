@@ -28,7 +28,7 @@
       </li>
       <li>
         <div>Type:</div>
-        <div ng-bind="serviceType.name || '-'"></div>
+        <div ng-bind="serviceType.type || '-'"></div>
       </li>
       <li>
         <div>Platform:</div>
@@ -43,6 +43,8 @@
       </li>
     </ul>
   </div>
+
+  <ng-include src="'view/service/details/service-instances-pane.html'"></ng-include>
+  <ng-include src="'view/service/details/documentation-pane.html'"></ng-include>  
 </div>
-<ng-include src="'view/items/service/details/service-instances-pane.html'"></ng-include>
-<ng-include src="'view/items/service/details/documentation-pane.html'"></ng-include>
+

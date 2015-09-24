@@ -6,7 +6,7 @@ module.exports = function(app) {
 
   function serviceDocumentationController($scope, v2Api, $routeParams) {
     $scope.serviceDocumentationStatus = 'loading';
-    var path = '/v2/services/' + $routeParams.key + '/doc-links';
+    var path = 'http://localhost:3000/services/' + $routeParams.key + '/doc-links';
     var successHandler = function(data) {
       $scope.docLinks = data;
       $scope.serviceDocumentationStatus = 'loaded';

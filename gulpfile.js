@@ -5,6 +5,7 @@ var $ = require('gulp-load-plugins')({lazy: true});
 var args = require('yargs').argv;
 var wpConfig = require('./webpack.config.js');
 var config = require('./gulp/config');
+var ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('clean', function() {
 	return gulp.src('./static/*', {read: false})
@@ -70,9 +71,10 @@ gulp.task('jquery', ['clean'], function() {
 
 gulp.task('webpack', ['clean'], function() {
 	return gulp.src('src/client/app.js')
-			   // .pipe($.ngAnnotate())
 			   // .pipe($.stripComments())
 			   .pipe($.webpack(wpConfig))
+			   // .pipe(ngAnnotate())
+
 			   // .pipe($.uglify())
 			   .pipe(gulp.dest('./static/js'));
 });
@@ -94,8 +96,13 @@ gulp.task('images', ['clean'], function() {
 });
 
 gulp.task('fonts', ['clean'], function() {
-	return gulp.src('src/client/css/fonts/*.{eot,svg,ttf,woff,woff2}')
-			   .pipe(gulp.dest('./static/css/fonts'));
+	gulp.src('src/client/css/fonts/*.{eot,svg,ttf,woff,woff2}')
+		.pipe(gulp.dest('./static/fonts'));
+	gulp.src('node_modules/font-awesome/fonts/*.{eot,svg,ttf,woff,woff2}')
+		.pipe(gulp.dest('./static/fonts'));	
+	gulp.src('node_modules/bootstrap/fonts/*.{eot,svg,ttf,woff,woff2}')
+		.pipe(gulp.dest('./static/css/fonts'));
+
 });
 
 gulp.task('build', ['clean', 'webpack', 'html', 'jquery', 'bs:css', 'bs:js', 'html:index', 'css', 'fontawesome', 'less', 'images', 'fonts']);
