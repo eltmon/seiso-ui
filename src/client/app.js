@@ -116,28 +116,7 @@ require('./components/util/ng-filters.js')(angular);
 require('./app.config.js')(app);
 require('./app.routes.js')(app);
 
-// TODO The functions here belong in a service. See
-// http://stackoverflow.com/questions/11938380/global-variables-in-angularjs/11938785#11938785
-// https://docs.angularjs.org/misc/faq ('$rootScope exists, but it can be used for evil')
-app.run([ '$rootScope', '$http', function($rootScope, $http) {
-  $rootScope.model = {
-    page: {
-      title: 'Seiso'
-    }
-  };
-  $rootScope.uri = function(repoKey, itemKey) {
-    if (!repoKey) {
-      return '#/';
-    } else if (!itemKey) {
-      return '#/' + repoKey;
-    } else {
-      return '#/' + repoKey + '/' + itemKey;
-    }
-  };
-  $rootScope.displayName = function(person) {
-    // TODO Somehow the firstNameLastName thing actually works even for service owner, but since I have no idea
-    // how, I'm not going to depend upon this quite yet.
-    //return person.displayName == null ? person.firstNameLastName : person.displayName;
-    return !person.displayName ? person.firstName + ' ' + person.lastName : person.displayName;
-  };
-}]);
+/**
+ *    Run
+ */
+require('./app.run.js')(app);
