@@ -11,9 +11,10 @@ module.exports = function(app) {
     $scope.serviceStatus = 'loading';
     
     var getServiceGroups = function(doneCallback) {
+      var successHandler = function(serviceGroups) { return doneCallback(null, serviceGroups);}; 
+      var errorHandler = function(data) { return doneCallback(data, null);};
       $http.get('http://localhost:8080/serviceGroups')
-        .success(function(serviceGroups) { return doneCallback(null, serviceGroups); })
-        .error(function(data) { return doneCallback(data, null); });
+        .then(successHandler, errorHandler);
     };
 
     $scope.getServices = function(group) {
@@ -21,9 +22,6 @@ module.exports = function(app) {
         console.log('services already fetched for group');
         return;
       }
-      console.log('fetching group services');
-      console.log(group._links.services.href);
-      console.log(group);
       $http.get(group._links.services.href)
         .then(function(res) {
           $scope.serviceGroups[group.key].services = res.data._embedded.services;
@@ -32,24 +30,13 @@ module.exports = function(app) {
         });
     };
     
-    // var getServices = function(doneCallback) {
-    //   // FIXME If there are more than 300 services, we won't catch them all. We need a JS client for getting the
-    //   // full list from the paging API. (The API will continue to page.) [WLW]
-    //   $http.get('http://localhost:8080/services')
-    //     .success(function(services) { return doneCallback(null, services); })
-    //     .error(function(data) { return doneCallback(data, null); });
-    // };
-    
-    var iterator = function(f, doneCallback) { f(doneCallback); };
-    async.map([getServiceGroups], iterator, function(err, results) {
-      console.log(results);
+    getServiceGroups(function(err, res) {
       if (err) {
         $scope.serviceStatus = 'error';
         return;
       }
       
-      var serviceGroups = results[0]._embedded.serviceGroups;
-      // var services = results[1]._embedded.services;
+      var serviceGroups = res.data._embedded.serviceGroups;
       var serviceGroupsMap = {};
       
       serviceGroups.push({ 'key' : '_ungrouped', 'name' : 'Ungrouped' });
@@ -58,15 +45,7 @@ module.exports = function(app) {
         serviceGroupsMap[group.key] = group;
       });
       
-      // services.forEach(function(service) {
-      //   console.log(service);
-      //   var key = (service.group === null ? '_ungrouped' : service.key);
-      //   serviceGroupsMap[service.key].services.push(service);
-
-      // });
-      
       $scope.serviceGroups = serviceGroupsMap;
-      console.log(serviceGroupsMap);
       $scope.serviceStatus = 'loaded';
     });
   }

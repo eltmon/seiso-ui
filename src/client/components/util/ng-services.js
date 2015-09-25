@@ -40,6 +40,20 @@ module.exports = function(app) {
     };
   }])
 
+  .factory('v3Api', ['$http', function($http) {
+    return {
+      get: function(path, successHandler, errorHandler) {
+        var request = {
+          method: 'GET',
+          url: 'http://localhost:8080/' + path,
+          headers: {'Accept': 'application/hal+json'}
+        };
+        $http(request)
+          .then(successHandler, errorHandler);
+      }
+    }
+  }])
+
   // This is a service, not a factory.
   .service('SearchService', [ '$http', function($http) {
     var baseUrl = 'internal/search?q=';

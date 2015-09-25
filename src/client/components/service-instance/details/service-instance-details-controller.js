@@ -9,8 +9,10 @@ module.exports = function(app) {
 	function serviceInstanceDetailsController($scope, v2Api, $http, $routeParams) {
 		$scope.serviceInstanceStatus = 'loading';
 		var serviceInstanceKey = $routeParams.key;
-		var path = '/v2/service-instances/' + serviceInstanceKey;
+
+		var path = 'http://localhost:8080/serviceInstances/search/findByKey?key=' + serviceInstanceKey;
 		var successHandler = function(data) {
+			console.log(data);
 			var serviceInstance = data;
 			var siEmbedded = serviceInstance._embedded;
 			var service = siEmbedded.service;

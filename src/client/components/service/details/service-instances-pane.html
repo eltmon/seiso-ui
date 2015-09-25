@@ -33,14 +33,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="serviceInstance in serviceInstances" ng-init="
-                environment = serviceInstance._embedded.environment;
-                dataCenter = serviceInstance._embedded.dataCenter;">
-                
-              <td><a ng-href="{{uri('service-instances', serviceInstance.key)}}">{{serviceInstance.key}}</a></td>
-              <td><i class="fa fa-circle fa-circle-{{serviceInstance.healthKey}}"></i> {{serviceInstance.percentHealthy}} ({{serviceInstance.numHealthy}} of {{serviceInstance.numNodes}})</td>
-              <td><a ng-href="{{uri('environments', environment.key)}}">{{environment.name}}</a></td>
-              <td><a ng-href="{{uri('data-centers', dataCenter.key)}}">{{dataCenter.name}}</a></td>
+            <tr data-ng-repeat="si in serviceInstances">
+              <td><a ng-href="{{uri('service-instances', si.key)}}">{{si.key}}</a></td>
+              <td><i class="fa fa-circle fa-circle-{{si.healthKey}}"></i> {{si.percentHealthy}} ({{si.numHealthy}} of {{si.numNodes}})</td>
+              <td><a ng-href="{{uri('environments', si.environment.key)}}">{{si.environment.name}}</a></td>
+              <td><a ng-href="{{uri('data-centers', si.dataCenter.key)}}">{{si.dataCenter.name}}</a></td>
             </tr>
           </tbody>
         </table>

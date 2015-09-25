@@ -1,3 +1,5 @@
+var async = require('async');
+
 module.exports = function(app) {
 
   app.controller('ServiceServiceInstancesController', serviceServiceInstancesController);
@@ -6,34 +8,52 @@ module.exports = function(app) {
 
   function serviceServiceInstancesController($scope, v2Api, $routeParams, $http) {
     $scope.serviceInstancesStatus = 'loading';
-    console.log('si: ', $routeParams.key);
-    console.log($scope.service);
-    var path = 'http://localhost:8080/services/search/findByKey?key=' + $routeParams.key;
 
-    $http.get(path)
-      .then(function(res) {
-        console.log('service req data: ', res);
-        var siUrl = res.data._links.serviceInstances.href;
-        $http.get(siUrl)
-          .then(function(res) {
-            console.log('si of s: ', res);
-            $scope.serviceInstances = res.data._embedded.serviceInstances;
-            $scope.serviceInstancesStatus = 'loaded';
-          }, function(err) {
-            console.log(err);
-          });
-      }, function(err) {
-        console.log(err);
-      });
+    $scope.$on('onService', function(event) {
+      $scope.service = event.targetScope.service;
+      var siUrl = $scope.service._links.serviceInstances.href;
+      $http.get(siUrl + '?projection=serviceServiceInstances')
+        .then(function(res) {
+          console.log(res);
+          $scope.serviceInstances = res.data._embedded.serviceInstances;
+          console.log($scope.serviceInstances);
+          $scope.serviceInstancesStatus = 'loaded';
 
-    // console.log('service instances path: ', path);
-    // var successHandler = function(data) {
-    //   $scope.serviceInstances = data._embedded.items;
-    //   $scope.serviceInstancesStatus = 'loaded';
-    // };
-    // var errorHandler = function() {
-    //   $scope.serviceInstancesStatus = 'error';
-    // };
-    // v2Api.get(path, successHandler, errorHandler);
+          // async.each($scope.serviceInstances, function(si, cb) {
+          //   var nodesUri = si._links.nodes.href;
+          //   var dcUri = si._links.dataCenter.href;
+          //   var envUri = si._links.dataCenter.href;
+          //   $http.get(nodesUri)
+          //     .then(function(res) {
+          //       si.nodes = res.data.key;
+          //       $http.get(dcUri)
+          //         .then(function(res) {
+          //           si.dataCenter = res.data;
+          //           $http.get(envUri)
+          //             .then(function(res) {
+          //               si.environment = res.data;
+          //               cb();
+          //             }, function(err){return cb(err);})
+          //         }, function(err) {return cb(err);});
+          //     }, function(err) {
+          //       console.log(err);
+          //       cb(err);
+          //     });
+          // }, function(err) {
+          //   if (err) {
+          //     console.log(err);
+          //   } else {
+          //     console.log('done processing si\'s');
+          //     console.log($scope.serviceInstances);
+          //   }
+          // });
+
+
+        }, function(err) {
+          console.log(err);
+          $scope.serviceInstancesStatus = 'error';
+        });
+    });
+
   }
 };

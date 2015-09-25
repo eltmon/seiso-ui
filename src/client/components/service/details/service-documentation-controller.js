@@ -6,7 +6,12 @@ module.exports = function(app) {
 
   function serviceDocumentationController($scope, v2Api, $routeParams) {
     $scope.serviceDocumentationStatus = 'loading';
-    var path = 'http://localhost:3000/services/' + $routeParams.key + '/doc-links';
+    
+    $scope.$on('onService', function(event) {
+      $scope.service = event.targetScope.service;
+      var path = $scope.service._links.docLinks.href;
+      v2Api.get(path, successHandler, errorHandler);
+    });
     var successHandler = function(data) {
       $scope.docLinks = data;
       $scope.serviceDocumentationStatus = 'loaded';
@@ -14,6 +19,6 @@ module.exports = function(app) {
     var errorHandler = function() {
       $scope.serviceDocumentationStatus = 'error';
     };
-    v2Api.get(path, successHandler, errorHandler);
+    
   }
 };

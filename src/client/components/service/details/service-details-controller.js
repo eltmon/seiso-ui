@@ -11,14 +11,13 @@ module.exports = function(app) {
     $scope.viewing = $routeParams.key;
     var path = 'http://localhost:8080/services/search/findByKey?key=' + $routeParams.key;
     var successHandler = function(data) {
-      console.log(data);
       var service = data;
       $scope.model.page.title = pageTitle(data.name);
       $scope.service = service;
+      $scope.$broadcast('onService');
 
       $http.get(service._links.group.href)
         .then(function(res) {
-          console.log('service group data: ', res.data.key);
           $scope.serviceGroup = res.data.key;
         }, function(err) {
           console.log(err);
