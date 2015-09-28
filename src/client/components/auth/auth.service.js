@@ -46,7 +46,7 @@ module.exports = function(app) {
         console.log('Authentication check failed');
         $rootScope.authenticated = false;
       };
-      $http.get('/internal/security/user')
+      $http.get('http://localhost:8080/internal/security/user')
           .success(successHandler)
           .error(errorHandler);
     };
@@ -59,7 +59,7 @@ module.exports = function(app) {
           '&password=' + encodeURIComponent(credentials.password);
         var request = {
           method: 'POST',
-          url: '/login',
+          url: 'http://localhost:8080/login',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           data: reqData
         };

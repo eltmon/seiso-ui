@@ -26,18 +26,18 @@
               <div ng-if="provider.specialRegions[generalRegion.key].length == 0">
                 <p>None.</p>
               </div>
-              <div ng-if="provider.specialRegions[generalRegion.key].length &gt; 0">
-                <div class="panel-subpanel" ng-repeat="specialRegion in provider.specialRegions[generalRegion.key]" ng-init="
-                    dataCenters = specialRegion._embedded.dataCenters;">
+              <div data-ng-if="provider.specialRegions[generalRegion.key].length > 0">
+                <div class="panel-subpanel" ng-repeat="specialRegion in provider.specialRegions[generalRegion.key]" data-ng-init="
+                    dataCenters = specialRegion.dataCenters;">
                     
                   <h4 ng-bind="specialRegion.name"></h4>
-                  <div ng-if="dataCenters.length == 0">
+                  <div data-ng-if="dataCenters.length == 0">
                     <p>None.</p>
                   </div>
-                  <div ng-if="dataCenters.length &gt; 0">
+                  <div data-ng-if="dataCenters.length > 0">
                     <ul class="list-unstyled">
-                      <li ng-repeat="dataCenter in dataCenters">
-                        <a ng-href="{{uri('data-centers', dataCenter.key)}}">{{dataCenter.name}}</a>
+                      <li data-ng-repeat="dataCenter in dataCenters">
+                        <a data-ng-href="{{uri('data-centers', dataCenter.key)}}">{{dataCenter.name}}</a>
                       </li>
                     </ul>
                   </div>

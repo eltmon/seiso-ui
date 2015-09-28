@@ -17,10 +17,11 @@ exports.organizeDataCenters = function(srcProviders, generalRegions) {
       var generalRegion = generalRegions[j];
       destProvider.specialRegions[generalRegion.key] = [];
     }
+    console.log(destProvider);
     
     // Distribute the provider's special regions into into general regional buckets.
     destProvider = destProviders[providerKey];
-    var srcSpecialRegions = srcProvider._embedded.regions;
+    var srcSpecialRegions = srcProvider.regions;
     for (j = 0; j < srcSpecialRegions.length; j++) {
       var srcSpecialRegion = srcSpecialRegions[j];
       var generalRegionKey = srcSpecialRegion.regionKey;

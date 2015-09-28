@@ -2,7 +2,6 @@ var pageTitle = require('./util').pageTitle;
 
 module.exports = function(app, title, path) {
 
-  // No need to inject here since we're returning the injection
   function ListController($scope, v2Api) {
     $scope.listStatus = 'loading';
     $scope.model.page.title = pageTitle(title);
