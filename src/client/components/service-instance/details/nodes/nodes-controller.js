@@ -13,7 +13,7 @@ module.exports = function(app) {
         var pageNumber = $scope.model.nodes.currentPage;
         var apiPageNumber = pageNumber - 1;
 
-        var requestUrl = '/v2/nodes/search/find-by-service-instance?key=' + 
+        var requestUrl = '/nodes/search/findByServiceinstance?key=' + 
           $routeParams.key + '&view=service-instance-nodes&page=' + apiPageNumber + '&size=' + 
           paginationConfig.itemsPerPage + '&sort=name';
 

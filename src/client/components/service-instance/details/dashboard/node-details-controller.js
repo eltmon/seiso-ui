@@ -31,7 +31,7 @@ module.exports = function(app) {
       }
     };
     
-    $http.get('/v1/nodes/' + $routeParams.name)
+    $http.get('http://localhost:8080/nodes/search/findByKey?key=' + $routeParams.name)
         .success(successHandler)
         .error(function() { console.log('Error while getting node.');});
   }

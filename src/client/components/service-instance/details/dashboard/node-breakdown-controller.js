@@ -9,18 +9,26 @@ module.exports = function(app) {
       $scope[statusVar] = 'loading';
       var request = {
           method: 'GET',
-          url: '/v2/service-instances/' + $routeParams.key + '/' + path,
+          url: 'http://localhost:8080/serviceInstances/search/findByKey?key=' + $routeParams.key,
           headers: { 'Accept': 'application/hal+json' }
       };
-      var successHandler = function(data) {
+      var successHandler = function(res) {
+        var data = res.data;
         $scope[resultVar] = data;
         $scope[statusVar] = 'loaded';
       };
       $http(request)
-      .success(successHandler)
-      .error(function() { $scope[statusVar] = 'error'; });
+        .then(function(res) {
+          var siUrl = res.data._links.self.href + '/' + path;
+          $http.get(siUrl)
+            .then(successHandler, function(err) {console.log(err);});
+
+          }, function(err) {
+            console.log(err);
+            $scope[statusVar] = 'error';
+          });
     }
-    getBreakdown('healthBreakdownStatus', 'health-breakdown', 'healthBreakdown');
-    getBreakdown('rotationBreakdownStatus', 'rotation-breakdown', 'rotationBreakdown');
+    getBreakdown('healthBreakdownStatus', 'healthBreakdown', 'healthBreakdown');
+    getBreakdown('rotationBreakdownStatus', 'rotationBreakdown', 'rotationBreakdown');
   }
 };

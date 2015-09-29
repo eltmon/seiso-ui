@@ -13,8 +13,8 @@ module.exports = function(app) {
         $scope.nodeAlertsStatus = 'loading';
         var pageNumber = $scope.model.nodeAlerts.currentPage;
         var apiPageNumber = pageNumber - 1;
-        var path = '/v2/nodes/search/find-node-alerts-by-service-instance?key=' + 
-          $routeParams.key + '&view=service-instance-nodes&page=' + apiPageNumber + 
+        var path = 'http://localhost:8080/nodes/search/findNodeAlertsByServiceInstance?key=' + 
+          $routeParams.key + '&view=serviceInstanceNodes&page=' + apiPageNumber + 
           '&size=' + paginationConfig.itemsPerPage + '&sort=name';
         var successHandler = function(data) {
           $scope.nodeAlertsPage = data;
