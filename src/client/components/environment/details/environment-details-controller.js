@@ -1,4 +1,6 @@
 var pageTitle = require('../../util/util').pageTitle;
+var EE = require('events').EventEmitter;
+var ee = new EE();
 
 module.exports = function(app) {
 
@@ -7,41 +9,48 @@ module.exports = function(app) {
   environmentDetailsController.$inject = ['$scope', 'v2Api', '$http', 'paginationConfig', '$routeParams'];
 
   function environmentDetailsController($scope, v2Api, $http, paginationConfig, $routeParams) {
+    var siUrl;
     (function getEnvironment() {
-      var successHandler = function(data) {
-        var env = data;
+      var successHandler = function(res) {
+        console.log(res);
+        siUrl = res.data._links.serviceInstances.href;
+        ee.emit('si');
+        var env = res.data;
         $scope.environment = env;
         $scope.model.page.title = pageTitle(env.name);
       };
       var errorHandler = function() { console.log('Error while getting environment.'); };
-      v2Api.get('/v2/environments/' + $routeParams.key, successHandler, errorHandler);
+      $http.get('http://localhost:8080/environments/search/findByKey?key=' + $routeParams.key)
+        .then(successHandler, errorHandler);
     })();
     
     $scope.model.serviceInstances = {
       currentPage: 1,
       pageSelected: function() {
         
-        (function getServiceInstances(pageNumber) {
-          $scope.serviceInstanceListStatus = 'loading';
-          var apiPageNumber = pageNumber - 1;
-          var reqUrl = '/v2/service-instances/search/find-by-environment?key=' + $routeParams.key + 
-            '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
+        ee.on('si', function() {
+          (function getServiceInstances(pageNumber) {
+            $scope.serviceInstanceListStatus = 'loading';
+            var apiPageNumber = pageNumber - 1;
+            var query = '?projection=serviceServiceInstances&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
 
-          var siRequest = {
-              method: 'GET',
-              url: reqUrl,
-              headers: { 'Accept': 'application/hal+json' }
-          };
-          var siSuccessHandler = function(data) {
-            var siPage = data;
-            $scope.serviceInstances = siPage._embedded.items;
-            $scope.serviceInstanceMetadata = siPage.metadata;
-            $scope.serviceInstanceListStatus = 'loaded';
-          };
-          $http(siRequest)
-              .success(siSuccessHandler)
-              .error(function() { $scope.serviceInstanceListStatus = 'error'; });
-        })($scope.model.serviceInstances.currentPage);
+            var siRequest = {
+                method: 'GET',
+                url: siUrl + query,
+                headers: { 'Accept': 'application/hal+json' }
+            };
+            var siSuccessHandler = function(data) {
+              console.log(data);
+              var siPage = data;
+              $scope.serviceInstances = siPage._embedded.serviceInstances;
+              $scope.serviceInstanceMetadata = siPage.metadata;
+              $scope.serviceInstanceListStatus = 'loaded';
+            };
+            $http(siRequest)
+                .success(siSuccessHandler)
+                .error(function() { $scope.serviceInstanceListStatus = 'error'; });
+          })($scope.model.serviceInstances.currentPage);          
+        });
       }
     };
     
