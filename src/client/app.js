@@ -74,7 +74,6 @@ require('./components/service-instance/details/dependencies/service-instance-dep
 require('./components/service-instance/details/dependencies/service-instance-dependents-controller.js')(app);
 require('./components/service-instance/list/service-instance-list-controller.js')(app);
 
-
 // Nodes
 require('./components/service-instance/details/dashboard/node-alerts-controller.js')(app);
 require('./components/service-instance/details/dashboard/node-breakdown-controller.js')(app);

@@ -2,19 +2,27 @@ var pageTitle = require('../util/util').pageTitle;
 
 module.exports = function(app) {
 
-  app.controller('statusListController', statusListController);
-
-  statusListController.$inject = ['$scope', '$http'];
+  app.controller('StatusListController', StatusListController);
   
-  function statusListController($scope, $http) {
+  /*@ngInject*/
+  function StatusListController($scope, $http) {
     $scope.model.page.title = pageTitle('Statuses');
-    
+    var baseUri = 'http://localhost:8080';
     // TODO Handle errors
-    $http.get('/v1/status-types')
-        .success(function(data) { $scope.statusTypes = data; });
-    $http.get('/v1/health-statuses')
-        .success(function(data) { $scope.healthStatuses = data; });
-    $http.get('/v1/rotation-statuses')
-        .success(function(data) { $scope.rotationStatuses = data; });
+    $http.get(baseUri + '/statusTypes')
+        .then(function(res) {
+        console.log(res); 
+          $scope.statusTypes = res.data._embedded.statusTypes;
+        });
+    $http.get(baseUri + '/healthStatuses')
+        .then(function(res) {
+          console.log(res);
+          $scope.healthStatuses = res.data._embedded.healthStatuses;
+        });
+    $http.get(baseUri + '/rotationStatuses')
+        .then(function(res) {
+          console.log(res);
+          $scope.rotationStatuses = res.data._embedded.rotationStatuses;
+        });
   }
 };

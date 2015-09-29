@@ -1,18 +1,15 @@
 var pageTitle = require('./util').pageTitle;
 
-module.exports = function(app, title, path, sortKey) {
+module.exports = function(title, basePath, sortKey) {
 
-  // app.controller('PagingController', pagingController);
-
-  // pagingController.$inject = ['$scope', 'paginationConfig', 'v1Api'];
-
-  function pagingController($scope, paginationConfig, v1Api) {
+  function pagingController($scope, paginationConfig, $http) {
     $scope.model.page.title = pageTitle(title);
     var pageSize = paginationConfig.itemsPerPage;
     
-    var successHandler = function(data, status, headers) {
-      var totalItems = headers('X-Pagination-TotalElements');
-      var totalPages = headers('X-Pagination-TotalPages');
+    var successHandler = function(res, status, headers) {
+      console.log(res);
+      var totalItems = res.data.page.totalElements;
+      var totalPages = res.data.page.totalPages;
       
       // FIXME Handle no-items case [WLW]
       var lowerIndex = ($scope.model.currentPage - 1) * pageSize + 1;
@@ -22,7 +19,11 @@ module.exports = function(app, title, path, sortKey) {
       $scope.totalPages = totalPages;
       $scope.lowerIndex = lowerIndex;
       $scope.upperIndex = upperIndex;
-      $scope.items = data;
+      for (var key in res.data._embedded) {
+        console.log(key);
+        $scope.items = res.data._embedded[key];
+      }
+      console.log($scope.items);
     };
     
     $scope.model.pageSelected = function() {
@@ -30,12 +31,11 @@ module.exports = function(app, title, path, sortKey) {
 
       var logMsg = 'Page selected: path=' + path + 
         ', pageNumber=' + pageNumber + 
-        ', pageSize=' + pageSize + ', sortKey=' + sortKey;
+        ', pageSize=' + pageSize + ', sort=' + sortKey;
       console.log(logMsg);
-      
-      v1Api.getPage(path, pageNumber, pageSize, sortKey)
-          .success(successHandler)
-          .error(function() { console.log('Error while getting page.'); });
+      var path = basePath + '?page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
+      $http.get(path)
+        .then(successHandler, function() { console.log('Error while getting page.'); });
     };
     
     // Initialize first page
@@ -43,5 +43,5 @@ module.exports = function(app, title, path, sortKey) {
     $scope.model.pageSelected();
   }
 
-  return ['$scope', 'paginationConfig', 'v1Api', pagingController];
+  return ['$scope', 'paginationConfig', '$http', pagingController];
 };
