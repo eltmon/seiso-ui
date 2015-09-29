@@ -1,26 +1,27 @@
-<div ng-controller="EnvironmentListController" ng-switch="listStatus">
-  <div ng-switch-when="loading">
+<div data-ng-controller="EnvironmentListController" data-ng-switch="listStatus">
+  <div data-ng-switch-when="loading">
     <div id="page-spinner-panel"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
   </div>
-  <div ng-switch-when="error">
+  <div data-ng-switch-when="error">
     <p><i class="fa fa-exclamation-triangle"></i> Couldn't load environments.</p>
   </div>
-  <div ng-switch-when="loaded">
+  <div data-ng-switch-when="loaded">
     <div class="page-header">
       <ul class="breadcrumb">
-        <li><a ng-href="{{uri()}}">Home</a></li>
+        <li><a data-ng-href="{{uri()}}">Home</a></li>
       </ul>
       <h1>
         Environments
-        <span ng-if="items.length === 0"><small>(0)</small></span>
+        <span data-ng-if="items.length === 0"><small>(0)</small></span>
         <!-- FIXME Convert to paging repo -->
-        <span ng-if="items.length &gt; 0"><small>(1-{{items.length}} of {{items.length}})</small></span>
+        <span data-ng-if="items.length > 0"><small>(1-{{items.length}} of {{items.length}})</small></span>
       </h1>
+      <input type="text" placeholder="Filter By..." data-ng-model="envFilter" autofocus>
     </div>
-    <div ng-if="items.length == 0">
+    <div data-ng-if="items.length == 0">
       <p><i class="fa fa-info-circle"></i> No environments.</p>
     </div>
-    <div ng-if="items.length &gt; 0">
+    <div data-ng-if="items.length > 0">
       <table class="table table-striped">
         <colgroup>
           <col style="width:25%">
@@ -36,8 +37,8 @@
         </thead>
         <tbody>
           <!-- FIXME Better for the API itself to sort the environments [WLW] -->
-          <tr ng-repeat="environment in items">
-            <td><a ng-href="{{uri('environments', environment.key)}}">{{environment.name}}</a></td>
+          <tr data-ng-repeat="environment in items | filter:envFilter">
+            <td><a data-ng-href="{{uri('environments', environment.key)}}">{{environment.name}}</a></td>
             <td>{{environment.aka}}</td>
             <td>{{environment.description}}</td>
           </tr>
