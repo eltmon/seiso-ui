@@ -18,21 +18,21 @@ module.exports = function(app) {
 
       $http.get(service._links.group.href)
         .then(function(res) {
-          $scope.serviceGroup = res.data.key;
+          $scope.serviceGroup = res.data;
         }, function(err) {
           console.log(err);
         });
 
       $http.get(service._links.type.href)
         .then(function(res) {
-          $scope.serviceType = res.data.key;
+          $scope.serviceType = res.data;
         }, function(err) {
           console.log(err);
         });
 
       $http.get(service._links.owner.href)
         .then(function(res) {
-          $scope.serviceType = res.data.key;
+          $scope.serviceOwner = res.data;
         }, function(err) {
           console.log(err);
         });

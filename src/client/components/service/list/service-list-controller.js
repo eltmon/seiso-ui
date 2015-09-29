@@ -7,6 +7,7 @@ module.exports = function(app) {
     var vm = this;
     $log.info('Creating ServiceListController');
     DataService.findServices().then(function(response) {
+      console.log(response);
       var data = response.data;
       var page = data.page;
       vm.totalItems = page.totalElements;
