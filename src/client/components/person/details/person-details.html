@@ -1,14 +1,14 @@
-<div id="page-spinner-panel" ng-hide="person">
+<div id="page-spinner-panel" data-ng-hide="person">
   <i class="fa fa-spinner fa-spin fa-5x"></i>
 </div>
-<div ng-show="person">
+<div data-ng-show="person">
   <div class="page-header">
     <ul class="breadcrumb">
-      <li><a ng-href="{{uri()}}">Home</a></li>
-      <li><a ng-href="{{uri('people')}}">People</a></li>
+      <li><a data-ng-href="{{uri()}}">Home</a></li>
+      <li><a data-ng-href="{{uri('people')}}">People</a></li>
     </ul>
-    <h1><i class="fa fa-user"></i> {{displayName(person)}} <small>({{person.username}})</small></h1>
-    <div class="lead" ng-if="person.title">{{person.title}}</div>
+    <h1><i class="fa fa-user"></i> {{person.firstNameLastName}} <small>({{person.username}})</small></h1>
+    <div class="lead" data-ng-if="person.title">{{person.title}}</div>
   </div>
   <section>
     <div class="row">
@@ -51,20 +51,20 @@
               <tr>
                 <td>Manager</td>
                 <td>
-                  <div ng-if="person.manager">
-                    <a ng-href="{{uri('people', person.manager.username)}}">{{displayName(person.manager)}}</a>
+                  <div data-ng-if="person.manager">
+                    <a data-ng-href="{{uri('people', person.manager.username)}}">{{person.manager.displayName}}</a>
                   </div>
-                  <div ng-if="!person.manager">-</div>
+                  <div data-ng-if="!person.manager">-</div>
                 </td>
               </tr>
               <tr>
                 <td>Direct Reports</td>
                 <td>
-                  <div ng-if="person.directReports.length === 0">None.</div>
-                  <div ng-if="person.directReports.length &gt; 0">
+                  <div data-ng-if="person.directReports.length === 0">None.</div>
+                  <div data-ng-if="person.directReports.length > 0">
                     <ul class="list-unstyled">
-                      <li ng-repeat="directReport in person.directReports">
-                        <a ng-href="{{uri('people', directReport.username)}}">{{displayName(directReport)}}</a>
+                      <li data-ng-repeat="directReport in person.directReports">
+                        <a data-ng-href="{{uri('people', directReport.username)}}">{{directReport.displayName}}</a>
                       </li>
                     </ul>
                   </div>
@@ -95,10 +95,10 @@
                 <td>Work Phone</td>
                 <td>{{person.workPhone || '-'}}</td>
               </tr>
-              <tr ng-switch="person.email">
+              <tr data-ng-switch="person.email">
                 <td>E-mail</td>
-                <td ng-switch-when="">-</td>
-                <td ng-switch-default><a href="mailto:{{ person.email }}">{{ person.email }}</a></td>
+                <td data-ng-switch-when="">-</td>
+                <td data-ng-switch-default><a href="mailto:{{ person.email }}">{{ person.email }}</a></td>
               </tr>
             </tbody>
           </table>

@@ -1,23 +1,23 @@
-<div id="page-spinner-panel" ng-hide="items">
+<div id="page-spinner-panel" data-ng-hide="items">
   <i class="fa fa-spinner fa-spin fa-5x"></i>
 </div>
-<div ng-show="items">
+<div data-ng-show="items">
   <div class="page-header">
     <ul class="breadcrumb">
-      <li><a ng-href="{{uri()}}">Home</a></li>
+      <li><a data-ng-href="{{uri()}}">Home</a></li>
     </ul>
     <h1>
       People
-      <span ng-if="items.length === 0"><small>(0)</small></span>
-      <span ng-if="items.length &gt; 0"><small>({{lowerIndex}}-{{upperIndex}} of {{totalItems}})</small></span>
+      <span data-ng-if="items.length === 0"><small>(0)</small></span>
+      <span data-ng-if="items.length > 0"><small>({{lowerIndex}}-{{upperIndex}} of {{totalItems}})</small></span>
     </h1>
   </div>
-  <div ng-if="items.length === 0">
+  <div data-ng-if="items.length === 0">
     <h3>No people.</h3>
   </div>
-  <div ng-if="items.length &gt; 0">
-    <div class="pagination-wrapper" ng-if="totalPages &gt; 1">
-      <pagination total-items="totalItems" ng-model="model.currentPage" ng-change="model.pageSelected()" />
+  <div data-ng-if="items.length > 0">
+    <div class="pagination-wrapper" data-ng-if="totalPages > 1">
+      <pagination data-total-items="totalItems" data-ng-model="model.currentPage" data-ng-change="model.pageSelected()" />
     </div>
     <table class="table table-striped">
       <thead>
@@ -30,19 +30,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="person in items">
-          <td><a ng-href="{{uri('people', person.username)}}"><span ng-show="person.lastName">{{person.lastName}}, </span>{{person.firstName}}</a></td>
+        <tr data-ng-repeat="person in items">
+          <td><a data-ng-href="{{uri('people', person.username)}}"><span data-ng-show="person.lastName">{{person.lastName}}, </span>{{person.firstName}}</a></td>
           <td>{{person.username}}</td>
           <td>
-            <div ng-show="person.title">{{person.title}}</div>
-            <div ng-show="person.department">{{person.department}}</div>
-            <div ng-show="person.division">{{person.division}}</div>
-            <div ng-show="person.company">{{person.company}}</div>
+            <div data-ng-show="person.title">{{person.title}}</div>
+            <div data-ng-show="person.department">{{person.department}}</div>
+            <div data-ng-show="person.division">{{person.division}}</div>
+            <div data-ng-show="person.company">{{person.company}}</div>
           </td>
           <td>
-            <div ng-show="person.streetAddress || person.location">
-              <div ng-show="person.streetAddress">{{person.streetAddress}}</div>
-              <div ng-show="person.location">{{person.location}}</div>
+            <div data-ng-show="person.streetAddress || person.location">
+              <div data-ng-show="person.streetAddress">{{person.streetAddress}}</div>
+              <div data-ng-show="person.location">{{person.location}}</div>
               <div>
                 <!-- TODO Convert to modal [WLW] -->
                 <a href="https://maps.google.com/maps?q={{person.streetAddress | lowercase}}+{{person.location | lowercase}}" rel="nofollow" target="_blank"><span class="fa fa-map-marker"></span> Map</a>​
@@ -50,18 +50,18 @@
             </div>
           </td>
           <td>
-            <div ng-show="person.workPhone">
+            <div data-ng-show="person.workPhone">
               <span class="glyphicon glyphicon-earphone"></span> {{person.workPhone}}
             </div>
-            <div ng-show="person.email">
-              <a ng-href="mailto:{{person.email}}"><span class="fa fa-envelope"></span> {{person.email}}</a>
+            <div data-ng-show="person.email">
+              <a data-ng-href="mailto:{{person.email}}"><span class="fa fa-envelope"></span> {{person.email}}</a>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-    <div class="pagination-wrapper" ng-if="totalPages &gt; 1">
-      <pagination total-items="totalItems" ng-model="model.currentPage" ng-change="model.pageSelected()" />
+    <div class="pagination-wrapper" data-ng-if="totalPages > 1">
+      <pagination total-items="totalItems" data-ng-model="model.currentPage" data-ng-change="model.pageSelected()" />
     </div>
   </div>
 </div>
