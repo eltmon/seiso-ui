@@ -7,39 +7,6 @@ module.exports = function(app) {
   
   app.module('seisoServices', [])
 
-  // FIXME Don't block on the response
-  // Constructor function to create a service factory, which creates dependency-injected services.
-  .factory('v1Api', ['$http', function($http) {
-    // The object we're returning is the service.
-    return {
-      get: function(path) {
-        // FIXME Return the promise, not the data...?
-        return $http.get(path).success(function(data) { return data; });
-      },
-      
-      // pageNumber is 0-indexed
-      getPage: function(path, pageNumber, pageSize, sortKey) {
-        console.log('Getting page: ' + path);
-        return $http.get(path + '?page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey);
-      }
-    };
-  }])
-  
-  .factory('v2Api', ['$http', function($http) {
-    return {
-      get: function(path, successHandler, errorHandler) {
-        var request = {
-          method: 'GET',
-          url: path,
-          headers: { 'Accept': 'application/hal+json' }
-        };
-        $http(request)
-          .success(successHandler)
-          .error(errorHandler);
-      }
-    };
-  }])
-
   .factory('v3Api', ['$http', function($http) {
     return {
       get: function(path, successHandler, errorHandler) {
@@ -51,7 +18,7 @@ module.exports = function(app) {
         $http(request)
           .then(successHandler, errorHandler);
       }
-    }
+    };
   }])
 
   // This is a service, not a factory.
