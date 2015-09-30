@@ -1,19 +1,6 @@
-// TODO Use generic ListController. Just getting something working at the moment.
-module.exports = function(app) {
-  app.controller('ServiceListController', ServiceListController);
+var pagingController = require('../../util/paging-controller');
 
-  /* @ngInject */
-  function ServiceListController(DataService, $routeParams, $log) {
-    var vm = this;
-    $log.info('Creating ServiceListController');
-    DataService.findServices().then(function(response) {
-      console.log(response);
-      var data = response.data;
-      var page = data.page;
-      vm.totalItems = page.totalElements;
-      vm.services = data._embedded.services;
-    }, function(response) {
-      $log.error("ERROR");
-    });
-  }
+module.exports = function(app) {
+  app.controller('ServiceListController', pagingController('Services', 'http://localhost:8080/services?', 'key'));
+
 };
