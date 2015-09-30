@@ -39,7 +39,7 @@
           <!-- FIXME Better for the API itself to sort the environments [WLW] -->
           <tr data-ng-repeat="environment in items | filter:envFilter">
             <td><a data-ng-href="{{uri('environments', environment.key)}}">{{environment.name}}</a></td>
-            <td>{{environment.aka}}</td>
+            <td>{{environment.aka || '-'}}</td>
             <td>{{environment.description}}</td>
           </tr>
         </tbody>
