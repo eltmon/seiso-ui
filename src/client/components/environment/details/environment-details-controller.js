@@ -6,9 +6,9 @@ module.exports = function(app) {
 
   app.controller('EnvironmentDetailsController', environmentDetailsController);
 
-  environmentDetailsController.$inject = ['$scope', 'v2Api', '$http', 'paginationConfig', '$routeParams'];
+  environmentDetailsController.$inject = ['$scope', '$http', 'paginationConfig', '$routeParams'];
 
-  function environmentDetailsController($scope, v2Api, $http, paginationConfig, $routeParams) {
+  function environmentDetailsController($scope, $http, paginationConfig, $routeParams) {
     var siUrl;
     (function getEnvironment() {
       var successHandler = function(res) {

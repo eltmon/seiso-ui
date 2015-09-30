@@ -27,7 +27,7 @@
     </li>
     <li>
       <div>API URI:</div>
-      <div ng-if="loadBalancer.apiUrl">{{loadBalancer.apiUrl}}</div>
+      <div ng-if="loadBalancer.apiUrl"><a data-ng-href="{{loadBalancer.apiUrl}}" target="_blank">{{loadBalancer.apiUrl}}</a></div>
       <div ng-if="!loadBalancer.apiUrl">-</div>
     </li>
   </ul>

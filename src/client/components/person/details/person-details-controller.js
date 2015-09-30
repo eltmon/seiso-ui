@@ -8,9 +8,9 @@ module.exports = function(app) {
   function PersonDetailsController($scope, $http, $routeParams) {
 
     var successHandler = function(res) {
-      $scope.model.page.title = pageTitle(fullName);
       $scope.person = res.data;
-      $scope.person.firstNameLastName = $scope.displayName(res.data);;
+      $scope.person.firstNameLastName = $scope.displayName(res.data);
+      $scope.model.page.title = pageTitle($scope.person.firstNameLastName);
       $http.get(res.data._links.directReports.href)
         .then(function(res) {
           $scope.person.directReports = res.data._embedded.persons;

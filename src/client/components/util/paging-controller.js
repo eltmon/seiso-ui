@@ -20,19 +20,15 @@ module.exports = function(title, basePath, sortKey) {
       $scope.lowerIndex = lowerIndex;
       $scope.upperIndex = upperIndex;
       for (var key in res.data._embedded) {
-        console.log(key);
         $scope.items = res.data._embedded[key];
       }
-      console.log($scope.items);
     };
     
     $scope.model.pageSelected = function() {
       var pageNumber = $scope.model.currentPage - 1;
-
       var logMsg = 'Page selected: path=' + path + 
         ', pageNumber=' + pageNumber + 
         ', pageSize=' + pageSize + ', sort=' + sortKey;
-      console.log(logMsg);
       var path = basePath + 'page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
       $http.get(path)
         .then(successHandler, function() { console.log('Error while getting page.'); });
