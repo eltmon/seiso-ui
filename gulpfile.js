@@ -71,10 +71,9 @@ gulp.task('jquery', ['clean'], function() {
 
 gulp.task('webpack', ['clean'], function() {
 	return gulp.src('src/client/app.js')
-			   // .pipe($.stripComments())
+			   .pipe($.stripComments())
 			   .pipe($.webpack(wpConfig))
-			   // .pipe(ngAnnotate())
-
+			   .pipe(ngAnnotate())
 			   // .pipe($.uglify())
 			   .pipe(gulp.dest('./static/js'));
 });
