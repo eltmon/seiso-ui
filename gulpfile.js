@@ -104,7 +104,7 @@ gulp.task('fonts', ['clean'], function() {
 
 });
 
-gulp.task('build', ['clean', 'webpack', 'html', 'jquery', 'bs:css', 'bs:js', 'html:index', 'css', 'fontawesome', 'less', 'images', 'fonts']);
+gulp.task('build', ['clean', 'webpack', 'html', 'jquery', 'bs:css', 'bs:js', 'html:index', 'css', 'less', 'fontawesome', 'images', 'fonts']);
 
 gulp.task('watch', function() {
 	gulp.watch([config.paths.client], ['build']);
