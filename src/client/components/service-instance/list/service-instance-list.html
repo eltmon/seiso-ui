@@ -9,7 +9,7 @@
     <h1>
       Service Instances
       <span ng-if="items.length === 0"><small>(0)</small></span>
-      <span ng-if="items.length &gt; 0"><small>({{lowerIndex}}-{{upperIndex}} of {{totalItems}})</small></span>
+      <span ng-if="items.length > 0"><small>({{lowerIndex}}-{{upperIndex}} of {{totalItems}})</small></span>
     </h1>
   </div>
   <div ng-if="items.length === 0">
@@ -17,15 +17,15 @@
       <i class="fa fa-info-circle"></i> No service instances.
     </div>
   </div>
-  <div ng-if="items.length &gt; 0">
-    <div class="pagination-wrapper" ng-if="totalPages &gt; 1">
+  <div ng-if="items.length > 0">
+    <div class="pagination-wrapper" ng-if="totalPages > 1">
       <pagination total-items="totalItems" ng-model="model.currentPage" ng-change="model.pageSelected()" />
     </div>
     <table class="table table-striped">
       <colgroup>
-        <col style="width:33%;">
-        <col style="width:33%">
-        <col style="width:33%">
+        <col style="width: 33.333%;">
+        <col style="width: 33.333%;">
+        <col style="width: 33.333%;">
       </colgroup>
       <thead>
         <tr>
@@ -42,7 +42,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="pagination-wrapper" ng-if="totalPages &gt; 1">
+    <div class="pagination-wrapper" ng-if="totalPages > 1">
       <pagination total-items="totalItems" ng-model="model.currentPage" ng-change="model.pageSelected()" />
     </div>
   </div>

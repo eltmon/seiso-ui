@@ -4,20 +4,19 @@ module.exports = function(app) {
 
   app.controller('ServiceInstanceDetailsController', serviceInstanceDetailsController);
 
-  serviceInstanceDetailsController.$inject = ['$scope', 'v2Api', '$http', '$routeParams'];
+  serviceInstanceDetailsController.$inject = ['$scope', '$http', '$routeParams'];
 
-  function serviceInstanceDetailsController($scope, v2Api, $http, $routeParams) {
+  function serviceInstanceDetailsController($scope, $http, $routeParams) {
     $scope.serviceInstanceStatus = 'loading';
     var serviceInstanceKey = $routeParams.key;
 
     var path = 'http://localhost:8080/serviceInstances/search/findByKey?key=' + serviceInstanceKey;
 
-    var successHandler = function(data) {
-      console.log(data);
-      var actualPath = data._links.self.href
+    var successHandler = function(res) {
+      console.log(res);
+      var actualPath = res.data._links.self.href;
       $http.get(actualPath + '?projection=serviceInstanceDetails')
         .then(function(res) {
-
           console.log('serviceInstanceDetails: ', res);
  
           var si = res.data;
@@ -58,6 +57,7 @@ module.exports = function(app) {
     var errorHandler = function() {
       $scope.serviceInstanceStatus = 'error';
     };
-    v2Api.get(path, successHandler, errorHandler);
+    $http.get(path)
+      .then(successHandler, errorHandler);
   }
 };

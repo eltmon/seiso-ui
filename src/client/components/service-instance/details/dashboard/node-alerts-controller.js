@@ -4,9 +4,9 @@ module.exports = function(app) {
 
   app.controller('NodeAlertsController', nodeAlertsController);
 
-  nodeAlertsController.$inject = ['$scope', 'v2Api', 'paginationConfig', '$routeParams'];
+  nodeAlertsController.$inject = ['$scope', '$http', 'paginationConfig', '$routeParams'];
 
-  function nodeAlertsController($scope, v2Api, paginationConfig, $routeParams) {
+  function nodeAlertsController($scope, $http, paginationConfig, $routeParams) {
     $scope.model.nodeAlerts = {
       currentPage: 1,
       pageSelected: function() {
@@ -24,7 +24,8 @@ module.exports = function(app) {
           $scope.nodeAlertsStatus = 'loaded';
         };
         var errorHandler = function() { $scope.nodeAlertsStatus = 'error'; };
-        v2Api.get(path, successHandler, errorHandler);
+        $http.get(path)
+          .then(successHandler, errorHandler);
       }
     };
     $scope.model.nodeAlerts.pageSelected();

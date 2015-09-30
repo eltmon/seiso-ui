@@ -18,13 +18,10 @@ module.exports = function(app) {
     
     var successHandler = function(data) {
       var nodeStats = data;
-      var siUrl = nodeStats._links.self.href + '/nodeSummary';
+      var siUrl = nodeStats._links.self.href + '/node-summary';
       $http.get(siUrl)
         .then(function(res) {
           nodeStats = res.data;
-          console.log(nodeStats);
-          console.log('nodeStats: ', nodeStats);
-          return;
           enrichNodeStats(nodeStats);
           $scope.nodeStats = nodeStats;
           
@@ -57,7 +54,6 @@ module.exports = function(app) {
     };
     
     $http(request)
-        .success(successHandler)
-        .error(function() { $scope.nodeStatsStatus = 'error'; });
+        .then(successHandler, function() { $scope.nodeStatsStatus = 'error'; });
   }
 };
