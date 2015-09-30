@@ -33,7 +33,7 @@ module.exports = function(title, basePath, sortKey) {
         ', pageNumber=' + pageNumber + 
         ', pageSize=' + pageSize + ', sort=' + sortKey;
       console.log(logMsg);
-      var path = basePath + '?page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
+      var path = basePath + 'page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
       $http.get(path)
         .then(successHandler, function() { console.log('Error while getting page.'); });
     };
