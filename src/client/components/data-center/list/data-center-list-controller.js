@@ -6,9 +6,8 @@ module.exports = function(app) {
   
   app.controller('DataCenterListController', dataCenterListController);
 
-  dataCenterListController.$inject = ['$scope', '$http', 'generalRegions', '$http'];
-
-  function dataCenterListController($scope, $http, generalRegions, $http) {
+  /*@ngInject*/
+  function dataCenterListController($scope, generalRegions, $http) {
     $scope.listStatus = 'loading';
     $scope.model.page.title = pageTitle('Data Centers');
     

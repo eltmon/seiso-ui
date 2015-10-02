@@ -20,22 +20,7 @@ module.exports = function(app) {
         $scope.dataCenter = dataCenter;
         siUri = res.data._links.serviceInstances.href;
         lbUri = res.data._links.loadBalancers.href;
-        ee.emit('dataCenter');
-        // $http.get(siUri)
-        //   .then(function(res) {
-        //     console.log('sis:', res);
-        //     $scope.serviceInstances = res.data._embedded.serviceInstances;
-        //     $http.get(lbUri)
-        //       .then(function(res) {
-        //         console.log('lbs:', res);
-        //         $scope.loadBalancers = res.data._embedded.loadBalancers;
-        //       }, function(err) {
-        //         console.log(err);
-        //       });
-        //   }, function(err) {
-        //     console.log(err);
-        //   });
-        
+        ee.emit('dataCenter');        
         $scope.model.page.title = pageTitle(dataCenter.name);
       };
       var errorHandler = function() { console.log('Error while getting data center.'); };
