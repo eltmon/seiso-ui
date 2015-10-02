@@ -3,72 +3,74 @@ var EE = require('events').EventEmitter;
 var ee = new EE();
 
 module.exports = function(app) {
-  
+
   app.controller('DataCenterDetailsController', dataCenterDetailsController);
 
-  dataCenterDetailsController.$inject = ['$scope', 'v2Api', '$http', 'paginationConfig', '$routeParams'];
+  dataCenterDetailsController.$inject = ['$scope', '$http', 'paginationConfig', '$routeParams'];
 
-  function dataCenterDetailsController($scope, v2Api, $http, paginationConfig, $routeParams) {
+  function dataCenterDetailsController($scope, $http, paginationConfig, $routeParams) {
     var siUri;
     var lbUri;
 
     console.log($routeParams.key);
     (function getDataCenter() {
-      var successHandler = function(data) {
-        console.log('success: ', data);
-        var dataCenter = data;
+      var successHandler = function(res) {
+        console.log('success: ', res);
+        var dataCenter = res.data;
         $scope.dataCenter = dataCenter;
-        siUri = data._links.serviceInstances.href;
-        lbUri = data._links.loadBalancers.href;
-
-        $http.get(siUri)
-          .then(function(res) {
-            $scope.serviceInstances = res.data._embedded.serviceInstances;
-            $http.get(lbUri)
-              .then(function(res) {
-                $scope.loadBalancers = res.data._embedded.loadBalancers;
-              }, function(err) {
-                console.log(err);
-              });
-          }, function(err) {
-            console.log(err);
-          });
-        
+        siUri = res.data._links.serviceInstances.href;
+        lbUri = res.data._links.loadBalancers.href;
+        ee.emit('dataCenter');
+        // $http.get(siUri)
+        //   .then(function(res) {
+        //     console.log('sis:', res);
+        //     $scope.serviceInstances = res.data._embedded.serviceInstances;
+        //     $http.get(lbUri)
+        //       .then(function(res) {
+        //         console.log('lbs:', res);
+        //         $scope.loadBalancers = res.data._embedded.loadBalancers;
+        //       }, function(err) {
+        //         console.log(err);
+        //       });
+        //   }, function(err) {
+        //     console.log(err);
+        //   });
         
         $scope.model.page.title = pageTitle(dataCenter.name);
-        console.log(dataCenter);
-        ee.emit('dataCenter');
       };
       var errorHandler = function() { console.log('Error while getting data center.'); };
-      v2Api.get('http://localhost:8080/dataCenters/search/findByKey?key=' + $routeParams.key, successHandler, errorHandler);
+      $http.get('http://localhost:8080/dataCenters/search/findByKey?key=' + $routeParams.key)
+        .then(successHandler, errorHandler);
     })();
-    
 
     $scope.model.serviceInstances = {
       currentPage: 1,
       pageSelected: function() {
-        (function getServiceInstances(pageNumber) {
-          $scope.serviceInstanceListStatus = 'loading';
-          var apiPageNumber = pageNumber - 1;
-          var reqUrl = 'http://localhost:8080/serviceInstances/search/findByDataCenter?' + 
-            '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
-          var siRequest = {
-              method: 'GET',
-              url: reqUrl,
-              headers: { 'Accept': 'application/hal+json' }
-          };
-          var successHandler = function(data) {
-            console.log('si data: ', data);
-            var page = data;
-            $scope.serviceInstances = page._embedded.items;
-            $scope.serviceInstanceMetadata = page.metadata;
-            $scope.serviceInstanceListStatus = 'loaded';
-            ee.emit('sis');
-          };
-          $http(siRequest)
-              .success(successHandler)
-              .error(function() { $scope.serviceInstanceListStatus = 'error'; });
-        })($scope.model.serviceInstances.currentPage);
+          console.log('datacenter si emit:');
+          (function getServiceInstances(pageNumber) {
+            $scope.serviceInstanceListStatus = 'loading';
+            var apiPageNumber = pageNumber - 1;
+            var reqUrl = 'http://localhost:8080/serviceInstances/search/findByDataCenterWithCounts?key=' + $scope.dataCenter.key;
+              var pageQuery = '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
+              console.log('reqUrl: ', reqUrl);
+            var siRequest = {
+                method: 'GET',
+                url: reqUrl
+                // headers: { 'Accept': 'application/hal+json' }
+            };
+            var successHandler = function(data) {
+              console.log('si data: ', data);
+              var page = data;
+              $scope.serviceInstances = page._embedded.items;
+              $scope.serviceInstanceMetadata = page.metadata;
+              $scope.serviceInstanceListStatus = 'loaded';
+              ee.emit('sis');
+            };
+            $http(siRequest)
+                .then(successHandler, function() { $scope.serviceInstanceListStatus = 'error'; });
+
+          })($scope.model.serviceInstances.currentPage);
+
       }
     };
 

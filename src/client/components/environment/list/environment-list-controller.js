@@ -9,7 +9,6 @@ module.exports = function(app) {
     $http.get('http://localhost:8080/environments')
       .then(function(res) {
         $scope.listStatus = 'loaded';
-        console.log(res);
         $scope.items = res.data._embedded.environments;
       }, function(err) {
         $scope.listStatus = 'error';

@@ -6,16 +6,15 @@ module.exports = function(app) {
   
   app.controller('DataCenterListController', dataCenterListController);
 
-  dataCenterListController.$inject = ['$scope', 'v3Api', 'generalRegions', '$http'];
+  dataCenterListController.$inject = ['$scope', '$http', 'generalRegions', '$http'];
 
-  function dataCenterListController($scope, v3Api, generalRegions, $http) {
+  function dataCenterListController($scope, $http, generalRegions, $http) {
     $scope.listStatus = 'loading';
     $scope.model.page.title = pageTitle('Data Centers');
     
-    var path = 'infrastructureProviders?projection=dataCenters';
+    var path = 'http://localhost:8080/infrastructureProviders?projection=dataCenters';
     var successHandler = function(res) {
 
-      console.log('IP: ', res);
       var srcProviders = res.data._embedded.infrastructureProviders;
 
       async.each(srcProviders, function(srcProvider, cb) {
@@ -30,12 +29,10 @@ module.exports = function(app) {
                 }, function(err) {
                   console.log(err);
                 });
-
             }, function(err) {
               if (err) return console.log(err);
               cb();
             });
-
           }, function(err) {
             console.log(err);
           });
@@ -45,14 +42,13 @@ module.exports = function(app) {
         $scope.generalRegions = generalRegions;
         $scope.infrastructureProviders = destProviders;
         $scope.listStatus = 'loaded';
-        console.log($scope.infrastructureProviders);
-
       });
 
     };
     var errorHandler = function(data) {
       $scope.listStatus = 'error';
     };
-    v3Api.get(path, successHandler, errorHandler);
+    $http.get(path)
+      .then(successHandler, errorHandler);
   }
 };

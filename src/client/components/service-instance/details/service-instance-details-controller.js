@@ -18,7 +18,7 @@ module.exports = function(app) {
       $http.get(actualPath + '?projection=serviceInstanceDetails')
         .then(function(res) {
           console.log('serviceInstanceDetails: ', res);
- 
+          
           var si = res.data;
           var service = si.service;
           $scope.serviceInstance = si;

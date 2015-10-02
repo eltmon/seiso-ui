@@ -12,7 +12,6 @@ module.exports = function(app) {
     var siUrl;
     (function getEnvironment() {
       var successHandler = function(res) {
-        console.log(res);
         siUrl = res.data._links.serviceInstances.href;
         ee.emit('si');
         var env = res.data;
