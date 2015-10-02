@@ -5,11 +5,15 @@ This project is currently in progress and not ready for general use.
 
 ### Install
 
+Install necessary build and run dependencies.
+
 ```
 $ npm install
 ```
 
 ### Build
+
+Run the build process to set up the static folder from which the site is served.
 
 ```
 $ gulp build
@@ -18,7 +22,8 @@ $ gulp build
 ### Run
 
 ```
-node server.js
+$ node server.js
 ```
 
-- Open your browser and browse to localhost:8080.
+- Open your browser and browse to localhost:3000.
+
