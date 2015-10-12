@@ -5,24 +5,23 @@ module.exports = function(app) {
   app.controller('StatusListController', StatusListController);
   
   /*@ngInject*/
-  function StatusListController($scope, $http) {
+  function StatusListController($scope, DataService) {
     $scope.model.page.title = pageTitle('Statuses');
-    var baseUri = 'http://localhost:8080';
-    // TODO Handle errors
-    $http.get(baseUri + '/statusTypes')
-        .then(function(res) {
-        console.log(res); 
-          $scope.statusTypes = res.data._embedded.statusTypes;
-        });
-    $http.get(baseUri + '/healthStatuses')
-        .then(function(res) {
-          console.log(res);
-          $scope.healthStatuses = res.data._embedded.healthStatuses;
-        });
-    $http.get(baseUri + '/rotationStatuses')
-        .then(function(res) {
-          console.log(res);
-          $scope.rotationStatuses = res.data._embedded.rotationStatuses;
-        });
+
+    var StatusTypes = new DataService('/statusTypes');
+    StatusTypes.get(function(err, res) {
+      if (err) return console.log(err);
+      $scope.statusTypes = res.data._embedded.statusTypes;
+    })
+    var HealthStatuses = new DataService('/healthStatus');
+    HealthStatuses.get(function(err, res) {
+      if (err) return console.log(err);
+      $scope.healthStatuses = res.data._embedded.healthStatuses;
+    })
+    var RotationStatuses = new DataService('/rotationStatuses');
+    RotationStatuses.get(function(err, res) {
+      if (err) return console.log(err);
+      $scope.rotationStatuses = res.data._embedded.rotationStatuses;
+    });
   }
 };

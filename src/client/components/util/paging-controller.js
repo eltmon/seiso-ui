@@ -1,4 +1,5 @@
 var pageTitle = require('./util').pageTitle;
+var seisoWebUri = 'http://localhost:8080';
 
 module.exports = function(title, basePath, sortKey) {
 
@@ -29,7 +30,7 @@ module.exports = function(title, basePath, sortKey) {
       var logMsg = 'Page selected: path=' + path + 
         ', pageNumber=' + pageNumber + 
         ', pageSize=' + pageSize + ', sort=' + sortKey;
-      var path = basePath + 'page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
+      var path = seisoWebUri + basePath + 'page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
       $http.get(path)
         .then(successHandler, function() { console.log('Error while getting page.'); });
     };

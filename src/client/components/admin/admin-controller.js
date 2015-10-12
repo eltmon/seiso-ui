@@ -10,7 +10,7 @@ module.exports = function(app) {
   function adminController($scope, $http) {
     $scope.model.page.title = pageTitle('Admin Console');
     console.log('Getting health');
-    $http.get('health').success(function(data) {
+    $http.get('http://localhost:8080/health').success(function(data) {
       console.log('Got health');
       $scope.health = data;
       $scope.seisoLabel = (data.status === 'UP' ? 'success' : 'danger');
@@ -20,13 +20,13 @@ module.exports = function(app) {
     });
     
     console.log('Getting metrics');
-    $http.get('metrics').success(function(data) {
+    $http.get('http://localhost:8080/metrics').success(function(data) {
       console.log('Got metrics');
       $scope.metrics = data;
     });
     
     console.log('Getting environment');
-    $http.get('env').success(function(data) {
+    $http.get('http://localhost:8080/env').success(function(data) {
       console.log('Got environment');
       $scope.env = data;
       $scope.appConfig = data['applicationConfig: [classpath:/application.yml]'];
@@ -34,7 +34,7 @@ module.exports = function(app) {
     });
     
     console.log('Getting thread dump');
-    $http.get('dump').success(function(data) {
+    $http.get('http://localhost:8080/dump').success(function(data) {
       console.log('Got thread dump');
       $scope.threads = data;
     });

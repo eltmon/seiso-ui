@@ -4,60 +4,59 @@ module.exports = function(app) {
 
   app.controller('ServiceInstanceDetailsController', serviceInstanceDetailsController);
 
-  serviceInstanceDetailsController.$inject = ['$scope', '$http', '$routeParams'];
+  serviceInstanceDetailsController.$inject = ['$scope', 'DataService', '$routeParams'];
 
-  function serviceInstanceDetailsController($scope, $http, $routeParams) {
+  /* @ngInject */
+  function serviceInstanceDetailsController($scope, DataService, $routeParams) {
     $scope.serviceInstanceStatus = 'loading';
     var serviceInstanceKey = $routeParams.key;
 
-    var path = 'http://localhost:8080/serviceInstances/search/findByKey?key=' + serviceInstanceKey;
-
+    var path = '/serviceInstances/search/findByKey?key=' + serviceInstanceKey;
+    var ServiceInstance = new DataService(path);
     var successHandler = function(res) {
-      console.log(res);
       var actualPath = res.data._links.self.href;
-      $http.get(actualPath + '?projection=serviceInstanceDetails')
-        .then(function(res) {
-          console.log('serviceInstanceDetails: ', res);
-          
-          var si = res.data;
-          var service = si.service;
-          $scope.serviceInstance = si;
-          $scope.model.page.title = pageTitle(si.key);
-          $scope.dataCenter = si.dataCenter;
-          $scope.environment = si.environment;
-          $scope.ipAddressRoles = si.ipAddressRoles;
-          $scope.loadBalancer = si.loadBalancer;
-          $scope.ports = si.ports;
-          $scope.service = service;
-          $scope.owner = 'change this';
-          $scope.dashboards = si.dashboards;
-          $scope.checks = si.seyrenChecks;
-      
-          $scope.tabs = [
-            { heading: 'Dashboard', content: 'dashboard/index' },
-            { heading: 'All Nodes', content: 'nodes/node-pane' },
-            { heading: 'Details', content: 'details/index' },
-            { heading: 'Dependencies', content: 'dependencies/dependencies-tables' }
-          ];
-          
-          if ($scope.globals.enableActions) {
-            $scope.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
-          }
-          
-          $scope.setTabContent = function(name) {
-            $scope.tabContentUrl = 'view/service-instance/details/' + name + '.html';
-          };
+      var ServiceInstanceDetails = new DataService(actualPath + '?projection=serviceInstanceDetails');
+      ServiceInstanceDetails.get(function(err, res) {
+        if (err) return console.log(err);
+        var si = res.data;
+        var service = si.service;
+        $scope.serviceInstance = si;
+        $scope.model.page.title = pageTitle(si.key);
+        $scope.dataCenter = si.dataCenter;
+        $scope.environment = si.environment;
+        $scope.ipAddressRoles = si.ipAddressRoles;
+        $scope.loadBalancer = si.loadBalancer;
+        $scope.ports = si.ports;
+        $scope.service = service;
+        $scope.owner = 'change this';
+        $scope.dashboards = si.dashboards;
+        $scope.checks = si.seyrenChecks;
+    
+        $scope.tabs = [
+          { heading: 'Dashboard', content: 'dashboard/index' },
+          { heading: 'All Nodes', content: 'nodes/node-pane' },
+          { heading: 'Details', content: 'details/index' },
+          { heading: 'Dependencies', content: 'dependencies/dependencies-tables' }
+        ];
         
-          $scope.serviceInstanceStatus = 'loaded';
+        if ($scope.globals.enableActions) {
+          $scope.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
+        }
+        
+        $scope.setTabContent = function(name) {
+          $scope.tabContentUrl = 'view/service-instance/details/' + name + '.html';
+        };
       
-      }, function(err) {
-        console.log(err);
+        $scope.serviceInstanceStatus = 'loaded';
+      
       });
     };
     var errorHandler = function() {
       $scope.serviceInstanceStatus = 'error';
     };
-    $http.get(path)
-      .then(successHandler, errorHandler);
+    ServiceInstance.get(function(err, res) {
+      if (err) return errorHandler();
+      successHandler(res);
+    });
   }
 };

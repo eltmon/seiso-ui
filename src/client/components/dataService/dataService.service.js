@@ -2,8 +2,8 @@ module.exports = function(app) {
   app.factory('DataService', DataService);
 
   var seisoWebUrl = 'http://localhost:8080';
-  DataService.$inject = ['$http', '$log'];
-
+  
+  /* @ngInject */
   function DataService($http, $log) {
 
     return function(path) {

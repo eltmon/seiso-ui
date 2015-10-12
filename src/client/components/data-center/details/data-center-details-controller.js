@@ -6,9 +6,8 @@ module.exports = function(app) {
 
   app.controller('DataCenterDetailsController', dataCenterDetailsController);
 
-  dataCenterDetailsController.$inject = ['$scope', '$http', 'paginationConfig', '$routeParams'];
-
-  function dataCenterDetailsController($scope, $http, paginationConfig, $routeParams) {
+  /* @ngInject */
+  function dataCenterDetailsController($scope, $http, paginationConfig, $routeParams, DataService) {
     var siUri;
     var lbUri;
 
@@ -24,8 +23,11 @@ module.exports = function(app) {
         $scope.model.page.title = pageTitle(dataCenter.name);
       };
       var errorHandler = function() { console.log('Error while getting data center.'); };
-      $http.get('http://localhost:8080/dataCenters/search/findByKey?key=' + $routeParams.key)
-        .then(successHandler, errorHandler);
+      var DataCenter = new DataService('/dataCenters/search/findByKey?key=' + $routeParams.key);
+      DataCenter.get(function(err, res) {
+        if (err) return console.log(err);
+        successHandler(res);
+      });
     })();
 
     $scope.model.serviceInstances = {
@@ -35,27 +37,23 @@ module.exports = function(app) {
           (function getServiceInstances(pageNumber) {
             $scope.serviceInstanceListStatus = 'loading';
             var apiPageNumber = pageNumber - 1;
-            var reqUrl = 'http://localhost:8080/serviceInstances/search/findByDataCenterWithCounts?key=' + $scope.dataCenter.key;
+            // FIXME
+            var reqUrl = '/serviceInstances/search/findByDataCenterWithCounts?key=' + $scope.dataCenter.key;
               var pageQuery = '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
-              console.log('reqUrl: ', reqUrl);
-            var siRequest = {
-                method: 'GET',
-                url: reqUrl
-                // headers: { 'Accept': 'application/hal+json' }
-            };
+            var DataCenterSIs = new DataService(reqUrl);
+
             var successHandler = function(data) {
-              console.log('si data: ', data);
               var page = data;
               $scope.serviceInstances = page._embedded.items;
               $scope.serviceInstanceMetadata = page.metadata;
               $scope.serviceInstanceListStatus = 'loaded';
               ee.emit('sis');
             };
-            $http(siRequest)
-                .then(successHandler, function() { $scope.serviceInstanceListStatus = 'error'; });
-
+            DataCenterSIs.get(function(err, res) {
+              if (err) return console.log(err);
+              successHandler(res);
+            });
           })($scope.model.serviceInstances.currentPage);
-
       }
     };
 
@@ -65,24 +63,20 @@ module.exports = function(app) {
         (function getLoadBalancers(pageNumber) {
           $scope.loadBalancerListStatus = 'loading';
           var apiPageNumber = pageNumber - 1;
-          var reqUrl = 'http://localhost:8080/loadBalancers/search/findByDataCenterKey?key=' + $routeParams.key + 
+          var reqUrl = '/loadBalancers/search/findByDataCenterKey?key=' + $routeParams.key + 
             '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=name';
-          var request = {
-              method: 'GET',
-              url: reqUrl,
-              headers: { 'Accept': 'application/hal+json' }
-          };
+          var LoadBalancers = new DataService(reqUrl);
           var successHandler = function(data) {
-            console.log('lb data: ', data);
             var page = data;
             $scope.loadBalancers = page._embedded.items;
             $scope.loadBalancerMetadata = page.metadata;
             $scope.loadBalancerListStatus = 'loaded';
             ee.emit('lbs');
           };
-          $http(request)
-              .success(successHandler)
-              .error(function() { $scope.loadBalancerListStatus = 'error'; });
+          LoadBalancers.get(function(err, res) {
+            if (err) return console.log(err);
+            successHandler(res);
+          });
         })($scope.model.loadBalancers.currentPage);
       }
     };

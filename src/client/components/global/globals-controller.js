@@ -2,14 +2,14 @@ module.exports = function(app) {
   
   app.controller('GlobalsController', globalsController);
 
-  globalsController.$inject = ['$rootScope', '$scope', '$http', 'AuthService'];
-
-  function globalsController($rootScope, $scope, $http, AuthService) {
+  /* @ngInject */
+  function globalsController($rootScope, $scope, DataService, AuthService) {
     $scope.logout = AuthService.logout;
     
     AuthService.checkAuthentication(false);
     
     var getGlobalData = function() {
+      var GlobalData = new DataService('/internal/globals');
       var request = {
         method: 'GET',
         url: '/internal/globals',
@@ -27,9 +27,10 @@ module.exports = function(app) {
           globalsError: true
         };
       };
-      $http(request)
-          .success(successHandler)
-          .error(errorHandler);
+      GlobalData.get(function(err, res) {
+        if (err) return errorHandler();
+        successHandler(res);
+      });
     };
     getGlobalData();
   }
