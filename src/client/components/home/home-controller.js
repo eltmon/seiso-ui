@@ -6,31 +6,12 @@ module.exports = function(app) {
   app.controller('HomeController', HomeController);
 
   /* @ngInject */
-  function HomeController($scope, $http) {
+  function HomeController($scope, $http, DataService) {
     $scope.model.page.title = pageTitle('Home');
     $scope.serviceStatus = 'loading';
-    
-    var getServiceGroups = function(doneCallback) {
-      var successHandler = function(serviceGroups) { return doneCallback(null, serviceGroups);}; 
-      var errorHandler = function(data) { return doneCallback(data, null);};
-      $http.get('http://localhost:8080/serviceGroups')
-        .then(successHandler, errorHandler);
-    };
 
-    $scope.getServices = function(group) {
-      if ($scope.serviceGroups[group.key].services.length > 0) {
-        console.log('services already fetched for group');
-        return;
-      }
-      $http.get(group._links.services.href)
-        .then(function(res) {
-          $scope.serviceGroups[group.key].services = res.data._embedded.services;
-        }, function(err) {
-          console.log(err);
-        });
-    };
-    
-    getServiceGroups(function(err, res) {
+    var ServiceGroups = new DataService('/serviceGroups');
+    ServiceGroups.get(function(err, res) {
       if (err) {
         $scope.serviceStatus = 'error';
         return;
@@ -48,5 +29,18 @@ module.exports = function(app) {
       $scope.serviceGroups = serviceGroupsMap;
       $scope.serviceStatus = 'loaded';
     });
+
+    $scope.getServices = function(group) {
+      if ($scope.serviceGroups[group.key].services.length > 0) {
+        console.log('services already fetched for group');
+        return;
+      }
+      var GroupServices = new DataService(group._links.services.href);
+      GroupServices.get(function(err, res) {
+        if (err) return console.log(err);
+        $scope.serviceGroups[group.key].services = res.data._embedded.services;
+      });
+    };
+    
   }
 };
