@@ -6,11 +6,10 @@ module.exports = function(app) {
 
   function DataService($http, $log) {
 
-    
     return function(path) {
       var checkIfFullUrl = /http:/,
           uri;
-          
+
       // Allow for optionally passing a full URL instead of a resource endpoint
       if (checkIfFullUrl.test(path)) {
         uri = path;

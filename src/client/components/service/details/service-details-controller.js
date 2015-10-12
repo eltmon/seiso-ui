@@ -2,14 +2,14 @@ var pageTitle = require('../../util/util').pageTitle;
 
 module.exports = function(app) {
 
-  app.controller('ServiceDetailsController', serviceDetailsController);
+  app.controller('ServiceDetailsController', ServiceDetailsController);
 
-  serviceDetailsController.$inject = ['$scope', '$routeParams', '$http'];
-
-  function serviceDetailsController($scope, $routeParams, $http) {
+  /* @ngInject */
+  function ServiceDetailsController($scope, $routeParams, DataService) {
     $scope.serviceStatus = 'loading';
     $scope.viewing = $routeParams.key;
-    var path = 'http://localhost:8080/services/search/findByKey?key=' + $routeParams.key + '&projection=serviceDetails';
+    var path = '/services/search/findByKey?key=' + $routeParams.key + '&projection=serviceDetails';
+    var Services = new DataService(path);
     var successHandler = function(res) {
       var service = res.data;
       $scope.model.page.title = pageTitle(res.data.name);
@@ -27,7 +27,10 @@ module.exports = function(app) {
     var errorHandler = function() {
       $scope.serviceStatus = 'error';
     };
-    $http.get(path)
-      .then(successHandler, errorHandler);
+
+    Services.get(function(err, res) {
+      if (err) return errorHandler();
+      successHandler(res);
+    });
   }
 };
