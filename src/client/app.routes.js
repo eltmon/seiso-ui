@@ -12,7 +12,11 @@ module.exports = function(app) {
       .when('/mb/:type', viewRoute('mb/profile'))
       .when('/data-centers', viewRoute('data-center/list/data-center-list'))
       .when('/data-centers/:key', route('DataCenterDetails', 'data-center/details/data-center-details'))
-      .when('/environments', viewRoute('environment/list/environment-list'))
+      .when('/environments', {
+        controller: 'EnvironmentListController',
+        controllerAs: 'vm',
+        templateUrl: 'view/environment/list/environment-list.html'
+      })
       .when('/environments/:key', route('EnvironmentDetails', 'environment/details/environment-details')) 
       .when('/load-balancers', route('LoadBalancerList', 'load-balancer/list/load-balancer-list'))
       .when('/load-balancers/:name', route('LoadBalancerDetails', 'load-balancer/details/load-balancer-details'))

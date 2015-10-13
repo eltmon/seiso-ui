@@ -3,11 +3,21 @@ var seisoWebUri = 'http://localhost:8080';
 
 module.exports = function(title, basePath, sortKey) {
 
-  function pagingController($scope, paginationConfig, $http) {
-    $scope.model.page.title = pageTitle(title);
+  /* @ngInject */
+  function pagingController($scope, paginationConfig, $http, $log) {
     var pageSize = paginationConfig.itemsPerPage;
+    $scope.model.page.title = pageTitle(title);
+    $scope.model.currentPage = 1;
+    $scope.model.pageSelected = pageSelected;
+    $scope.model.pageSelected();
     
-    var successHandler = function(res, status, headers) {
+    function pageSelected() {
+      var pageNumber = $scope.model.currentPage - 1;
+      var path = basePath + 'page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
+      $http.get(path).then(success, error);
+    }
+
+    function success(res, status, headers) {
       console.log(res);
       var totalItems = res.data.page.totalElements;
       var totalPages = res.data.page.totalPages;
@@ -23,22 +33,12 @@ module.exports = function(title, basePath, sortKey) {
       for (var key in res.data._embedded) {
         $scope.items = res.data._embedded[key];
       }
-    };
-    
-    $scope.model.pageSelected = function() {
-      var pageNumber = $scope.model.currentPage - 1;
-      var logMsg = 'Page selected: path=' + path + 
-        ', pageNumber=' + pageNumber + 
-        ', pageSize=' + pageSize + ', sort=' + sortKey;
-      var path = seisoWebUri + basePath + 'page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
-      $http.get(path)
-        .then(successHandler, function() { console.log('Error while getting page.'); });
-    };
-    
-    // Initialize first page
-    $scope.model.currentPage = 1;
-    $scope.model.pageSelected();
+    }
+
+    function error() {
+      $log.error('Error while getting page.');
+    }
   }
 
-  return ['$scope', 'paginationConfig', '$http', pagingController];
+  return pagingController;
 };

@@ -1,43 +1,24 @@
 module.exports = function(app) {
-  app.factory('DataService', DataService);
+  app.factory('dataService', dataService);
 
-  var seisoWebUrl = 'http://localhost:8080';
-  
   /* @ngInject */
-  function DataService($http, $log) {
+  function dataService($http, $log) {
+    var API_BASE_URL = 'http://localhost:8080/api';
+    var FULL_URL_REGEX = /http:/;
 
-    return function(path) {
-      var checkIfFullUrl = /http:/,
-          uri;
-
-      // Allow for optionally passing a full URL instead of a resource endpoint
-      if (checkIfFullUrl.test(path)) {
-        uri = path;
-      } else {
-        uri = seisoWebUrl + path;
-      }
-
-      function handleSuccess(callback) {
-        return function(data) {
-          callback(null, data);
-        };
-      }
-
-      function handleError(callback) {
-        return function(errorData) {
-          callback(errorData);
-        }
-      }
-
-      var module = {
-        get: function(callback) {
-          $http.get(uri)
-            .then(handleSuccess(callback), handleError(callback));
-        }
-      };
-
-      return module;
+    return {
+      get: get
     };
-  }
 
+    // Returning promises here so components can attach to them (e.g. automatically
+    // show progress bars til the promise is fulfilled, like md-data-table does).
+    function get(url) {
+      return $http.get(resolve(url));
+    }
+
+    // Allow for optionally passing a full URL instead of a resource endpoint
+    function resolve(url) {
+      return FULL_URL_REGEX.test(url) ? url : API_BASE_URL + url;      
+    }
+  }
 };
