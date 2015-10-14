@@ -5,11 +5,11 @@ module.exports = function(app) {
   app.controller('ServiceDetailsController', ServiceDetailsController);
 
   /* @ngInject */
-  function ServiceDetailsController($scope, $routeParams, DataService) {
+  function ServiceDetailsController($scope, $routeParams, dataService) {
     $scope.serviceStatus = 'loading';
     $scope.viewing = $routeParams.key;
     var path = '/services/search/findByKey?key=' + $routeParams.key + '&projection=serviceDetails';
-    var Services = new DataService(path);
+
     var successHandler = function(res) {
       var service = res.data;
       $scope.model.page.title = pageTitle(res.data.name);
@@ -28,9 +28,6 @@ module.exports = function(app) {
       $scope.serviceStatus = 'error';
     };
 
-    Services.get(function(err, res) {
-      if (err) return errorHandler();
-      successHandler(res);
-    });
+    dataService.get(path).then(successHandler, errorHandler);
   }
 };

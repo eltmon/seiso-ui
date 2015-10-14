@@ -13,12 +13,12 @@
           <p><i class="fa fa-exclamation-triangle"></i> Couldn't get health breakdown.</p>
         </div>
         <div ng-switch-when="loaded">
-          <div ng-if="healthBreakdown.items.length == 0">
+          <div ng-if="healthBreakdown.length == 0">
             <p><i class="fa fa-info-circle"></i> No nodes.</p>
           </div>
-          <div ng-if="healthBreakdown.items.length &gt; 0">
+          <div ng-if="healthBreakdown.length > 0">
             <ul class="list-inline well well-sm">
-              <li ng-repeat="item in healthBreakdown.items" style="margin-right:10px">
+              <li ng-repeat="item in healthBreakdown" style="margin-right:10px">
                 <i class="fa fa-circle fa-circle-{{item.statusType}}"></i>
                 <span ng-bind="item.count"></span>
                 <span ng-bind="item.statusName"></span>
@@ -42,12 +42,12 @@
           <p><i class="fa fa-exclamation-triangle"></i> Couldn't get rotation breakdown.</p>
         </div>
         <div ng-switch-when="loaded">
-          <div ng-if="rotationBreakdown.items.length == 0">
+          <div ng-if="rotationBreakdown.length === 0">
             <p><i class="fa fa-info-circle"></i> No nodes.</p>
           </div>
-          <div ng-if="rotationBreakdown.items.length &gt; 0">
+          <div ng-if="rotationBreakdown.length > 0">
             <ul class="list-inline well well-sm">
-              <li ng-repeat="item in rotationBreakdown.items" style="margin-right:10px">
+              <li ng-repeat="item in rotationBreakdown" style="margin-right:10px">
                 <i class="fa fa-circle fa-circle-{{item.statusType}}"></i>
                 <span ng-bind="item.count"></span>
                 <span ng-bind="item.statusName"></span>

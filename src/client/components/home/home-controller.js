@@ -6,17 +6,14 @@ module.exports = function(app) {
   app.controller('HomeController', HomeController);
 
   /* @ngInject */
-  function HomeController($scope, $http, DataService) {
+  function HomeController($scope, $http, dataService) {
     $scope.model.page.title = pageTitle('Home');
     $scope.serviceStatus = 'loading';
 
-    var ServiceGroups = new DataService('/serviceGroups');
-    ServiceGroups.get(function(err, res) {
-      if (err) {
-        $scope.serviceStatus = 'error';
-        return;
-      }
-      
+    dataService.get('/serviceGroups')
+      .then(successHandler, function(err) { return console.log(err);});
+
+    function successHandler(res) {
       var serviceGroups = res.data._embedded.serviceGroups;
       var serviceGroupsMap = {};
       
@@ -28,19 +25,19 @@ module.exports = function(app) {
       
       $scope.serviceGroups = serviceGroupsMap;
       $scope.serviceStatus = 'loaded';
-    });
+    }
 
     $scope.getServices = function(group) {
       if ($scope.serviceGroups[group.key].services.length > 0) {
         console.log('services already fetched for group');
         return;
       }
-      var GroupServices = new DataService(group._links.services.href);
-      GroupServices.get(function(err, res) {
-        if (err) return console.log(err);
-        $scope.serviceGroups[group.key].services = res.data._embedded.services;
+      dataService.get(group._links.services.href)
+        .then(function(res) {
+          $scope.serviceGroups[group.key].services = res.data._embedded.services;
+        }, function(err) {
+          if (err) return console.log(err);
       });
     };
-    
   }
 };

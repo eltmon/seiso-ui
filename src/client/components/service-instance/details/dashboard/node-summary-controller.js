@@ -5,55 +5,49 @@ module.exports = function(app) {
 
   app.controller('NodeSummaryController', nodeSummaryController);
 
-  nodeSummaryController.$inject = ['$scope', '$http', '$routeParams'];
-  
-  function nodeSummaryController($scope, $http, $routeParams) {
+  /* @ngInject */
+  function nodeSummaryController($scope, dataService, $routeParams) {
     $scope.nodeStatsStatus = 'loading';
     
-    var request = {
-      method: 'GET',
-      url: 'http://localhost:8080/serviceInstances/search/findByKey?key=' + $routeParams.key,
-      headers: { 'Accept': 'application/hal+json' }
+    var successHandler = function(res) {
+      console.log(res);
+      var siUrl = res.data._links.self.href + '/nodeSummary';
+  
+      dataService.get(siUrl).then(nodeSummarySuccess, function(err) {return console.log(err);});
+      function nodeSummarySuccess(res) {
+        console.log(res);
+        var nodeStats = res.data;
+        enrichNodeStats(nodeStats);
+        $scope.nodeStats = nodeStats;
+        
+        var numHealthy = nodeStats.numHealthy;
+        var numUnhealthy = nodeStats.numNodes - numHealthy;
+        var numEnabled = nodeStats.numEnabled;
+        var numNotEnabled = nodeStats.numNodes - numEnabled;
+        var numHealthyGivenEnabled = nodeStats.numHealthyGivenEnabled;
+        var numUnhealthyGivenEnabled = numEnabled - numHealthyGivenEnabled;
+        
+
+        $scope.healthDataset = [
+          { type: 'Healthy', count: numHealthy }, 
+          { type: 'Unhealthy', count: numUnhealthy }
+        ];
+        
+        $scope.enabledDataset = [
+          { type: 'Enabled', count: numEnabled }, 
+          { type: 'Not enabled', count: numNotEnabled }
+        ];
+        
+        $scope.healthyGivenEnabledDataset = [
+          { type: 'Healthy given enabled', count: numHealthyGivenEnabled }, 
+          { type: 'Unhealthy given enabled', count: numUnhealthyGivenEnabled }
+        ];
+        
+        $scope.nodeStatsStatus = 'loaded';
+      }
     };
-    
-    var successHandler = function(data) {
-      var nodeStats = data;
-      var siUrl = nodeStats._links.self.href + '/node-summary';
-      $http.get(siUrl)
-        .then(function(res) {
-          nodeStats = res.data;
-          enrichNodeStats(nodeStats);
-          $scope.nodeStats = nodeStats;
-          
-          var numHealthy = nodeStats.numHealthy;
-          var numUnhealthy = nodeStats.numNodes - numHealthy;
-          var numEnabled = nodeStats.numEnabled;
-          var numNotEnabled = nodeStats.numNodes - numEnabled;
-          var numHealthyGivenEnabled = nodeStats.numHealthyGivenEnabled;
-          var numUnhealthyGivenEnabled = numEnabled - numHealthyGivenEnabled;
-          
-          $scope.healthDataset = [
-            { type: 'Healthy', count: numHealthy }, 
-            { type: 'Unhealthy', count: numUnhealthy }
-          ];
-          
-          $scope.enabledDataset = [
-            { type: 'Enabled', count: numEnabled }, 
-            { type: 'Not enabled', count: numNotEnabled }
-          ];
-          
-          $scope.healthyGivenEnabledDataset = [
-            { type: 'Healthy given enabled', count: numHealthyGivenEnabled }, 
-            { type: 'Unhealthy given enabled', count: numUnhealthyGivenEnabled }
-          ];
-          
-          $scope.nodeStatsStatus = 'loaded';
-        }, function(err) {
-          if (err) return console.log(err);
-        });
-    };
-    
-    $http(request)
-        .then(successHandler, function() { $scope.nodeStatsStatus = 'error'; });
+
+    dataService.get('/serviceInstances/search/findByKey?key=' + $routeParams.key)
+      .then(successHandler, function(err) {$scope.nodeStatsStatus = 'error';return;});
   }
 };

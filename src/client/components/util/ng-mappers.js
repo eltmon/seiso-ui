@@ -39,7 +39,7 @@ exports.enrichNodeStats = function(nodeStats) {
 
 // Supports the service instance details page.
 exports.nodePageToNodeRows = function(nodePage) {
-  var nodes = nodePage._embedded.items;
+  var nodes = nodePage;
   
   // Build the node table, which is really a list of IP addresses grouped by node. [WLW]
   var nodeRows = [];

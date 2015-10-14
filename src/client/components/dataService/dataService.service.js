@@ -3,7 +3,7 @@ module.exports = function(app) {
 
   /* @ngInject */
   function dataService($http, $log) {
-    var API_BASE_URL = 'http://localhost:8080/api';
+    var API_BASE_URL = 'http://localhost:8080';
     var FULL_URL_REGEX = /http:/;
 
     return {

@@ -2,31 +2,29 @@ module.exports = function(app) {
   
   app.controller('NodeBreakdownController', nodeBreakdownController);
 
-  nodeBreakdownController.$inject = ['$scope', '$http', '$routeParams'];
-
-  function nodeBreakdownController($scope, $http, $routeParams) {
+  /* @ngInject */
+  function nodeBreakdownController($scope, dataService, $routeParams, $http) {
     function getBreakdown(statusVar, path, resultVar) {
       $scope[statusVar] = 'loading';
-      var request = {
-          method: 'GET',
-          url: 'http://localhost:8080/serviceInstances/search/findByKey?key=' + $routeParams.key,
-          headers: { 'Accept': 'application/hal+json' }
-      };
+
       var successHandler = function(res) {
-        var data = res.data;
+        console.log('breakdowns: ', res);
+        var data = res.data._embedded ? res.data._embedded.breakdownItems : [];
         $scope[resultVar] = data;
         $scope[statusVar] = 'loaded';
       };
-      $http(request)
+
+      var errorHandler = function(err) {
+        $scope[statusVar] = 'error';
+        return console.log(err);
+      };
+
+      dataService.get('/serviceInstances/search/findByKey?key=' + $routeParams.key)
         .then(function(res) {
           var siUrl = res.data._links.self.href + '/' + path;
-          $http.get(siUrl)
-            .then(successHandler, function(err) {console.log(err);});
-
-          }, function(err) {
-            console.log(err);
-            $scope[statusVar] = 'error';
-          });
+          dataService.get(siUrl)
+            .then(successHandler, errorHandler);
+      }, function(err) {return console.log(err);});
     }
     getBreakdown('healthBreakdownStatus', 'healthBreakdown', 'healthBreakdown');
     getBreakdown('rotationBreakdownStatus', 'rotationBreakdown', 'rotationBreakdown');

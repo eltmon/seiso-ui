@@ -3,9 +3,8 @@ var nodePageToNodeRows = require('../../../util/ng-mappers.js').nodePageToNodeRo
 module.exports = function(app) {
   app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
 
-  serviceInstanceNodesController.$inject = ['$scope', '$http', 'paginationConfig', '$routeParams'];
-  
-  function serviceInstanceNodesController($scope, $http, paginationConfig, $routeParams) {
+  /* @ngInject */  
+  function serviceInstanceNodesController($scope, dataService, paginationConfig, $routeParams) {
     $scope.model.nodes = {
       currentPage: 1,
       pageSelected: function() {
@@ -13,26 +12,24 @@ module.exports = function(app) {
         var pageNumber = $scope.model.nodes.currentPage;
         var apiPageNumber = pageNumber - 1;
 
-        var requestUrl = '/nodes/search/findByServiceinstance?key=' + 
-          $routeParams.key + '&view=service-instance-nodes&page=' + apiPageNumber + '&size=' + 
+        var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + 
+          $routeParams.key
+          + '&view=service-instance-nodes&page=' + apiPageNumber + '&size=' + 
           paginationConfig.itemsPerPage + '&sort=name';
 
-        var request = {
-          method: 'GET',
-          url: requestUrl,
-          headers: { 'Accept': 'application/hal+json' }
-        };
         var successHandler = function(data) {
           var nodePage = data;
           $scope.metadata = nodePage.metadata;
           $scope.nodeRows = nodePageToNodeRows(nodePage);
           $scope.nodeListStatus = 'loaded';
         };
-        $http(request)
-            .success(successHandler)
-            .error(function() { $scope.nodeListStatus = 'error'; });
+
+        dataService.get(requestUrl).then(successHandler, function(err) {
+          return console.log(err);
+        });
       }
     };
+
     $scope.model.nodes.pageSelected();
   }
 };

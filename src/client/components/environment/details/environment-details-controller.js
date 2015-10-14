@@ -6,7 +6,7 @@ module.exports = function(app) {
 
   app.controller('EnvironmentDetailsController', environmentDetailsController);
 
-  environmentDetailsController.$inject = ['$scope', '$http', 'paginationConfig', '$routeParams'];
+  environmentDetailsController.$inject = ['$scope', 'DataService', 'paginationConfig', '$routeParams'];
 
   function environmentDetailsController($scope, $http, paginationConfig, $routeParams) {
     var siUrl;
@@ -19,8 +19,11 @@ module.exports = function(app) {
         $scope.model.page.title = pageTitle(env.name);
       };
       var errorHandler = function() { console.log('Error while getting environment.'); };
-      $http.get('http://localhost:8080/environments/search/findByKey?key=' + $routeParams.key)
-        .then(successHandler, errorHandler);
+      var Environments = new DataService('/environments/search/findByKey?key=' + $routeParams.key)
+      Environments.get(function(err, res) {
+        if (err) return console.log(err);
+        successHandler(res);
+      });
     })();
     
     $scope.model.serviceInstances = {
@@ -32,7 +35,6 @@ module.exports = function(app) {
             $scope.serviceInstanceListStatus = 'loading';
             var apiPageNumber = pageNumber - 1;
             var query = '?projection=serviceServiceInstances&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
-
             var siRequest = {
                 method: 'GET',
                 url: siUrl + query,
