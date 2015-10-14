@@ -1,4 +1,4 @@
-var pageTitle = require('../../util/util').pageTitle;
+var pageTitle = require('../../util/util.js').pageTitle;
 var EE = require('events').EventEmitter;
 var ee = new EE();
 

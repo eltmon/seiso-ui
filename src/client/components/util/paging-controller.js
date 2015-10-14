@@ -1,42 +1,45 @@
 var pageTitle = require('./util').pageTitle;
 
-module.exports = function(title, basePath, sortKey) {
+module.exports = function(title, name, sortKey) {
+  return PagingController;
 
   /* @ngInject */
-  function pagingController($scope, paginationConfig, dataService, $log) {
-    var pageSize = paginationConfig.itemsPerPage;
-    $scope.model.page.title = pageTitle(title);
-    $scope.model.currentPage = 1;
-    $scope.model.pageSelected = pageSelected;
-    $scope.model.pageSelected();
-    
-    function pageSelected() {
-      var pageNumber = $scope.model.currentPage - 1;
-      var path = basePath + 'page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
-      dataService.get(path).then(success, error);
-    }
+  function PagingController(dataService, paginationConfig, $log) {
+    $log.debug('Entered PagingController');
 
-    function success(res, status, headers) {
-      var totalItems = res.data.page.totalElements;
-      var totalPages = res.data.page.totalPages;
-      
-      // FIXME Handle no-items case [WLW]
-      var lowerIndex = ($scope.model.currentPage - 1) * pageSize + 1;
-      var upperIndex = Math.min(totalItems, $scope.model.currentPage * pageSize);
-      
-      $scope.totalItems = totalItems;
-      $scope.totalPages = totalPages;
-      $scope.lowerIndex = lowerIndex;
-      $scope.upperIndex = upperIndex;
-      for (var key in res.data._embedded) {
-        $scope.items = res.data._embedded[key];
+    var vm = this;
+
+    vm.pageSelected = loadPage;
+    vm.query = {
+      pageNumber: 1,
+      pageSize: paginationConfig.itemsPerPage,
+      sort: sortKey
+    };
+    vm.title = pageTitle(title);
+
+    loadPage();
+
+    function loadPage() {
+      var apiPageNumber = vm.query.pageNumber - 1;
+      var path = '/' + name
+          + '?page=' + apiPageNumber
+          + '&size=' + vm.query.pageSize
+          + '&sort=' + vm.query.sort;
+
+      dataService.get(path).then(success, error);
+
+      function success(response) {
+        $log.debug('Loaded page');
+        // FIXME Handle no-items case [WLW]
+        vm.page = response.data.page;
+        vm.page.lowerIndex = vm.page.number * vm.page.size + 1;
+        vm.page.upperIndex = Math.min(vm.page.totalElements, (vm.page.number + 1) * vm.page.size);
+        vm.items = response.data._embedded[name];
+      }
+
+      function error(response) {
+        $log.error('Error loading page: ' + JSON.stringify(response));
       }
     }
-
-    function error() {
-      $log.error('Error while getting page.');
-    }
   }
-
-  return pagingController;
 };
