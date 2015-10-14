@@ -7,11 +7,11 @@ module.exports = function(app) {
   app.controller('DataCenterListController', dataCenterListController);
 
   /*@ngInject*/
-  function dataCenterListController($scope, generalRegions, $http) {
+  function dataCenterListController($scope, generalRegions, $http, dataService) {
     $scope.listStatus = 'loading';
     $scope.model.page.title = pageTitle('Data Centers');
     
-    var path = 'http://localhost:8080/infrastructureProviders?projection=dataCenters';
+    var path = '/infrastructureProviders?projection=dataCenters';
     var successHandler = function(res) {
 
       var srcProviders = res.data._embedded.infrastructureProviders;
@@ -47,7 +47,7 @@ module.exports = function(app) {
     var errorHandler = function(data) {
       $scope.listStatus = 'error';
     };
-    $http.get(path)
+    dataService.get(path)
       .then(successHandler, errorHandler);
   }
 };

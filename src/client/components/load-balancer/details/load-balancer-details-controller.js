@@ -5,14 +5,12 @@ module.exports = function(app) {
   app.controller('LoadBalancerDetailsController', loadBalancerDetailsController);
 
   /*@ngInject*/
-  function loadBalancerDetailsController($scope, $http, $routeParams) {
+  function loadBalancerDetailsController($scope, $http, $routeParams, dataService) {
     // TODO Move to service
-    $http.get('http://localhost:8080/loadBalancers/search/findByName?name=' + $routeParams.name)
+    dataService.get('/loadBalancers/search/findByName?name=' + $routeParams.name)
       .then(function(res) {
-        console.log('thing: ', res);
         $http.get(res.data._links.self.href + '?projection=loadBalancersList')
           .then(function(res) {
-            console.log('self proj: ', res);
             $scope.model.page.title = pageTitle(res.data.name);
             $scope.loadBalancer = res.data;
           }, function(res) {
@@ -21,7 +19,6 @@ module.exports = function(app) {
 
         $http.get(res.data._links.serviceInstances.href + '?projection=serviceServiceInstances')
           .then(function(res) {
-            console.log(res);
             $scope.serviceInstances = res.data._embedded.serviceInstances; 
           }, function(res) {
             console.log(res);

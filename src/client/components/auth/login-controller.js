@@ -2,8 +2,8 @@ module.exports = function(app) {
   app.controller('LoginController', LoginController);
 
   /* @ngInject */
-  function LoginController($scope, authService) {
+  function LoginController($scope, AuthService) {
     $scope.credentials = {};
-    $scope.login = authService.login;
+    $scope.login = AuthService.login;
   }
 };
