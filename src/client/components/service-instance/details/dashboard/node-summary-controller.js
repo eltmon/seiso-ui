@@ -10,12 +10,10 @@ module.exports = function(app) {
     $scope.nodeStatsStatus = 'loading';
     
     var successHandler = function(res) {
-      console.log(res);
       var siUrl = res.data._links.self.href + '/nodeSummary';
-  
       dataService.get(siUrl).then(nodeSummarySuccess, function(err) {return console.log(err);});
+
       function nodeSummarySuccess(res) {
-        console.log(res);
         var nodeStats = res.data;
         enrichNodeStats(nodeStats);
         $scope.nodeStats = nodeStats;
@@ -47,7 +45,12 @@ module.exports = function(app) {
       }
     };
 
+    var errorHandler = function(res) {
+      $scope.nodeStatsStatus = 'error';
+      return;
+    };
+
     dataService.get('/serviceInstances/search/findByKey?key=' + $routeParams.key)
-      .then(successHandler, function(err) {$scope.nodeStatsStatus = 'error';return;});
+      .then(successHandler, errorHandler);
   }
 };

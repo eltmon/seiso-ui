@@ -1,27 +1,27 @@
 <!-- TODO DRY up the health and rotation breakdowns -->
-<div ng-controller="NodeBreakdownController" class="row">
+<div data-ng-controller="NodeBreakdownController" class="row">
   <div class="col-md-6">
     <section>
       <header>
         <h1>
           Nodes by Health
-          <span ng-show="healthBreakdownStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+          <span data-ng-show="healthBreakdownStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
         </h1>
       </header>
-      <div ng-switch="healthBreakdownStatus">
-        <div ng-switch-when="error">
+      <div data-ng-switch="healthBreakdownStatus">
+        <div data-ng-switch-when="error">
           <p><i class="fa fa-exclamation-triangle"></i> Couldn't get health breakdown.</p>
         </div>
-        <div ng-switch-when="loaded">
-          <div ng-if="healthBreakdown.length == 0">
+        <div data-ng-switch-when="loaded">
+          <div data-ng-if="healthBreakdown.length == 0">
             <p><i class="fa fa-info-circle"></i> No nodes.</p>
           </div>
-          <div ng-if="healthBreakdown.length > 0">
+          <div data-ng-if="healthBreakdown.length > 0">
             <ul class="list-inline well well-sm">
-              <li ng-repeat="item in healthBreakdown" style="margin-right:10px">
+              <li data-ng-repeat="item in healthBreakdown" style="margin-right:10px">
                 <i class="fa fa-circle fa-circle-{{item.statusType}}"></i>
-                <span ng-bind="item.count"></span>
-                <span ng-bind="item.statusName"></span>
+                <span data-ng-bind="item.count"></span>
+                <span data-ng-bind="item.statusName"></span>
               </li>
             </ul>
           </div>
@@ -34,23 +34,23 @@
       <header>
         <h1>
           Nodes by Rotation
-          <span ng-show="rotationBreakdownStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+          <span data-ng-show="rotationBreakdownStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
         </h1>
       </header>
-      <div ng-switch="rotationBreakdownStatus">
-        <div ng-switch-when="error">
+      <div data-ng-switch="rotationBreakdownStatus">
+        <div data-ng-switch-when="error">
           <p><i class="fa fa-exclamation-triangle"></i> Couldn't get rotation breakdown.</p>
         </div>
-        <div ng-switch-when="loaded">
-          <div ng-if="rotationBreakdown.length === 0">
+        <div data-ng-switch-when="loaded">
+          <div data-ng-if="rotationBreakdown.length === 0">
             <p><i class="fa fa-info-circle"></i> No nodes.</p>
           </div>
-          <div ng-if="rotationBreakdown.length > 0">
+          <div data-ng-if="rotationBreakdown.length > 0">
             <ul class="list-inline well well-sm">
-              <li ng-repeat="item in rotationBreakdown" style="margin-right:10px">
+              <li data-ng-repeat="item in rotationBreakdown" style="margin-right:10px">
                 <i class="fa fa-circle fa-circle-{{item.statusType}}"></i>
-                <span ng-bind="item.count"></span>
-                <span ng-bind="item.statusName"></span>
+                <span data-ng-bind="item.count"></span>
+                <span data-ng-bind="item.statusName"></span>
               </li>
             </ul>
           </div>

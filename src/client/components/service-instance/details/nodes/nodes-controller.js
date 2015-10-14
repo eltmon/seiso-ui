@@ -18,6 +18,7 @@ module.exports = function(app) {
           paginationConfig.itemsPerPage + '&sort=name';
 
         var successHandler = function(data) {
+          console.log('si nodes ctrl:', data);
           var nodePage = data;
           $scope.metadata = nodePage.metadata;
           $scope.nodeRows = nodePageToNodeRows(nodePage);

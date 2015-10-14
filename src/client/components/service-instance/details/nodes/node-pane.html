@@ -1,34 +1,34 @@
-<section ng-controller="ServiceInstanceNodesController">
+<section data-ng-controller="ServiceInstanceNodesController">
   <header>
     <h1>
       Nodes
-      <span ng-show="nodeListStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
-      <span ng-show="nodeListStatus == 'loaded'">
+      <span data-ng-show="nodeListStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+      <span data-ng-show="nodeListStatus == 'loaded'">
         <!-- TODO Scope metadata to the node list, since we could conceivably have other pages here as well. -->
-        <span ng-if="metadata.totalItems == 0">
+        <span data-ng-if="metadata.totalItems == 0">
           <small>(0)</small>
         </span>
-        <span ng-if="metadata.totalItems &gt; 0">
+        <span data-ng-if="metadata.totalItems > 0">
           <small>({{metadata.pageLowIndex + 1}}-{{metadata.pageHighIndex + 1}} of {{metadata.totalItems}})</small>
         </span>
       </span>
     </h1>
   </header>
-  <div ng-switch="nodeListStatus">
+  <div data-ng-switch="nodeListStatus">
     <!-- No need for spinner here since context already provides one -->
-    <div ng-switch-when="error">
+    <div data-ng-switch-when="error">
       <div class="alert alert-warning">
         <i class="fa fa-times-circle"></i> Couldn't get nodes.
       </div>
     </div>
-    <div ng-switch-when="loaded">
-      <div ng-if="nodeRows.length == 0">
+    <div data-ng-switch-when="loaded">
+      <div data-ng-if="nodeRows.length == 0">
         <p><i class="fa fa-info-circle"></i> No nodes.</p>
       </div>
-      <div ng-if="nodeRows.length &gt; 0">
+      <div data-ng-if="nodeRows.length > 0">
         <!-- TODO Refactor this and node-alerts.html, which are almost exactly the same. -->
-        <div class="pagination-wrapper" ng-if="metadata.totalPages &gt; 1">
-          <pagination total-items="metadata.totalItems" ng-model="model.nodes.currentPage" ng-change="model.nodes.pageSelected()" />
+        <div class="pagination-wrapper" data-ng-if="metadata.totalPages > 1">
+          <pagination total-items="metadata.totalItems" data-ng-model="model.nodes.currentPage" data-ng-change="model.nodes.pageSelected()" />
         </div>
         <table class="table table-striped">
           <thead>
@@ -42,39 +42,39 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="nodeRow in nodeRows" ng-init="
+            <tr data-ng-repeat="nodeRow in nodeRows" data-ng-init="
                 firstRow = nodeRow.displayName;
                 healthStatusTypeKey = nodeRow.healthStatus._embedded.statusType.key;
                 nodeAggregateRotationStatusTypeKey = nodeRow.nodeAggregateRotationStatus._embedded.statusType.key;
                 ipAggregateRotationStatusTypeKey = nodeRow.ipAggregateRotationStatus._embedded.statusType.key;">
                 
               <td>
-                <div ng-if="firstRow">
-                  <a ng-href="{{uri('nodes', nodeRow.name)}}">{{nodeRow.displayName}}</a>
+                <div data-ng-if="firstRow">
+                  <a data-ng-href="{{uri('nodes', nodeRow.name)}}">{{nodeRow.displayName}}</a>
                 </div>
               </td>
               <td>
-                <div ng-if="firstRow">{{nodeRow.version}}</div>
+                <div data-ng-if="firstRow">{{nodeRow.version}}</div>
               </td>
   
               <td style="white-space:nowrap;">
-                <div ng-if="firstRow">
+                <div data-ng-if="firstRow">
                   <i class="fa fa-circle fa-circle-{{healthStatusTypeKey}}"></i>
                   {{nodeRow.healthStatus.name}}
                 </div>
               </td>
               <!--
               <td style="white-space:nowrap;">
-                <div ng-if="firstRow">
+                <div data-ng-if="firstRow">
                   <i class="fa fa-circle fa-circle-{{nodeAggregateRotationStatusTypeKey}}"></i>
                   {{nodeRow.nodeAggregateRotationStatus.name}}
                 </div>
               </td>
               -->
-              <td><span ng-if="nodeRow.ipAddress" ng-bind="nodeRow.ipAddress"></span></td>
-              <td><span ng-if="ipAddressRoles.length &gt; 1" ng-bind="nodeRow.ipAddressRole"></span></td>
+              <td><span data-ng-if="nodeRow.ipAddress" data-ng-bind="nodeRow.ipAddress"></span></td>
+              <td><span data-ng-if="ipAddressRoles.length > 1" data-ng-bind="nodeRow.ipAddressRole"></span></td>
               <td style="white-space:nowrap;">
-                <span ng-if="nodeRow.ipAddress">
+                <span data-ng-if="nodeRow.ipAddress">
                   <i class="fa fa-circle fa-circle-{{ipAggregateRotationStatusTypeKey}}"></i>
                   <a rotation-details-popover="/v1/nodes/{{nodeRow.name}}/ip-addresses/{{nodeRow.ipAddress}}">{{nodeRow.ipAggregateRotationStatus.name}}</a>
                 </span>
@@ -82,8 +82,8 @@
             </tr>
           </tbody>
         </table>
-        <div class="pagination-wrapper" ng-if="metadata.totalPages &gt; 1">
-          <pagination total-items="metadata.totalItems" ng-model="model.nodes.currentPage" ng-change="model.nodes.pageSelected()" />
+        <div class="pagination-wrapper" data-ng-if="metadata.totalPages > 1">
+          <pagination total-items="metadata.totalItems" data-ng-model="model.nodes.currentPage" data-ng-change="model.nodes.pageSelected()" />
         </div>
       </div>
     </div>

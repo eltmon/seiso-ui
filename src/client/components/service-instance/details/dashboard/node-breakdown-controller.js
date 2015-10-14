@@ -8,7 +8,6 @@ module.exports = function(app) {
       $scope[statusVar] = 'loading';
 
       var successHandler = function(res) {
-        console.log('breakdowns: ', res);
         var data = res.data._embedded ? res.data._embedded.breakdownItems : [];
         $scope[resultVar] = data;
         $scope[statusVar] = 'loaded';
@@ -16,7 +15,6 @@ module.exports = function(app) {
 
       var errorHandler = function(err) {
         $scope[statusVar] = 'error';
-        return console.log(err);
       };
 
       dataService.get('/serviceInstances/search/findByKey?key=' + $routeParams.key)
@@ -24,7 +22,7 @@ module.exports = function(app) {
           var siUrl = res.data._links.self.href + '/' + path;
           dataService.get(siUrl)
             .then(successHandler, errorHandler);
-      }, function(err) {return console.log(err);});
+      }, errorHandler);
     }
     getBreakdown('healthBreakdownStatus', 'healthBreakdown', 'healthBreakdown');
     getBreakdown('rotationBreakdownStatus', 'rotationBreakdown', 'rotationBreakdown');
