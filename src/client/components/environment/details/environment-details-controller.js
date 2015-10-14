@@ -1,4 +1,4 @@
-var pageTitle = require('../../util/util').pageTitle;
+var pageTitle = require('../../util/util.js').pageTitle;
 var EE = require('events').EventEmitter;
 var ee = new EE();
 
@@ -6,8 +6,7 @@ module.exports = function(app) {
 
   app.controller('EnvironmentDetailsController', environmentDetailsController);
 
-  environmentDetailsController.$inject = ['$scope', 'DataService', 'paginationConfig', '$routeParams'];
-
+  /* @ngInject */
   function environmentDetailsController($scope, $http, paginationConfig, $routeParams) {
     var siUrl;
     (function getEnvironment() {
