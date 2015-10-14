@@ -11,7 +11,6 @@ module.exports = function(app) {
         $scope.nodeListStatus = 'loading';
         var pageNumber = $scope.model.nodes.currentPage;
         var apiPageNumber = pageNumber - 1;
-
         var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + 
           $routeParams.key
           + '&view=service-instance-nodes&page=' + apiPageNumber + '&size=' + 

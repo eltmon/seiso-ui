@@ -5,17 +5,17 @@ module.exports = function(app) {
   app.controller('TypeListController', TypeListController);
 
   /*@ngInject*/
-  function TypeListController($scope, DataService, paginationConfig) {
+  function TypeListController($scope, dataService, paginationConfig) {
     $scope.model.page.title = pageTitle('Types');
     var path = '/serviceTypes';
-    var ServiceTypes = new DataService(path);
     var successHandler = function(res, status, headers) {
       $scope.items = res.data._embedded.serviceTypes;
     };
+    var errorHandler = function(err) {
+      $scope.errors = [];
+      $scope.errors.push(err);
+    };
 
-    ServiceTypes.get(function(err, res) {
-      if (err) return console.log(err);
-      successHandler(res);
-    });
+    dataService.get(path).then(successHandler, errorHandler);
   }
 };

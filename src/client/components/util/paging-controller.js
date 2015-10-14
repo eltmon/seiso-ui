@@ -1,10 +1,9 @@
 var pageTitle = require('./util').pageTitle;
-var seisoWebUri = 'http://localhost:8080';
 
 module.exports = function(title, basePath, sortKey) {
 
   /* @ngInject */
-  function pagingController($scope, paginationConfig, $http, $log) {
+  function pagingController($scope, paginationConfig, dataService, $log) {
     var pageSize = paginationConfig.itemsPerPage;
     $scope.model.page.title = pageTitle(title);
     $scope.model.currentPage = 1;
@@ -14,11 +13,10 @@ module.exports = function(title, basePath, sortKey) {
     function pageSelected() {
       var pageNumber = $scope.model.currentPage - 1;
       var path = basePath + 'page=' + pageNumber + '&size=' + pageSize + '&sort=' + sortKey; 
-      $http.get(path).then(success, error);
+      dataService.get(path).then(success, error);
     }
 
     function success(res, status, headers) {
-      console.log(res);
       var totalItems = res.data.page.totalElements;
       var totalPages = res.data.page.totalPages;
       

@@ -17,6 +17,7 @@ module.exports = function(app) {
           '&size=' + paginationConfig.itemsPerPage + '&sort=name';
 
         var successHandler = function(res) {
+          console.log('node alerts res: ', res);
           $scope.nodeAlertsPage = res.data._embedded;
           $scope.metadata = $scope.nodeAlertsPage.metadata;
           $scope.nodeRows = nodePageToNodeRows($scope.nodeAlertsPage);
