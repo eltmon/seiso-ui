@@ -12,11 +12,7 @@ module.exports = function(app) {
       .when('/mb/:type', viewRoute('mb/profile'))
       .when('/data-centers', viewRoute('data-center/list/data-center-list'))
       .when('/data-centers/:key', route('DataCenterDetails', 'data-center/details/data-center-details'))
-      .when('/environments', {
-        controller: 'EnvironmentListController',
-        controllerAs: 'vm',
-        templateUrl: 'view/environment/list/environment-list.html'
-      })
+      .when('/environments', route('EnvironmentList', 'environment/list/environment-list'))
       .when('/environments/:key', route('EnvironmentDetails', 'environment/details/environment-details')) 
       .when('/load-balancers', route('LoadBalancerList', 'load-balancer/list/load-balancer-list'))
       .when('/load-balancers/:name', route('LoadBalancerDetails', 'load-balancer/details/load-balancer-details'))
@@ -24,11 +20,7 @@ module.exports = function(app) {
       .when('/nodes/:name', route('NodeDetails', 'service-instance/details/nodes/details/node-details'))
       .when('/people', route('PersonList', 'person/list/person-list'))
       .when('/people/:username', route('PersonDetails', 'person/details/person-details'))
-      .when('/services', {
-        controller: 'ServiceListController',
-        controllerAs: 'vm',
-        templateUrl: 'view/service/list/service-list.html'
-      })
+      .when('/services', route('ServiceList', 'service/list/service-list'))
       .when('/services/:key', viewRoute('service/details/service-details'))
       .when('/service-instances', route('ServiceInstanceList', 'service-instance/list/service-instance-list'))
       .when('/service-instances/:key', viewRoute('service-instance/details/service-instance-details'))
@@ -39,6 +31,7 @@ module.exports = function(app) {
     function route(controllerName, viewName) {
       return {
         controller: controllerName + 'Controller',
+        controllerAs: 'vm',
         templateUrl: 'view/' + viewName + '.html'
       };
     }

@@ -1,5 +1,5 @@
-var pagingController = require('../../util/paging-controller');
+var PagingController = require('../../util/paging-controller.js');
 
 module.exports = function(app) {
-	app.controller('ServiceInstanceListController', pagingController('Service Instances', '/serviceInstances?projection=serviceServiceInstances&', 'key'));
+	app.controller('ServiceInstanceListController', PagingController('Service Instances', 'serviceInstances', 'key'));
 };
