@@ -11,15 +11,17 @@ module.exports = function(app) {
 
     dataService.get('/statusTypes')
       .then(function(res) {
+        console.log(res);
           $scope.statusTypes = res.data._embedded.statusTypes;
         }, errorHandler);
   
-    dataService.get('/healthStatuses')
+    dataService.get('/healthStatuses?projection=healthStatusDetails')
       .then(function(res) {
+        console.log(res);
           $scope.healthStatuses = res.data._embedded.healthStatuses;
         }, errorHandler);
 
-    dataService.get('/rotationStatuses')
+    dataService.get('/rotationStatuses?projection=rotationStatusDetails')
       .then(function(res) {
           $scope.rotationStatuses = res.data._embedded.rotationStatuses;
         }, errorHandler);
