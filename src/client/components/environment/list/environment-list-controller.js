@@ -1,5 +1,3 @@
-// var listController = require('../../util/list-controller');
-
 module.exports = function(app) {
   app.controller('EnvironmentListController', EnvironmentListController);
 

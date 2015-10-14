@@ -1,5 +1,5 @@
-var pagingController = require('../../util/paging-controller');
+var PagingController = require('../../util/paging-controller.js');
 
 module.exports = function(app) {
-	app.controller('LoadBalancerListController', pagingController('Load Balancers', 'http://localhost:8080/loadBalancers?projection=loadBalancersList&', 'name'));
+  app.controller('LoadBalancerListController', PagingController('Load Balancers', 'loadBalancers', 'name'));
 };

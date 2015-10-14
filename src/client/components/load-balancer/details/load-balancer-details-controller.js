@@ -1,13 +1,13 @@
-var pageTitle = require('../../util/util').pageTitle;
+var pageTitle = require('../../util/util.js').pageTitle;
 
 module.exports = function(app) {
 
   app.controller('LoadBalancerDetailsController', loadBalancerDetailsController);
 
-  /*@ngInject*/
+  /* @ngInject */
   function loadBalancerDetailsController($scope, $http, $routeParams) {
     // TODO Move to service
-    $http.get('http://localhost:8080/loadBalancers/search/findByName?name=' + $routeParams.name)
+    $http.get('http://localhost:8080/api/loadBalancers/search/findByName?name=' + $routeParams.name)
       .then(function(res) {
         console.log('thing: ', res);
         $http.get(res.data._links.self.href + '?projection=loadBalancersList')

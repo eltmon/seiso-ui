@@ -6,12 +6,12 @@ module.exports = function(app) {
   
   app.controller('DataCenterListController', dataCenterListController);
 
-  /*@ngInject*/
+  /* @ngInject */
   function dataCenterListController($scope, generalRegions, $http) {
     $scope.listStatus = 'loading';
     $scope.model.page.title = pageTitle('Data Centers');
     
-    var path = 'http://localhost:8080/infrastructureProviders?projection=dataCenters';
+    var path = 'http://localhost:8080/api/infrastructureProviders?projection=dataCenters';
     var successHandler = function(res) {
 
       var srcProviders = res.data._embedded.infrastructureProviders;
