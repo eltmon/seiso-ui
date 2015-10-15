@@ -11,14 +11,15 @@ module.exports = function(app) {
         $scope.nodeListStatus = 'loading';
         var pageNumber = $scope.model.nodes.currentPage;
         var apiPageNumber = pageNumber - 1;
-        var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + 
-          $routeParams.key
-          + '&view=service-instance-nodes&page=' + apiPageNumber + '&size=' + 
-          paginationConfig.itemsPerPage + '&sort=name';
+        var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + $routeParams.key
+          + '&view=service-instance-nodes'
+          + '&page=' + apiPageNumber 
+          + '&size=' + paginationConfig.itemsPerPage 
+          + '&sort=name';
 
-        var successHandler = function(data) {
-          console.log('si nodes ctrl:', data);
-          var nodePage = data;
+        var successHandler = function(res) {
+          console.log('si nodes ctrl:', res);
+          var nodePage = res.data.page;
           $scope.metadata = nodePage.metadata;
           $scope.nodeRows = nodePageToNodeRows(nodePage);
           $scope.nodeListStatus = 'loaded';

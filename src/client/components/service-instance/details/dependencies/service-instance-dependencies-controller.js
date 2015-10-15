@@ -2,12 +2,11 @@ module.exports = function(app) {
 
   app.controller('ServiceInstanceDependenciesController', serviceInstanceDependenciesController);
 
-  serviceInstanceDependenciesController.$inject = ['$scope', '$http', '$routeParams'];
-  
-  function serviceInstanceDependenciesController($scope, $http, $routeParams) {
+  /* @ngInject */
+  function serviceInstanceDependenciesController($scope, dataService, $routeParams) {
     $scope.dependenciesStatus = 'loading';
     var siKey = $routeParams.key;
-    var path = 'http://localhost:8080/serviceInstanceDependencies/search/findByDependencyKey?key=' + siKey;
+    var path = '/serviceInstanceDependencies/search/findByDependencyKey?key=' + siKey;
     var successHandler = function(res) {
       console.log(res);
       $scope.dependencies = res.data._embedded.serviceInstanceDependencies;
@@ -16,7 +15,7 @@ module.exports = function(app) {
     var errorHandler = function() {
       $scope.dependenciesStatus = 'error';
     };
-    $http.get(path)
+    dataService.get(path)
       .then(successHandler, errorHandler);
   }
 };

@@ -26,7 +26,7 @@ module.exports = function(app) {
         $scope.loadBalancer = si.loadBalancer;
         $scope.ports = si.ports;
         $scope.service = service;
-        $scope.owner = 'change this';
+        $scope.owner;
         $scope.dashboards = si.dashboards;
         $scope.checks = si.seyrenChecks;
     
