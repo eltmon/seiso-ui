@@ -1,4 +1,5 @@
-<div data-ng-controller="EnvironmentListController" data-ng-switch="vm.listStatus">
+<!-- TODO Replace loadStatus with deferred checks -->
+<div data-ng-switch="vm.loadStatus">
   <div data-ng-switch-when="loading">
     <div id="page-spinner-panel"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
   </div>
@@ -13,14 +14,16 @@
       <h1>
         Environments
         <span data-ng-if="vm.items.length === 0"><small>(0)</small></span>
-        <!-- FIXME Convert to paging repo -->
-        <span data-ng-if="vm.items.length > 0"><small>(1-{{vm.items.length}} of {{vm.items.length}})</small></span>
+        <span data-ng-if="vm.items.length > 0"><small>({{vm.page.lowerIndex}}-{{vm.page.upperIndex}} of {{vm.page.totalElements}})</small></span>
       </h1>
       
       <!-- <input type="text" placeholder="Filter By..." data-ng-model="envFilter" autofocus> -->
     </div>
     <div data-ng-if="vm.items.length == 0">
       <p><i class="fa fa-info-circle"></i> No environments.</p>
+    </div>
+    <div class="pagination-wrapper" data-ng-if="vm.page.totalPages > 1">
+      <pagination data-total-items="vm.page.totalElements" data-ng-model="vm.query.pageNumber" data-ng-change="vm.pageSelected()" />
     </div>
     <div data-ng-if="vm.items.length > 0">
       <table class="table table-striped">
@@ -45,6 +48,9 @@
           </tr>
         </tbody>
       </table>
+    <div class="pagination-wrapper" data-ng-if="vm.page.totalPages > 1">
+      <pagination data-total-items="vm.page.totalElements" data-ng-model="vm.query.pageNumber" data-ng-change="vm.pageSelected()" />
+    </div>
     </div>
   </div>
 </div>
