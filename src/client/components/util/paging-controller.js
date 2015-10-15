@@ -15,6 +15,7 @@ module.exports = function(title, name, sortKey) {
       pageSize: paginationConfig.itemsPerPage,
       sort: sortKey
     };
+    // FIXME Need to fix scoping to get this to show up in the HTML page title.
     vm.title = pageTitle(title);
 
     loadPage();
@@ -26,19 +27,23 @@ module.exports = function(title, name, sortKey) {
           + '&size=' + vm.query.pageSize
           + '&sort=' + vm.query.sort;
 
+      vm.loadStatus = 'loading';
+
       dataService.get(path).then(success, error);
 
       function success(response) {
-        $log.debug('Loaded page');
-        // FIXME Handle no-items case [WLW]
+        $log.debug('Loaded data');
+        vm.loadStatus = 'loaded';
         vm.page = response.data.page;
+        // FIXME Handle no-items case [WLW]
         vm.page.lowerIndex = vm.page.number * vm.page.size + 1;
         vm.page.upperIndex = Math.min(vm.page.totalElements, (vm.page.number + 1) * vm.page.size);
         vm.items = response.data._embedded[name];
       }
 
       function error(response) {
-        $log.error('Error loading page: ' + JSON.stringify(response));
+        $log.error('Error loading data: ' + JSON.stringify(response));
+        vm.loadStatus = 'error';
       }
     }
   }
