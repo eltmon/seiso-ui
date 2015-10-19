@@ -11,15 +11,39 @@ module.exports = function(app) {
     $scope.$on('onService', function(event) {
       $scope.service = event.targetScope.service;
       var successHandler = function(res) {
-        console.log(res);
+        console.log('serviceServiceInstances: ', res);
         $scope.serviceInstances = res.data._embedded.serviceInstances;
         $scope.serviceInstancesStatus = 'loaded';
+        getSiNodes($scope.service);
+
       };
       var errorHandler = function(res) {
         $scope.serviceInstancesStatus = 'error';
       };
-      dataService.get(event.targetScope.service._links.serviceInstances.href + '?projection=serviceServiceInstances')
+
+      var siLink = event.targetScope.service._links.serviceInstances.href;
+      dataService.get(siLink + '?projection=serviceInstanceDetails')
         .then(successHandler, errorHandler);
+
+      // TODO: we'll want to clean this up a bit. Possibly getting the node summary details with the
+      // request to get all service instances.
+      function getSiNodes(service) {
+        var sSIHref = service._links.serviceInstances.href;
+        dataService.get(sSIHref + '?mode=nodeDetails')
+          .then(function(res) {
+            var nodeDetails = res.data._embedded.serviceInstanceResources;
+            var sis = $scope.serviceInstances;
+            for (var i = 0; i < sis.length; i++) {
+              for (var j = 0; j < nodeDetails.length; j++) {
+                if (nodeDetails[j].key == $scope.serviceInstances[i].key) {
+                  $scope.serviceInstances[i].nodesDetails = nodeDetails[j];
+                }
+              }
+            }
+            console.log('$scope.sis: ', $scope.serviceInstances);
+          });
+      }
+
     });
   }
 };

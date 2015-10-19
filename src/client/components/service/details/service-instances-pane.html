@@ -35,7 +35,7 @@
           <tbody>
             <tr data-ng-repeat="si in serviceInstances">
               <td><a ng-href="{{uri('service-instances', si.key)}}">{{si.key}}</a></td>
-              <td><i class="fa fa-circle fa-circle-{{si.healthKey}}"></i> {{si.percentHealthy}} ({{si.numHealthy}} of {{si.numNodes}})</td>
+              <td><i class="fa fa-circle fa-circle-{{si.nodesDetails.healthKey}}"></i> {{si.nodesDetails.percentHealthy}} ({{si.nodesDetails.numHealthy}} of {{si.nodesDetails.numNodes}})</td>
               <td><a ng-href="{{uri('environments', si.environment.key)}}">{{si.environment.name}}</a></td>
               <td><a ng-href="{{uri('data-centers', si.dataCenter.key)}}">{{si.dataCenter.name}}</a></td>
             </tr>
