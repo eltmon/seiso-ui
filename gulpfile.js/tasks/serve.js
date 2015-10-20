@@ -8,9 +8,7 @@ function task() {
   var watchPath = config.paths.client + '/**';
 
   browserSync.init({
-    server: {
-      baseDir: config.paths.out
-    }
+    server: config.paths.out
   });
 
   gulp.watch(watchPath, ['watch:reload']);
