@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var config = require('../config');
 var browserSync = require('browser-sync').create();
 
-gulp.task('serve', ['build'], function() {
+function task() {
   var watchPath = config.paths.client + '/**';
 
   browserSync.init({
@@ -13,4 +13,7 @@ gulp.task('serve', ['build'], function() {
   });
 
   gulp.watch([watchPath], ['watch:reload']);
-});
+}
+
+gulp.task('serve', ['build'], task);
+module.exports = task;

@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
 
-gulp.task('html', function() {
+function task() {
   var opts = {
     conditionals: true,
     spare: true,
@@ -14,4 +14,7 @@ gulp.task('html', function() {
   return gulp.src(config.paths.components + '/**/*.html')
       .pipe($.minifyHtml(opts))
       .pipe(gulp.dest(config.paths.out + '/view'));
-});
+}
+
+gulp.task('html', task);
+module.exports = task;
