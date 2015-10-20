@@ -3,6 +3,11 @@
 var gulp = require('gulp');
 var config = require('../config');
 
-gulp.task('watch', function() {
-  gulp.watch([config.paths.client + '/**'], ['watch:reload']);
-});
+function task() {
+  console.log('Watching');
+  var watchPath = config.paths.client + '/**';
+  gulp.watch([watchPath], ['watch:reload']);
+}
+
+gulp.task('watch', task);
+module.exports = task;

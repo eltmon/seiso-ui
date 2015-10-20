@@ -5,8 +5,9 @@ var config = require('../config');
 
 // Grouped by what can run in parallel.
 // Really I think all of these can run in parallel. Collapse? [WLW]
+// Exclude html:index since we have to do that after building all the CSS and JS.
 var assetTasks = ['fontawesome', 'fonts', 'images'];
-var codeTasks = ['bs:css', 'bs:js', 'html', 'html:index', 'jquery', 'less', 'webpack'];
+var codeTasks = ['bs:css', 'bs:js', 'html', 'jquery', 'less', 'webpack'];
 
 module.exports = function(env) {
   return {

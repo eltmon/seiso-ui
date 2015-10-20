@@ -3,6 +3,9 @@
 var gulp = require('gulp');
 var server = require('../../server.js');
 
-gulp.task('server', function() {
+function task() {
   return server.start();
-});
+}
+
+gulp.task('server', task);
+module.exports = task;
