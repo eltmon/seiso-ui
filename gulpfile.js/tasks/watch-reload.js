@@ -3,9 +3,9 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 
-function task() {
+function watchReloadTask() {
   browserSync.reload();
 }
 
-gulp.task('watch:reload', ['build'], task);
-module.exports = task;
+gulp.task('watch:reload', ['build'], watchReloadTask);
+module.exports = watchReloadTask;
