@@ -1,6 +1,7 @@
 /.project
 /bower_components/
-/build/
+**/build/
 /node_modules/
 /static/
 **/.DS_Store
+
