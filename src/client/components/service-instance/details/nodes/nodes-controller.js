@@ -1,4 +1,5 @@
 var nodePageToNodeRows = require('../../../util/ng-mappers.js').nodePageToNodeRows;
+var async = require('async');
 
 module.exports = function(app) {
   app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
@@ -12,17 +13,31 @@ module.exports = function(app) {
         var pageNumber = $scope.model.nodes.currentPage;
         var apiPageNumber = pageNumber - 1;
         var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + $routeParams.key
-          + '&view=service-instance-nodes'
           + '&page=' + apiPageNumber 
           + '&size=' + paginationConfig.itemsPerPage 
-          + '&sort=name';
+          + '&sort=name'
+          + '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
-          console.log('si nodes ctrl:', res);
+          console.log('si nodes ctrl: ', res);
+          $scope.metadata = res.data.page;
+
+            async.each(res.data._embedded.nodes, function(node, cb) {
+              dataService.get(node._links.self.href + '?projection=serviceInstanceNodes')
+                .then(function(res) {
+                  console.log(res);
+                  cb();
+                }, function(res) {
+                  cb(res);
+                });
+            }, function(err) {
+              if (res) return console.log(res);
+              console.log('done');
+            });
           var nodePage = res.data.page;
-          $scope.metadata = nodePage.metadata;
-          $scope.nodeRows = nodePageToNodeRows(nodePage);
-          $scope.nodeListStatus = 'loaded';
+          
+          // $scope.nodeRows = nodePageToNodeRows(nodePage);
+          // $scope.nodeListStatus = 'loaded';
         };
 
         dataService.get(requestUrl).then(successHandler, function(err) {

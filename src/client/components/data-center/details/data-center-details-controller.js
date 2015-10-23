@@ -34,7 +34,7 @@ module.exports = function(app) {
             var apiPageNumber = pageNumber - 1;
             // FIXME
             var reqUrl = '/serviceInstances/search/findByDataCenterWithCounts?key=' + $scope.dataCenter.key;
-              var pageQuery = '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
+            var pageQuery = '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
 
             var successHandler = function(res) {
               var page = res.data;
@@ -46,7 +46,7 @@ module.exports = function(app) {
 
             var errorHandler = function(res) {
               $scope.serviceInstanceListStatus = 'error';
-            }
+            };
             dataService.get(reqUrl + pageQuery)
               .then(successHandler, errorHandler);
 

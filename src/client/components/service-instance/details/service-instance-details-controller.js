@@ -26,7 +26,7 @@ module.exports = function(app) {
         $scope.loadBalancer = si.loadBalancer;
         $scope.ports = si.ports;
         $scope.service = service;
-        $scope.owner;
+        $scope.owner = '';
         $scope.dashboards = si.dashboards;
         $scope.checks = si.seyrenChecks;
     
@@ -47,10 +47,14 @@ module.exports = function(app) {
       
         $scope.serviceInstanceStatus = 'loaded';
       }
-    };
+    }
 
     var errorHandler = function() {
       $scope.serviceInstanceStatus = 'error';
+    };
+
+    var gError = function(err) {
+      return console.log(err);
     };
 
     function getServiceOwner(serviceHref) {
@@ -60,8 +64,8 @@ module.exports = function(app) {
           dataService.get(ownerHref)
             .then(function(res) {
               $scope.owner = res.data;
-            }, errorHandler);
-        }, errorHandler);
+            }, gError);
+        }, gError);
     }
     
   }
