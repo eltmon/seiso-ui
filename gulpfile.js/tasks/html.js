@@ -4,17 +4,17 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
 
-function task() {
+function htmlPartials() {
   var opts = {
     conditionals: true,
     spare: true,
     empty: true,
     quotes: true
   };
-  return gulp.src(config.paths.components + '/**/*.html')
+  return gulp.src(config.components + '/**/*.html')
       .pipe($.minifyHtml(opts))
-      .pipe(gulp.dest(config.paths.out + '/view'));
+      .pipe(gulp.dest(config.out + '/view'));
 }
 
-gulp.task('html', task);
-module.exports = task;
+gulp.task('html', htmlPartials);
+module.exports = htmlPartials;

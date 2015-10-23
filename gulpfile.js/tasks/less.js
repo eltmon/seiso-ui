@@ -5,10 +5,10 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
 
 function task() {
-  return gulp.src(config.paths.client + '/css/**/*.less')
+  return gulp.src(config.client + '/css/**/*.less')
       .pipe($.less())
       .pipe($.minifyCss())
-      .pipe(gulp.dest(config.paths.out + '/css'));
+      .pipe(gulp.dest(config.out + '/css'));
 }
 
 gulp.task('less', task);

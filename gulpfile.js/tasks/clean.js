@@ -5,7 +5,7 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
 
 function task() {
-  return gulp.src(config.paths.out + '/*', { read: false })
+  return gulp.src(config.out + '/*', { read: false })
       .pipe($.rimraf({ force: true }));
 }
 

@@ -5,8 +5,8 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
 
 function task() {
-  var srcPath = config.paths.nodeModules + '/bootstrap/dist/css/bootstrap.min.css';
-  var destPath = config.paths.out + '/css';
+  var srcPath = config.nodeModules + '/bootstrap/dist/css/bootstrap.min.css';
+  var destPath = config.out + '/css';
   return gulp.src(srcPath)
       .pipe(gulp.dest(destPath));
 }

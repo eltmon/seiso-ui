@@ -2,8 +2,4 @@
 
 var gulp = require('gulp');
 
-function task() {
-}
-
-gulp.task('default', ['build'], task);
-module.exports = task;
+gulp.task('default', ['build']);

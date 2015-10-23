@@ -5,8 +5,8 @@ var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
 var args = require('yargs').argv;
 
-function task() {
-  return gulp.src(config.paths.components + '/**/*.js')
+function vetTask() {
+  return gulp.src([config.components + '/**/*.js', config.spec])
       .pipe($.if(args.verbose, $.print()))
       .pipe($.jscs({ fix: true }))
       .pipe($.jshint())
@@ -14,5 +14,5 @@ function task() {
       .pipe($.jshint.reporter('fail'));
 }
 
-gulp.task('vet', task);
-module.exports = task;
+gulp.task('vet', vetTask);
+module.exports = vetTask;
