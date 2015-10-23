@@ -19,11 +19,19 @@ Run the build process to set up the static folder from which the site is served.
 $ gulp build
 ```
 
+### Tests/Spec
+```
+$ gulp spec
+```
+### jshint and jscs
+```
+$ gulp vet
+```
+
 ### Run
 
 ```
-$ node server.js
+$ gulp serve
 ```
 
-- Open your browser and browse to localhost:3000.
 
