@@ -1,8 +1,5 @@
 'use strict';
 
-var jQuery = require('jquery')(window);
-var async = require('async');
-
 require('d3');
 require('angular');
 require('angular-route');
