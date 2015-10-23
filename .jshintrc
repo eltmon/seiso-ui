@@ -5,6 +5,8 @@
 		"describe": true,
 		"$": true,
 		"angular": true,
-		"window": true
+		"window": true,
+		"it": true, 
+		"expect": true
 	}
 }
