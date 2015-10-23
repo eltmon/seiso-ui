@@ -7,7 +7,7 @@ var compact = require('lodash/array/compact');
 // Really I think all of these can run in parallel. Collapse? [WLW]
 // Exclude html:index since we have to do that after building all the CSS and JS.
 var assetTasks = ['fontawesome', 'fonts', 'images'];
-var codeTasks = ['bs:css', 'bs:js', 'html', 'jquery', 'less', 'webpack'];
+var codeTasks = ['html', 'less', 'css:bs', 'webpack:build'];
 
 module.exports = function(env) {
   return {

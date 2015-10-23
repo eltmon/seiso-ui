@@ -6,7 +6,7 @@ var getEnabledTasks = require('../lib/getEnabledTasks');
 
 function task(cb) {
   var tasks = getEnabledTasks();
-  $.sequence('clean', tasks.assetTasks, tasks.codeTasks, 'html:index', /*'watch',*/ cb);
+  return $.sequence('clean', tasks.assetTasks, tasks.codeTasks, 'html:index', /*'watch',*/ cb);
 }
 
 gulp.task('build', task);

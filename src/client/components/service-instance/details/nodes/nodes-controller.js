@@ -3,7 +3,7 @@ var async = require('async');
 
 module.exports = function(app) {
   app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
-
+  console.log('neat');
   /* @ngInject */  
   function serviceInstanceNodesController($scope, dataService, paginationConfig, $routeParams) {
     $scope.model.nodes = {
@@ -36,8 +36,8 @@ module.exports = function(app) {
             });
           var nodePage = res.data.page;
           
-          // $scope.nodeRows = nodePageToNodeRows(nodePage);
-          // $scope.nodeListStatus = 'loaded';
+          $scope.nodeRows = nodePageToNodeRows(nodePage);
+          $scope.nodeListStatus = 'loaded';
         };
 
         dataService.get(requestUrl).then(successHandler, function(err) {

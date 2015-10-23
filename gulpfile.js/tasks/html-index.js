@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
+var browserSync = require('browser-sync'); 
 
 gulp.task('cp:index', function() {
   return gulp.src(config.client + '/index.html')
@@ -27,7 +28,8 @@ function htmlIndexTask() {
 
   return target.pipe($.inject(sources, {ignorePath: 'static/'}))
     // .pipe($.minifyHtml(htmlMinifyOpts))
-    .pipe(gulp.dest(config.out));
+    .pipe(gulp.dest(config.out))
+    .pipe(browserSync.reload({stream: true}));
 }
 
 gulp.task('html:index', ['cp:index'], htmlIndexTask);

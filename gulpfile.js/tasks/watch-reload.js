@@ -1,11 +1,11 @@
-'use strict';
+// 'use strict';
 
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
+// var gulp = require('gulp');
+// var browserSync = require('browser-sync');
 
-function watchReloadTask() {
-  browserSync.reload();
-}
+// function watchReloadTask() {
+//   browserSync.reload();
+// }
 
-gulp.task('watch:reload', ['build'], watchReloadTask);
-module.exports = watchReloadTask;
+// gulp.task('watch:reload', ['build'], browserSync.reload);
+// module.exports = browserSync.reload;

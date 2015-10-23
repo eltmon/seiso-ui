@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
+var browserSync = require('../lib/browserSync');
 
 function htmlPartials() {
   var opts = {
@@ -13,7 +14,8 @@ function htmlPartials() {
   };
   return gulp.src(config.components + '/**/*.html')
       .pipe($.minifyHtml(opts))
-      .pipe(gulp.dest(config.out + '/view'));
+      .pipe(gulp.dest(config.out + '/view'))
+      .pipe(browserSync.stream());
 }
 
 gulp.task('html', htmlPartials);

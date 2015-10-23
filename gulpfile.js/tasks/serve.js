@@ -2,17 +2,20 @@
 
 var gulp = require('gulp');
 var config = require('../config');
-var browserSync = require('browser-sync').create();
+var browserSync = require('../lib/browserSync');
+var path = require('path');
 
-function task() {
+function watchTask() {
   var watchPath = config.client + '/**';
 
   browserSync.init({
     server: config.out
   });
 
-  return gulp.watch(watchPath, ['watch:reload']);
+  gulp.task('watch:reload', ['build'], browserSync.reload);
+  gulp.watch(watchPath, ['watch:reload']);
+  // gulp.watch(config.client + '/index.html').on('change', browserSync.stream);
 }
 
-gulp.task('serve', ['build'], task);
-module.exports = task;
+gulp.task('serve', ['build'], watchTask);
+module.exports = watchTask;
