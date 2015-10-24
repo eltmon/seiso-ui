@@ -6,6 +6,7 @@ var webpack = require('webpack');
 module.exports = {
   entry: {
     build: './src/client/app.js',
+    bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min.js'
   },
   output: {
     path: path.resolve(__dirname, 'static/js'),

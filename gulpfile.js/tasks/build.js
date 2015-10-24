@@ -1,12 +1,12 @@
 'use strict';
 
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({ lazy: true });
+var runSequence = require('run-sequence');
 var getEnabledTasks = require('../lib/getEnabledTasks');
 
 function task(cb) {
   var tasks = getEnabledTasks();
-  return $.sequence('clean', tasks.assetTasks, tasks.codeTasks, 'html:index', /*'watch',*/ cb);
+  return runSequence('clean', tasks.assetTasks, tasks.codeTasks, 'html:index', /*'watch',*/ cb);
 }
 
 gulp.task('build', task);

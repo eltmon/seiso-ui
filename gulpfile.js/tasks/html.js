@@ -14,8 +14,7 @@ function htmlPartials() {
   };
   return gulp.src(config.components + '/**/*.html')
       .pipe($.minifyHtml(opts))
-      .pipe(gulp.dest(config.out + '/view'))
-      .pipe(browserSync.stream());
+      .pipe(gulp.dest(config.out + '/view'));
 }
 
 gulp.task('html', htmlPartials);

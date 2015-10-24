@@ -28,8 +28,7 @@ function htmlIndexTask() {
 
   return target.pipe($.inject(sources, {ignorePath: 'static/'}))
     // .pipe($.minifyHtml(htmlMinifyOpts))
-    .pipe(gulp.dest(config.out))
-    .pipe(browserSync.reload({stream: true}));
+    .pipe(gulp.dest(config.out));
 }
 
 gulp.task('html:index', ['cp:index'], htmlIndexTask);

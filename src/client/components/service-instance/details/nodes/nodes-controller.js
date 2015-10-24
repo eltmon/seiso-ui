@@ -3,7 +3,7 @@ var async = require('async');
 
 module.exports = function(app) {
   app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
-  console.log('neat');
+
   /* @ngInject */  
   function serviceInstanceNodesController($scope, dataService, paginationConfig, $routeParams) {
     $scope.model.nodes = {
@@ -19,7 +19,6 @@ module.exports = function(app) {
           + '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
-          console.log('si nodes ctrl: ', res);
           $scope.metadata = res.data.page;
 
             async.each(res.data._embedded.nodes, function(node, cb) {

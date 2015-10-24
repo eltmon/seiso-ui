@@ -1,19 +1,16 @@
+'use strict';
+
 var gulp = require('gulp');
 var path = require('path');
-var baseDir = process.cwd();
-var nodeDir = path.resolve(baseDir, '/node_modules');
 var config = require('../config');
 
-console.log(baseDir);
-
+// Using this in case there are multiple CSS libs that need to be copied. [IDM]
 var vLibs = {
-  bs: {
-    css: path.resolve(nodeDir, '/bootstrap/dist/css/bootstrap.min.css')
-  }, 
+  bs: path.resolve(config.nodeModules, '/bootstrap/dist/css/bootstrap.min.css') 
 };
 
 function cssTask() {
-  return gulp.src('../../node_modules/bootstrap/dist/css/bootstrap.min.css')
+  return gulp.src(vLibs.bs)
     .pipe(gulp.dest(config.out + '/css'));
 }
 
