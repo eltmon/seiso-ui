@@ -1,6 +1,6 @@
 'use strict';
 
-var gulp = require('gulp')
+var gulp = require('gulp');
 var jasmine = require('gulp-jasmine');
 var config = require('../config');
 var reporters = require('jasmine-reporters');

@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
+var browserSync = require('../lib/browserSync');
 
 function watchReloadTask() {
   browserSync.reload();

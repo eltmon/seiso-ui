@@ -1,12 +1,13 @@
 {
-	"node": true,
-	"sub": true,
-	"globals": {
-		"describe": true,
-		"$": true,
-		"angular": true,
-		"window": true,
-		"it": true, 
-		"expect": true
-	}
+  "node": true,
+  "sub": true,
+  "globals": {
+    "describe": true,
+    "$": true,
+    "angular": true,
+    "window": true,
+    "it": true, 
+    "expect": true, 
+    "beforeEach": true
+  }
 }

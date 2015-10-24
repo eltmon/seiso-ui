@@ -4,12 +4,12 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
 
-function task() {
+function imagesTask() {
   var srcPath = config.client + '/images/**/*.png';
-  var destPath = config.out + '/images'
+  var destPath = config.out + '/images';
   return gulp.src(srcPath)
       .pipe(gulp.dest(destPath));
 }
 
-gulp.task('images', task);
-module.exports = task;
+gulp.task('images', imagesTask);
+module.exports = imagesTask;

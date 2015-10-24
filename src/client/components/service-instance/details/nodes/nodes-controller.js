@@ -19,7 +19,6 @@ module.exports = function(app) {
           + '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
-          console.log('si nodes ctrl: ', res);
           $scope.metadata = res.data.page;
 
             async.each(res.data._embedded.nodes, function(node, cb) {
@@ -36,8 +35,8 @@ module.exports = function(app) {
             });
           var nodePage = res.data.page;
           
-          // $scope.nodeRows = nodePageToNodeRows(nodePage);
-          // $scope.nodeListStatus = 'loaded';
+          $scope.nodeRows = nodePageToNodeRows(nodePage);
+          $scope.nodeListStatus = 'loaded';
         };
 
         dataService.get(requestUrl).then(successHandler, function(err) {

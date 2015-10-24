@@ -1,14 +1,13 @@
 'use strict';
 
+// var jQuery = require('jquery')(window); 
+// var async = require('async');
+
 require('d3');
 require('angular');
 require('angular-route');
 require('angular-sanitize');
 var uibs = require('angular-ui-bootstrap');
-
-var organizeDataCenters = require('./components/util/ng-mappers.js').organizeDataCenters;
-var enrichNodeStats = require('./components/util/ng-mappers.js').enrichNodeStats;
-var nodePageToNodeRows = require('./components/util/ng-mappers.js').nodePageToNodeRows;
 
 var util = require('./components/util/util');
 

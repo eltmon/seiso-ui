@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
+var browserSync = require('browser-sync'); 
 
 gulp.task('cp:index', function() {
   return gulp.src(config.client + '/index.html')
