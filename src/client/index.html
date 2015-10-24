@@ -22,7 +22,10 @@
     <div class="page-content">
       <div class="container">
         <div class="alert alert-info" ng-if="globals.motd" ng-bind-html="globals.motd.message"></div>
-        <ng-view></ng-view>
+          <div ui-view></div>
+        
+<!--         <ng-view>
+        </ng-view> -->
       </div>
     </div>
     <ng-include src="'view/home/footer.html'"></ng-include>

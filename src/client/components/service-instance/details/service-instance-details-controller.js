@@ -5,9 +5,9 @@ module.exports = function(app) {
   app.controller('ServiceInstanceDetailsController', serviceInstanceDetailsController);
 
   /* @ngInject */
-  function serviceInstanceDetailsController($scope, dataService, $routeParams) {
+  function serviceInstanceDetailsController($scope, dataService, $stateParams) {
     $scope.serviceInstanceStatus = 'loading';
-    var serviceInstanceKey = $routeParams.key;
+    var serviceInstanceKey = $stateParams.key;
 
     var path = '/serviceInstances/search/findByKey?key=' + serviceInstanceKey;
     dataService.get(path).then(successHandler, errorHandler);

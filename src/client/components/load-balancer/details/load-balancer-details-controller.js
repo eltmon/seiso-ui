@@ -5,8 +5,8 @@ module.exports = function(app) {
   app.controller('LoadBalancerDetailsController', loadBalancerDetailsController);
 
   /* @ngInject */
-  function loadBalancerDetailsController($scope, $http, $routeParams, dataService) {
-    dataService.get('/loadBalancers/search/findByName?name=' + $routeParams.name)
+  function loadBalancerDetailsController($scope, $http, $stateParams, dataService) {
+    dataService.get('/loadBalancers/search/findByName?name=' + $stateParams.name)
       .then(function(res) {
         $http.get(res.data._links.self.href + '?projection=loadBalancersList')
           .then(function(res) {

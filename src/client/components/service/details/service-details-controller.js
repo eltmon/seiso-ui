@@ -5,10 +5,10 @@ module.exports = function(app) {
   app.controller('ServiceDetailsController', ServiceDetailsController);
 
   /* @ngInject */
-  function ServiceDetailsController($scope, $routeParams, dataService) {
+  function ServiceDetailsController($scope, $stateParams, dataService) {
     $scope.serviceStatus = 'loading';
-    $scope.viewing = $routeParams.key;
-    var path = '/services/search/findByKey?key=' + $routeParams.key + '&projection=serviceDetails';
+    $scope.viewing = $stateParams.key;
+    var path = '/services/search/findByKey?key=' + $stateParams.key + '&projection=serviceDetails';
 
     var successHandler = function(res) {
       var service = res.data;

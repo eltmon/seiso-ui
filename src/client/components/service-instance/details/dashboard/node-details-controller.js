@@ -5,7 +5,7 @@ module.exports = function(app) {
   app.controller('NodeDetailsController', nodeDetailsController);
 
   /* @ngInject */
-  function nodeDetailsController($scope, dataService, $routeParams) {
+  function nodeDetailsController($scope, dataService, $stateParams) {
     var successHandler = function(data) {
       console.log('node details controller: ', data);
       $scope.model.page.title = pageTitle(data.name);
@@ -31,7 +31,7 @@ module.exports = function(app) {
       }
     };
     
-    dataService.get('/nodes/search/findByKey?key=' + $routeParams.name)
+    dataService.get('/nodes/search/findByKey?key=' + $stateParams.name)
         .then(successHandler, function() { console.log('Error while getting node.');});
   }
 };

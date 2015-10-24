@@ -3,7 +3,7 @@ module.exports = function(app) {
   app.controller('NodeBreakdownController', nodeBreakdownController);
 
   /* @ngInject */
-  function nodeBreakdownController($scope, dataService, $routeParams, $http) {
+  function nodeBreakdownController($scope, dataService, $stateParams, $http) {
     function getBreakdown(statusVar, path, resultVar) {
       $scope[statusVar] = 'loading';
 
@@ -17,7 +17,7 @@ module.exports = function(app) {
         $scope[statusVar] = 'error';
       };
 
-      dataService.get('/serviceInstances/search/findByKey?key=' + $routeParams.key)
+      dataService.get('/serviceInstances/search/findByKey?key=' + $stateParams.key)
         .then(function(res) {
           var siUrl = res.data._links.self.href + '/' + path;
           dataService.get(siUrl)

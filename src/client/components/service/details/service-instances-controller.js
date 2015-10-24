@@ -5,13 +5,12 @@ module.exports = function(app) {
   app.controller('ServiceServiceInstancesController', serviceServiceInstancesController);
 
   /* @ngInject */
-  function serviceServiceInstancesController($scope, $routeParams, dataService) {
+  function serviceServiceInstancesController($scope, $stateParams, dataService) {
     $scope.serviceInstancesStatus = 'loading';
 
     $scope.$on('onService', function(event) {
       $scope.service = event.targetScope.service;
       var successHandler = function(res) {
-        console.log('serviceServiceInstances: ', res);
         $scope.serviceInstances = res.data._embedded.serviceInstances;
         $scope.serviceInstancesStatus = 'loaded';
         getSiNodes($scope.service);

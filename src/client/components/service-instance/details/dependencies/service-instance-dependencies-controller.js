@@ -3,9 +3,9 @@ module.exports = function(app) {
   app.controller('ServiceInstanceDependenciesController', serviceInstanceDependenciesController);
 
   /* @ngInject */
-  function serviceInstanceDependenciesController($scope, dataService, $routeParams) {
+  function serviceInstanceDependenciesController($scope, dataService, $stateParams) {
     $scope.dependenciesStatus = 'loading';
-    var siKey = $routeParams.key;
+    var siKey = $stateParams.key;
     var path = '/serviceInstanceDependencies/search/findByDependencyKey?key=' + siKey;
     var successHandler = function(res) {
       console.log(res);

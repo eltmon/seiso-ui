@@ -2,10 +2,9 @@ module.exports = function(app) {
 
   app.controller('EosInterrogateController', eosInterrogateController);
 
-  eosInterrogateController.$inject = ['$scope', '$http', '$routeParams'];
-  
-  function eosInterrogateController($scope, $http, $routeParams) {
-    var serviceInstanceKey = $routeParams.key;
+  /* @ngInject */  
+  function eosInterrogateController($scope, $http, $stateParams) {
+    var serviceInstanceKey = $stateParams.key;
     $scope.form = {};
     $scope.submit = function() {
       console.log('Interrogating');

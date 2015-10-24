@@ -1,18 +1,27 @@
 'use strict';
 
-// var jQuery = require('jquery')(window); 
-// var async = require('async');
-
 require('d3');
 require('angular');
 require('angular-route');
 require('angular-sanitize');
-require('angular-material')
+require('angular-material');
+
 var uibs = require('angular-ui-bootstrap');
+// var uiRouter = require('angular-ui-router');
 
 var util = require('./components/util/util');
 
-var app = angular.module('seiso', ['ngRoute', 'ngSanitize', 'seisoFilters', 'seisoServices', 'ngMaterial', uibs]);
+var dependencies = [
+  'ngRoute',
+  'ngSanitize',
+  'seisoFilters',
+  'seisoServices',
+  'ngMaterial',
+  require('angular-ui-router'),
+  uibs
+];
+
+var app = angular.module('seiso', dependencies);
 
 /**
  *    Controllers
@@ -110,7 +119,7 @@ require('./components/util/ng-filters')(angular);
  *    Config
  */
 require('./app.config')(app);
-require('./app.routes')(app);
+require('./app.routes.js')(app);
 
 /**
  *    Run

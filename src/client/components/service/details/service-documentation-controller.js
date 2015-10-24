@@ -2,9 +2,8 @@ module.exports = function(app) {
 
   app.controller('ServiceDocumentationController', serviceDocumentationController);
 
-  serviceDocumentationController.$inject = ['$scope', '$http', '$routeParams'];
-
-  function serviceDocumentationController($scope, $http, $routeParams) {
+  /* @ngInject */
+  function serviceDocumentationController($scope, $http, $stateParams) {
     $scope.serviceDocumentationStatus = 'loading';
     
     $scope.$on('onService', function(event) {

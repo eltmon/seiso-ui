@@ -7,11 +7,11 @@ module.exports = function(app) {
   app.controller('DataCenterDetailsController', dataCenterDetailsController);
 
   /* @ngInject */
-  function dataCenterDetailsController($scope, $http, paginationConfig, $routeParams, dataService) {
+  function dataCenterDetailsController($scope, $http, paginationConfig, $stateParams, dataService) {
     var siUri;
     var lbUri;
 
-    console.log($routeParams.key);
+    console.log($stateParams.key);
     (function getDataCenter() {
       var successHandler = function(res) {
         var dataCenter = res.data;
@@ -22,7 +22,7 @@ module.exports = function(app) {
         $scope.model.page.title = pageTitle(dataCenter.name);
       };
       var errorHandler = function() { console.log('Error while getting data center.'); };
-      dataService.get('/dataCenters/search/findByKey?key=' + $routeParams.key)
+      dataService.get('/dataCenters/search/findByKey?key=' + $stateParams.key)
         .then(successHandler, errorHandler);
     })();
 
@@ -60,7 +60,7 @@ module.exports = function(app) {
         (function getLoadBalancers(pageNumber) {
           $scope.loadBalancerListStatus = 'loading';
           var apiPageNumber = pageNumber - 1;
-          var reqUrl = '/loadBalancers/search/findByDataCenterKey?key=' + $routeParams.key 
+          var reqUrl = '/loadBalancers/search/findByDataCenterKey?key=' + $stateParams.key 
             + '&page=' + apiPageNumber 
             + '&size=' + paginationConfig.itemsPerPage 
             + '&sort=name';

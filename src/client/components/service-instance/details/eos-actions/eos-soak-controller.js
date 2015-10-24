@@ -2,10 +2,9 @@ module.exports = function(app) {
 
   app.controller('EosSoakController', eosSoakController);
 
-  eosSoakController.$inject = ['$scope', '$http', '$routeParams'];
-  
-  function eosSoakController($scope, $http, $routeParams) {
-    var serviceInstanceKey = $routeParams.key;
+  /* @ngInject */  
+  function eosSoakController($scope, $http, $stateParams) {
+    var serviceInstanceKey = $stateParams.key;
     $scope.form = {};
     $scope.submit = function() {
       console.log('Interrogating');

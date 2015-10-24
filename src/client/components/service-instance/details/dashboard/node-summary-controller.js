@@ -6,7 +6,7 @@ module.exports = function(app) {
   app.controller('NodeSummaryController', nodeSummaryController);
 
   /* @ngInject */
-  function nodeSummaryController($scope, dataService, $routeParams) {
+  function nodeSummaryController($scope, dataService, $stateParams) {
     $scope.nodeStatsStatus = 'loading';
     
     var successHandler = function(res) {
@@ -50,7 +50,7 @@ module.exports = function(app) {
       return;
     };
 
-    dataService.get('/serviceInstances/search/findByKey?key=' + $routeParams.key)
+    dataService.get('/serviceInstances/search/findByKey?key=' + $stateParams.key)
       .then(successHandler, errorHandler);
   }
 };

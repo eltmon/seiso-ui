@@ -3,8 +3,7 @@ var pageTitle = require('./util').pageTitle;
 module.exports = function(app) {
   app.controller('SearchController', SearchController);
 
-  SearchController.$inject = [ '$rootScope', '$scope', 'SearchService', '$location'];
-
+  /* @ngInject */
   function SearchController($rootScope, $scope, SearchService, $location) {
     $scope.model.page.title = pageTitle('Search Results');
     $scope.searchService = SearchService;

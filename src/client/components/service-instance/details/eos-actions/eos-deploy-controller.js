@@ -2,10 +2,9 @@ module.exports = function(app) {
 
   app.controller('EosDeployController', eosDeployController);
 
-  eosDeployController.$inject = [ '$scope', '$http', '$routeParams'];
-  
-  function eosDeployController($scope, $http, $routeParams) {
-    var serviceInstanceKey = $routeParams.key;
+  /* @ngInject */  
+  function eosDeployController($scope, $http, $stateParams) {
+    var serviceInstanceKey = $stateParams.key;
     $scope.form = {};
     $scope.submit = function() {
       console.log('Deploying');

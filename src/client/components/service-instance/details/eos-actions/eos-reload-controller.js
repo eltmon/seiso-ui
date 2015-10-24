@@ -2,10 +2,9 @@ module.exports = function(app) {
 
   app.controller('EosReloadController', eosReloadController);
 
-  eosReloadController.$inject = [ '$scope', '$http', '$routeParams'];
-
-  function eosReloadController($scope, $http, $routeParams) {
-    var serviceInstanceKey = $routeParams.key;
+  /* @ngInject */
+  function eosReloadController($scope, $http, $stateParams) {
+    var serviceInstanceKey = $stateParams.key;
     $scope.submit = function() {
       console.log('Reloading');
       $scope.reloadStatus = 'loading';

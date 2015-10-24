@@ -5,7 +5,7 @@ module.exports = function(app) {
   app.controller('PersonDetailsController', PersonDetailsController);
 
   /*@ngInject*/
-  function PersonDetailsController($scope, dataService, $routeParams) {
+  function PersonDetailsController($scope, dataService, $stateParams) {
     var successHandler = function(res) {
       $scope.person = res.data;
       $scope.person.firstNameLastName = $scope.displayName(res.data);
@@ -24,7 +24,7 @@ module.exports = function(app) {
           $scope.person.manager.displayName = $scope.displayName($scope.person.manager);
         }, function(err) {return console.log(err);});
     };
-    dataService.get('/persons/search/findByUsername?username=' + $routeParams.username)
+    dataService.get('/persons/search/findByUsername?username=' + $stateParams.username)
       .then(successHandler, function(err) { return console.log(err);});
   }
 };

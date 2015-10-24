@@ -31,10 +31,9 @@ module.exports = function(app) {
 
   app.controller('MBProfileController', mbProfileController);
 
-  mbProfileController.$inject = ['$scope', '$http', '$routeParams'];
-
-  function mbProfileController($scope, $http, $routeParams) {
-    var type = $routeParams.type;
+  /* @ngInject */
+  function mbProfileController($scope, $http, $stateParams) {
+    var type = $stateParams.type;
     
     $scope.model.page.title = pageTitle(type.toUpperCase());
     $scope.type = type;

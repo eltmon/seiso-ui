@@ -5,14 +5,14 @@ module.exports = function(app) {
   app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
 
   /* @ngInject */  
-  function serviceInstanceNodesController($scope, dataService, paginationConfig, $routeParams) {
+  function serviceInstanceNodesController($scope, dataService, paginationConfig, $stateParams) {
     $scope.model.nodes = {
       currentPage: 1,
       pageSelected: function() {
         $scope.nodeListStatus = 'loading';
         var pageNumber = $scope.model.nodes.currentPage;
         var apiPageNumber = pageNumber - 1;
-        var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + $routeParams.key
+        var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + $stateParams.key
           + '&page=' + apiPageNumber 
           + '&size=' + paginationConfig.itemsPerPage 
           + '&sort=name'

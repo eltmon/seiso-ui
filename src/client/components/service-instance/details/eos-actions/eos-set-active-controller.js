@@ -2,10 +2,9 @@ module.exports = function(app) {
 
   app.controller('EosSetActiveController', eosSetActiveController);
 
-  eosSetActiveController.$inject = ['$scope', '$http', '$routeParams'];
-
-  function eosSetActiveController($scope, $http, $routeParams) {
-    var serviceInstanceKey = $routeParams.key;
+  /* @ngInject */
+  function eosSetActiveController($scope, $http, $stateParams) {
+    var serviceInstanceKey = $stateParams.key;
     $scope.submit = function() {
       console.log('Setting active');
       $scope.setActiveStatus = 'loading';

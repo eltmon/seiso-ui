@@ -2,10 +2,9 @@ module.exports = function(app) {
 
   app.controller('EosMaintenanceModeController', eosMaintenanceModeController);
 
-  eosMaintenanceModeController.$inject = ['$scope', '$http', '$routeParams'];
-  
-  function eosMaintenanceModeController($scope, $http, $routeParams) {
-    var serviceInstanceKey = $routeParams.key;
+  /* @ngInject */  
+  function eosMaintenanceModeController($scope, $http, $stateParams) {
+    var serviceInstanceKey = $stateParams.key;
     $scope.form = {};
     $scope.submit = function() {
       console.log('Setting maintenance mode');

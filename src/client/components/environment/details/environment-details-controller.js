@@ -7,7 +7,7 @@ module.exports = function(app) {
   app.controller('EnvironmentDetailsController', environmentDetailsController);
 
   /* @ngInject */
-  function environmentDetailsController($scope, dataService, paginationConfig, $routeParams) {
+  function environmentDetailsController($scope, dataService, paginationConfig, $stateParams) {
     var siUrl;
     (function getEnvironment() {
       var successHandler = function(res) {
@@ -18,7 +18,7 @@ module.exports = function(app) {
         $scope.model.page.title = pageTitle(env.name);
       };
       var errorHandler = function() { console.log('Error while getting environment.'); };
-      dataService.get('/environments/search/findByKey?key=' + $routeParams.key)
+      dataService.get('/environments/search/findByKey?key=' + $stateParams.key)
         .then(successHandler, function(err) {console.log(err);});
     })();
     
