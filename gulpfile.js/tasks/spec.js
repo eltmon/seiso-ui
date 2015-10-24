@@ -13,7 +13,7 @@ gulp.task('build:test', function() {
   gulp.src('./spec/spec.html')
     .pipe(gulp.dest('./spec/build/'));
 
-  return gulp.src('./spec/*.js')
+  gulp.src('./spec/*.js')
     .pipe(webpack({
       context: 'spec/',
       entry: './test.spec.js',

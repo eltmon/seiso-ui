@@ -7,11 +7,12 @@ require('d3');
 require('angular');
 require('angular-route');
 require('angular-sanitize');
+require('angular-material')
 var uibs = require('angular-ui-bootstrap');
 
 var util = require('./components/util/util');
 
-var app = angular.module('seiso', ['ngRoute', 'ngSanitize', 'seisoFilters', 'seisoServices', uibs]);
+var app = angular.module('seiso', ['ngRoute', 'ngSanitize', 'seisoFilters', 'seisoServices', 'ngMaterial', uibs]);
 
 /**
  *    Controllers
