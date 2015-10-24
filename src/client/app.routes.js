@@ -26,11 +26,7 @@ module.exports = function(app) {
       .state('serviceInstances', stateConfig('/service-instances', 'ServiceInstanceList', 'service-instance/list/service-instance-list'))
       .state('serviceInstance', viewRoute('/service-instances/:key', 'service-instance/details/service-instance-details'))
       .state('statuses', stateConfig('/statuses', 'StatusList', 'status/status-list'))
-      .state('types', stateConfig('/types', 'TypeList', 'type/type-list'))
-      .state('neat', {
-        url: '/neat',
-        template: '<h1>Wow neat.</h1>'
-      });
+      .state('types', stateConfig('/types', 'TypeList', 'type/type-list'));
     // $routeProvider
     //   .when('/', route('Home', 'home/home'))
     //   .when('/search', route('Search', 'search'))
