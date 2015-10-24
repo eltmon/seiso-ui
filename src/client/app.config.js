@@ -14,10 +14,9 @@ module.exports = function(app) {
     paginationConfig.itemsPerPage = 50;
     paginationConfig.maxSize = 7;
     paginationConfig.boundaryLinks = true;
-    // FIXME Want to use &laquo;, &lsaquo;, etc., but Angular is escaping the &. [WLW] 
-    paginationConfig.firstText = '<<';
-    paginationConfig.previousText = '<';
-    paginationConfig.nextText = '>';
-    paginationConfig.lastText = '>>';
+    paginationConfig.firstText = '«';
+    paginationConfig.previousText = '‹';
+    paginationConfig.nextText = '›';
+    paginationConfig.lastText = '»';
   }
 };
