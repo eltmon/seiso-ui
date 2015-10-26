@@ -1,6 +1,6 @@
 var pageTitle = require('./util').pageTitle;
 
-module.exports = function(title, name, sortKey) {
+module.exports = function(title, name, projection, sortKey) {
   return PagingController;
 
   /* @ngInject */
@@ -22,16 +22,20 @@ module.exports = function(title, name, sortKey) {
 
     function loadPage() {
       var apiPageNumber = vm.query.pageNumber - 1;
+      //FIXME: Handing optional projections here. Is the controller a good place to define the projection? [IDM]
+      projection = (projection === null) ? projection = '' : projection = '&projection=' + projection;
       var path = '/' + name
           + '?page=' + apiPageNumber
           + '&size=' + vm.query.pageSize
-          + '&sort=' + vm.query.sort;
+          + '&sort=' + vm.query.sort
+          + projection;
 
       vm.loadStatus = 'loading';
 
       dataService.get(path).then(success, error);
 
       function success(response) {
+        console.log(response);
         $log.debug('Loaded data');
         vm.loadStatus = 'loaded';
         vm.page = response.data.page;
