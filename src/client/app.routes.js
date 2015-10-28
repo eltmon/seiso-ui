@@ -14,7 +14,7 @@ module.exports = function(app) {
       .state('dataCenters', viewRoute('/data-centers', 'data-center/list/data-center/list'))
       .state('dataCenter', stateConfig('/data-centers/:key', 'data-center/details/data-center-details'))
       .state('environments', stateConfig('/environments', 'EnvironmentList', 'environment/list/environment-list'))
-      .state('environment', stateConfig('/environments:key', 'EnvironmentDetails', 'environment/details/environment-details'))
+      .state('environment', stateConfig('/environments/:key', 'EnvironmentDetails', 'environment/details/environment-details'))
       .state('loadBalancers', stateConfig('/load-balancers', 'LoadBalancerList', 'load-balancer/list/load-balancer-list'))
       .state('loadBalancer', stateConfig('/load-balancers/:name', 'LoadBalancerDetails', 'load-balancer/details/load-balancer-details'))
       .state('machine', stateConfig('/machines/:name', 'MachineDetails', 'machine/machine-details'))
