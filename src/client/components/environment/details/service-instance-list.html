@@ -34,7 +34,7 @@
               dataCenter = serviceInstance.dataCenter;">
             
             <td><a data-ng-href="{{uri('service-instances', serviceInstance.key)}}">{{serviceInstance.key}}</a></td>
-            <td><i class="fa fa-circle fa-circle-{{serviceInstance.healthKey}}"></i> {{serviceInstance.percentHealthy}} ({{serviceInstance.numHealthy}} of {{serviceInstance.numNodes}})</td>
+            <td><i class="fa fa-circle fa-circle-{{serviceInstance.nodesDetails.healthKey}}"></i> {{serviceInstance.nodesDetails.percentHealthy}} ({{serviceInstance.nodesDetails.numHealthy}} of {{serviceInstance.nodesDetails.numNodes}})</td>
             <td><a data-ng-href="{{uri('services', service.key)}}">{{serviceInstance.service.name}}</a></td>
             <td>
               <span data-ng-if="dataCenter">
