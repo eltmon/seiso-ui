@@ -10,7 +10,7 @@ var vLibs = {
 };
 
 function cssTask() {
-  var srcPath = vLibs.material;
+  var srcPath = vLibs.bs;
   var destPath = config.out + '/css';
   gulp.src(srcPath)
     .pipe(gulp.dest(destPath));

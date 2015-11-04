@@ -3,7 +3,8 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({ lazy: true });
 var config = require('../config');
-var browserSync = require('browser-sync'); 
+var browserSync = require('browser-sync');
+var series = require('stream-series');
 
 gulp.task('cp:index', function() {
   return gulp.src(config.client + '/index.html')
@@ -17,6 +18,16 @@ function htmlIndexTask() {
       config.out + '/js/**/*.js'
     ], { read: false });
 
+  function sourceStream(path) {
+    return gulp.src([config.out + path], {read: false});
+  }
+
+  var css = sourceStream('/css/**/*.css');
+  var jquery = sourceStream('/js/jquery.min.js');
+  var bootstrap = sourceStream('/js/bootstrap.bundle.js');
+  var materials = sourceStream('/js/materials.bundle.js');
+  var build = sourceStream('/js/build.bundle.js');
+
   var target = gulp.src(config.out + '/index.html');
 
   var htmlMinifyOpts = {
@@ -26,7 +37,7 @@ function htmlIndexTask() {
     quotes: true
   };
 
-  return target.pipe($.inject(sources, {ignorePath: 'static/'}))
+  return target.pipe($.inject(series(css, jquery, bootstrap, build), {ignorePath: 'static/'}))
     // .pipe($.minifyHtml(htmlMinifyOpts))
     .pipe(gulp.dest(config.out));
 }
