@@ -76,7 +76,7 @@
               <td style="white-space:nowrap;">
                 <span data-ng-if="nodeRow.ipAddress">
                   <i class="fa fa-circle fa-circle-{{ipAggregateRotationStatusTypeKey}}"></i>
-                  <a rotation-details-popover="/v1/nodes/{{nodeRow.name}}/ip-adddresses/{{nodeRow.ipAddress}}">{{nodeRow.ipAggregateRotationStatus.name}}</a>
+                  <button rotation-details-popover node-name="{{nodeRow.name}}" node-ip="{{nodeRow.ipAddress}}">{{nodeRow.ipAggregateRotationStatus.name}}</buttton>
                 </span>
               </td>
             </tr>
