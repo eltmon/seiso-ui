@@ -15,7 +15,7 @@ module.exports = function(app) {
       var actualPath = res.data._links.self.href;
       dataService.get(actualPath + '?projection=serviceInstanceDetails').then(siSuccess, function(err){ return console.log(err);});
       function siSuccess(res) {
-        getServiceOwner(res.data._links.service.href);
+        getServiceInstanceService(res.data._links.service.href);
         var si = res.data;
         var service = si.service;
         $scope.serviceInstance = si;
@@ -57,14 +57,10 @@ module.exports = function(app) {
       return console.log(err);
     };
 
-    function getServiceOwner(serviceHref) {
-      dataService.get(serviceHref)
+    function getServiceInstanceService(serviceHref) {
+      dataService.get(serviceHref + '?projection=serviceDetails')
         .then(function(res) {
-          var ownerHref = res.data._links.owner.href;
-          dataService.get(ownerHref)
-            .then(function(res) {
-              $scope.owner = res.data;
-            }, gError);
+          $scope.service = res.data;
         }, gError);
     }
     
