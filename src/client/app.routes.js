@@ -11,7 +11,7 @@ module.exports = function(app) {
       .state('admin', stateConfig('/admin', 'Admin', 'admin/index'))
       .state('mb', viewRoute('/mb', 'mb/index'))
       .state('mb:type', viewRoute('/mb:type', 'mb/profile'))
-      .state('dataCenters', viewRoute('/data-centers', 'data-center/list/data-center/list'))
+      .state('dataCenters', viewRoute('/data-centers', 'data-center/list/data-center-list'))
       .state('dataCenter', stateConfig('/data-centers/:key', 'data-center/details/data-center-details'))
       .state('environments', stateConfig('/environments', 'EnvironmentList', 'environment/list/environment-list'))
       .state('environment', stateConfig('/environments/:key', 'EnvironmentDetails', 'environment/details/environment-details'))
