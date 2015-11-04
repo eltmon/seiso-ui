@@ -1,3 +1,6 @@
+// var $ = require('jquery');
+
+
 var enterDirective = function() {
   var directive = function() {
     return function(scope, element, attrs) {
@@ -76,32 +79,54 @@ var pieChartDirective = function() {
 
 // http://stackoverflow.com/questions/21362712/html-file-as-content-in-bootstrap-popover-in-angularjs-directive
 var rotationDetailsPopoverDirective = function() {
-  var directive = function($compile, $templateCache, $http) {
+  var directive = function($compile, $templateCache, dataService) {
     return {
       restrict: 'A',
-      link: function($scope, $element, $attrs) {
+      // transclude: true,
+      link: function($scope, $element, $attrs, $http) {
         
         // Get the template here, not outside this function. Otherwise the behavior is all funky when the user
         // activates multiple popups, applies the filter, etc.
         // http://stackoverflow.com/questions/16122139/angular-js-jquery-html-string-parsing-in-1-9-1-vs-1-8-3
         var template = $templateCache.get('rotationDetailsPopover.html');
-        template = angular.element($.trim(template));
-        
-        $http.get($attrs.rotationDetailsPopover)
-            .success(function(data) { $scope.ipAddress = data; });
+        template = angular.element(template);
+        var nodeName = $attrs.nodeName;
+        var nodeIp = $attrs.nodeIp;
+        console.log('transclude nodes: ', $scope.nodes);
+
+        dataService.get('/nodes/search/findByName?name=' + nodeName)
+          .then(function(res) {
+            console.log('popover node: ', res);
+            dataService.get(res.data._links.ipAddresses.href + '?projection=ipAddressDetails')
+              .then(function(res) {
+                console.log('ipAddressDetails: ', res);
+                $scope.ipAddress = res.data._embedded.nodeIpAddresses[0];
+                dataService.get($scope.ipAddress._links.endpoints.href + '?projection=endpointDetails')
+                  .then(function(res) {
+                    console.log('endpointDetails: ', res);
+                  });
+              });
+          }, function(res) {
+            return console.log(res);
+          });
         
         var popoverContent = $compile(template)($scope);
         $($element).popover({
-          title : 'Rotation Details',
-          content : popoverContent,
-          placement : 'top',
-          html : true,
-          date : $scope.date
+          title: 'Rotation Details',
+          content: popoverContent,
+          placement: 'top',
+          html: true,
+          date: $scope.date
+        });
+
+        // click off popover to close
+        $('body').on('click', function(e) {
+          if (!e.target.hasAttribute('rotation-details-popover')) $($element).popover('hide');
         });
       }
     };
   };
-  return [ '$compile', '$templateCache', '$http', directive ];
+  return [ '$compile', '$templateCache', 'dataService', '$http', directive ];
 };
 
 // Register directives

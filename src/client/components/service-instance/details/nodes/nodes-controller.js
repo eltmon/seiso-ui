@@ -19,24 +19,25 @@ module.exports = function(app) {
           + '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
-          $scope.metadata = res.data.page;
+          console.log('nodes pane: ', res);
 
-            async.each(res.data._embedded.nodes, function(node, cb) {
-              dataService.get(node._links.self.href + '?projection=serviceInstanceNodes')
-                .then(function(res) {
-                  console.log(res);
-                  cb();
-                }, function(res) {
-                  cb(res);
-                });
-            }, function(err) {
-              if (res) return console.log(res);
-              console.log('done');
-            });
-          var nodePage = res.data.page;
-          
-          $scope.nodeRows = nodePageToNodeRows(nodePage);
-          $scope.nodeListStatus = 'loaded';
+          $scope.metadata = res.data.page;
+          $scope.nodes = res.data._embedded.nodes;
+
+          async.each($scope.nodes, function(node, cb) {
+            dataService.get(node._links.ipAddresses.href + '?projection=ipAddressDetails')
+              .then(function(res) {
+                node.ipAddresses = res.data._embedded.nodeIpAddresses;
+                cb();
+              }, function(res) {
+                cb(res);
+              });
+          }, function(err) {
+            if (err) return console.log(err);
+            var nodePage = $scope.nodes;
+            $scope.nodeRows = nodePageToNodeRows(nodePage);
+            $scope.nodeListStatus = 'loaded';
+          });
         };
 
         dataService.get(requestUrl).then(successHandler, function(err) {

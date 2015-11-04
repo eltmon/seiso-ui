@@ -39,7 +39,6 @@ module.exports = function(app) {
                 }
               }
             }
-            console.log('$scope.sis: ', $scope.serviceInstances);
           });
       }
 
