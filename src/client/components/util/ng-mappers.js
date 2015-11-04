@@ -39,6 +39,7 @@ exports.enrichNodeStats = function(nodeStats) {
 
 // Supports the service instance details page.
 exports.nodePageToNodeRows = function(nodePage) {
+  console.log('at nodePageToNodeRows: ', nodePage);
   var nodes = nodePage;
   
   // Build the node table, which is really a list of IP addresses grouped by node. [WLW]
@@ -47,26 +48,26 @@ exports.nodePageToNodeRows = function(nodePage) {
   for (var i = 0; i < nodes.length; i++) {
     var node = nodes[i];
     
-    if (node._embedded.healthStatus === null) {
-      node._embedded.healthStatus = {
-        'key' : 'unknown',
-        'name' : 'Unknown',
-        '_embedded' : {
-          'statusType' : { 'key' : 'warning' }
+    if (node.healthStatus === null) {
+      node.healthStatus = {
+        key: 'unknown',
+        name: 'Unknown',
+        _embedded: {
+          statusType: { 'key' : 'warning' }
         }
       };
     }
     
-    var ipAddresses = node._embedded.ipAddresses;
+    var ipAddresses = node.ipAddresses;
     
     if (ipAddresses.length === 0) {
       // Handle special case where there aren't any IP addresses.
       nodeRow = {
-        'name' : node.name,
-        'displayName' : node.name,
-        'version' : node.version,
-        'healthStatus' : node._embedded.healthStatus,
-        'showActions' : true
+        name: node.name,
+        displayName: node.name,
+        version: node.version,
+        healthStatus: node.healthStatus,
+        showActions: true
       };
       nodeRows.push(nodeRow);
     } else {
@@ -74,18 +75,18 @@ exports.nodePageToNodeRows = function(nodePage) {
       for (var j = 0; j < ipAddresses.length; j++) {
         var ipAddress = ipAddresses[j];
         nodeRow = {
-          'name' : node.name,
-          'ipAddress' : ipAddress.ipAddress,
-          'ipAddressRole' : ipAddress._embedded.ipAddressRole.name,
-          'endpoints' : ipAddress._embedded.endpoints,
-          'ipAggregateRotationStatus' : ipAddress._embedded.aggregateRotationStatus
+          name: node.name,
+          ipAddress: ipAddress.ipAddress,
+          ipAddressRole: ipAddress.ipAddressRole.name,
+          endpoints: ipAddress.endpoints,
+          ipAggregateRotationStatus: ipAddress.aggregateRotationStatus
         };
         if (j === 0) {
           // Distinguish name from display name. We want to filter by name, but display by displayName.
           nodeRow.displayName = node.name;
           nodeRow.version = node.version;
-          nodeRow.healthStatus = node._embedded.healthStatus;
-          nodeRow.nodeAggregateRotationStatus = node._embedded.aggregateRotationStatus;
+          nodeRow.healthStatus = node.healthStatus;
+          nodeRow.nodeAggregateRotationStatus = node.aggregateRotationStatus;
         }
         nodeRows.push(nodeRow);
       }
