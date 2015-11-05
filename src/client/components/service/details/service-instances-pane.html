@@ -1,22 +1,22 @@
-<section ng-controller="ServiceServiceInstancesController">
+<section data-ng-controller="ServiceServiceInstancesController">
   <header>
     <h1>
       Service Instances
-      <span ng-switch="serviceInstancesStatus">
-        <span ng-switch-when="loaded"><small>({{serviceInstances.length}})</small></span>
-        <span ng-switch-when="loading"><i class="fa fa-spinner fa-spin"></i></span>
+      <span data-ng-switch="serviceInstancesStatus">
+        <span data-ng-switch-when="loaded"><small>({{serviceInstances.length}})</small></span>
+        <span data-ng-switch-when="loading"><i class="fa fa-spinner fa-spin"></i></span>
       </span>
     </h1>
   </header>
-  <div ng-switch="serviceInstancesStatus">
-    <div ng-switch-when="error">
+  <div data-ng-switch="serviceInstancesStatus">
+    <div data-ng-switch-when="error">
       <p><i class="fa fa-exclamation-triangle"></i> Couldn't get service instances.</p>
     </div>
-    <div ng-switch-when="loaded">
-      <div ng-if="serviceInstances.length == 0">
+    <div data-ng-switch-when="loaded">
+      <div data-ng-if="serviceInstances.length == 0">
         <p><i class="fa fa-info-circle"></i> No service instances.</p>
       </div>
-      <div ng-if="serviceInstances.length &gt; 0">
+      <div data-ng-if="serviceInstances.length > 0">
         <table class="table table-striped">
           <colgroup>
             <col style="width:25%">
@@ -34,10 +34,10 @@
           </thead>
           <tbody>
             <tr data-ng-repeat="si in serviceInstances">
-              <td><a ng-href="{{uri('service-instances', si.key)}}">{{si.key}}</a></td>
+              <td><a data-ng-href="{{uri('service-instances', si.key)}}">{{si.key}}</a></td>
               <td><i class="fa fa-circle fa-circle-{{si.nodesDetails.healthKey}}"></i> {{si.nodesDetails.percentHealthy}} ({{si.nodesDetails.numHealthy}} of {{si.nodesDetails.numNodes}})</td>
-              <td><a ng-href="{{uri('environments', si.environment.key)}}">{{si.environment.name}}</a></td>
-              <td><a ng-href="{{uri('data-centers', si.dataCenter.key)}}">{{si.dataCenter.name}}</a></td>
+              <td><a data-ng-href="{{uri('environments', si.environment.key)}}">{{si.environment.name}}</a></td>
+              <td><a data-ng-href="{{uri('data-centers', si.dataCenter.key)}}">{{si.dataCenter.name}}</a></td>
             </tr>
           </tbody>
         </table>

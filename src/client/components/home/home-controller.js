@@ -29,7 +29,6 @@ module.exports = function(app) {
 
     $scope.getServices = function(group) {
       if ($scope.serviceGroups[group.key].services.length > 0) {
-        console.log('services already fetched for group');
         return;
       }
       dataService.get(group._links.services.href)

@@ -4,6 +4,7 @@ module.exports = function(app) {
   /* @ngInject */
   function RouteConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
+    
     $stateProvider
       .state('home', stateConfig('/', 'Home', 'home/home'))
       .state('search', stateConfig('/search', 'Search', 'search'))
@@ -12,7 +13,7 @@ module.exports = function(app) {
       .state('mb', viewRoute('/mb', 'mb/index'))
       .state('mb:type', viewRoute('/mb:type', 'mb/profile'))
       .state('dataCenters', viewRoute('/data-centers', 'data-center/list/data-center-list'))
-      .state('dataCenter', stateConfig('/data-centers/:key', 'data-center/details/data-center-details'))
+      .state('dataCenter', stateConfig('/data-centers/:key', 'DataCenterDetails', 'data-center/details/data-center-details'))
       .state('environments', stateConfig('/environments', 'EnvironmentList', 'environment/list/environment-list'))
       .state('environment', stateConfig('/environments/:key', 'EnvironmentDetails', 'environment/details/environment-details'))
       .state('loadBalancers', stateConfig('/load-balancers', 'LoadBalancerList', 'load-balancer/list/load-balancer-list'))
@@ -33,7 +34,8 @@ module.exports = function(app) {
         url: url,
         controller: controllerName + 'Controller',
         controllerAs: 'vm',
-        templateUrl: 'view/' + viewName + '.html'
+        templateUrl: 'view/' + viewName + '.html',
+        reload: false
       };
     }
 

@@ -1,6 +1,7 @@
 var pageTitle = require('../../util/util').pageTitle;
 var EE = require('events').EventEmitter;
 var ee = new EE();
+var async = require('async');
 
 module.exports = function(app) {
 
@@ -11,7 +12,6 @@ module.exports = function(app) {
     var siUri;
     var lbUri;
 
-    console.log($stateParams.key);
     (function getDataCenter() {
       var successHandler = function(res) {
         var dataCenter = res.data;
@@ -33,8 +33,8 @@ module.exports = function(app) {
             $scope.serviceInstanceListStatus = 'loading';
             var apiPageNumber = pageNumber - 1;
             // FIXME
-            var reqUrl = '/serviceInstances/search/findByDataCenterWithCounts?key=' + $scope.dataCenter.key;
-            var pageQuery = '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
+            var reqUrl = '/serviceInstances/search/findByDataCenterKey?key=' + $scope.dataCenter.key;
+            var pageQuery = '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key' + '&projection=serviceInstanceDetails';
 
             var successHandler = function(res) {
               var page = res.data;
@@ -42,6 +42,11 @@ module.exports = function(app) {
               $scope.serviceInstanceMetadata = page.metadata;
               $scope.serviceInstanceListStatus = 'loaded';
               ee.emit('sis');
+              async.each($scope.serviceInstances, function(si, cb) {
+                getNodeSummary(si, cb);
+              }, function(err) {
+                if (err) return console.log(err);
+              });
             };
 
             var errorHandler = function(res) {
@@ -49,6 +54,21 @@ module.exports = function(app) {
             };
             dataService.get(reqUrl + pageQuery)
               .then(successHandler, errorHandler);
+
+            
+            function getNodeSummary(si, cb) {
+              var siHref = si._links.self.href;
+              dataService.get(siHref + '/nodeSummary')
+                .then(function(res) {
+                  si.nodeSummary = res.data;
+                  dataService.get(siHref + '/healthBreakdown')
+                    .then(function(res) {
+                      si.healthBreakdown = res.data;
+                      cb();
+                      si.healthKey = res.data._embedded.breakdownItems[0].statusType;
+                    });
+                }, function(res) {return cb(res);});
+            }
 
           })($scope.model.serviceInstances.currentPage);
       }
@@ -62,7 +82,7 @@ module.exports = function(app) {
           var apiPageNumber = pageNumber - 1;
           var reqUrl = '/loadBalancers/search/findByDataCenterKey?key=' + $stateParams.key 
             + '&page=' + apiPageNumber 
-            + '&size=' + paginationConfig.itemsPerPage 
+            + '&size=' + paginationConfig.itemsPerPage
             + '&sort=name';
           var successHandler = function(res) {
             var page = res.data;
@@ -80,6 +100,7 @@ module.exports = function(app) {
         })($scope.model.loadBalancers.currentPage);
       }
     };
+
     ee.on('dataCenter', function() {
       $scope.model.serviceInstances.pageSelected();
       $scope.model.loadBalancers.pageSelected();

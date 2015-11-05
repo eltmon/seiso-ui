@@ -32,11 +32,11 @@
         </thead>
         <tbody>
           <tr data-ng-repeat="serviceInstance in serviceInstances" data-ng-init="
-              service = serviceInstance._embedded.service;
-              environment = serviceInstance._embedded.environment;">
+              service = serviceInstance.service;
+              environment = serviceInstance.environment;">
               
             <td><a data-ng-href="{{uri('service-instances', serviceInstance.key)}}">{{serviceInstance.key}}</a></td>
-            <td><i class="fa fa-circle fa-circle-{{serviceInstance.healthKey}}"></i> {{serviceInstance.percentHealthy}} ({{serviceInstance.numHealthy}} of {{serviceInstance.numNodes}})</td>
+            <td><i class="fa fa-circle fa-circle-{{serviceInstance.healthKey}}"></i> {{serviceInstance.nodeSummary.percentHealthy}} ({{serviceInstance.nodeSummary.numHealthy}} of {{serviceInstance.nodeSummary.numNodes}})</td>
             <td><a data-ng-href="{{uri('services', service.key)}}">{{service.name}}</a></td>
             <td><a data-ng-href="{{uri('environments', environment.key)}}">{{environment.name}}</a></td>
           </tr>

@@ -21,6 +21,7 @@ module.exports = function(app) {
           globalsError: true
         };
       };
+      //TODO: Conform to new routes when created on API.
       dataService.get('/internals/global')
         .then(successHandler, errorHandler);
     };

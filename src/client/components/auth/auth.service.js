@@ -46,6 +46,7 @@ module.exports = function(app) {
         console.log('Authentication check failed');
         $rootScope.authenticated = false;
       };
+      // TODO: Conform to new api internal/auth routes when they're created. 
       $http.get('http://localhost:8080/internal/security/user')
           .success(successHandler)
           .error(errorHandler);

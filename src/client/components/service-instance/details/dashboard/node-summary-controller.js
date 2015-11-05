@@ -14,6 +14,7 @@ module.exports = function(app) {
       dataService.get(siUrl).then(nodeSummarySuccess, function(err) {return console.log(err);});
 
       function nodeSummarySuccess(res) {
+        console.log('node summary: ', res)
         var nodeStats = res.data;
         enrichNodeStats(nodeStats);
         $scope.nodeStats = nodeStats;
@@ -37,8 +38,8 @@ module.exports = function(app) {
         ];
         
         $scope.healthyGivenEnabledDataset = [
-          { type: 'Healthy given enabled', count: numHealthyGivenEnabled }, 
-          { type: 'Unhealthy given enabled', count: numUnhealthyGivenEnabled }
+          { type: 'Healthy given enabled', count: numHealthyGivenEnabled || 0 }, 
+          { type: 'Unhealthy given enabled', count: numUnhealthyGivenEnabled || 0 }
         ];
         
         $scope.nodeStatsStatus = 'loaded';

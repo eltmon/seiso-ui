@@ -11,7 +11,7 @@
       <div ng-if="nodeStats.numNodes == 0">
         <p><i class="fa fa-info-circle"></i> No nodes.</p>
       </div>
-      <div ng-if="nodeStats.numNodes &gt; 0">
+      <div ng-if="nodeStats.numNodes > 0">
         <p>
           Expected capacity:
           {{serviceInstance.minCapacityOps || 'unknown'}}<span ng-if="serviceInstance.minCapacityOps">%</span> during normal operations,
@@ -61,7 +61,7 @@
                     <div class="metric-count">{{nodeStats.numHealthyGivenEnabled}} of {{nodeStats.numEnabled}}</div>
                     <div class="metric-percentage">
                       <span ng-if="nodeStats.numEnabled == 0">N/A</span>
-                      <span ng-if="nodeStats.numEnabled &gt; 0">{{nodeStats.percentHealthyGivenEnabled | number : 1}}%</span>
+                      <span ng-if="nodeStats.numEnabled > 0">{{nodeStats.percentHealthyGivenEnabled | number : 1}}%</span>
                     </div>
                     <div class="metric-name">Healthy, given enabled</div>
                   </div>
