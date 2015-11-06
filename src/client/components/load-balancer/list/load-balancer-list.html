@@ -41,7 +41,7 @@
         <tr data-ng-repeat="loadBalancer in vm.items">
           <td><a data-ng-href="{{uri('load-balancers', loadBalancer.name)}}">{{loadBalancer.name}}</a></td>
           <td>{{loadBalancer.type || '-'}}</td>
-          <td><a data-ng-href="{{uri('data-centers', loadBalancer.dataCenter.key)}}">{{loadBalancer.dataCenter.name}}</a></td>
+          <td><a data-ng-href="{{uri('data-centers', loadBalancer.dataCenter.key)}}">{{loadBalancer.dataCenter.name || '-'}}</a></td>
           <td>{{loadBalancer.ipAddress || '-'}}</td>
         </tr>
       </tbody>

@@ -10,9 +10,11 @@ module.exports = function(app) {
       .then(function(res) {
         $http.get(res.data._links.self.href + '?projection=loadBalancersList')
           .then(function(res) {
+            console.log(res);
             $scope.model.page.title = pageTitle(res.data.name);
             $scope.loadBalancer = res.data;
           }, function(res) {
+            if (res) return console.log(res);
             console.log(res);
           });
 
