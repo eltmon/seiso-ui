@@ -1,9 +1,10 @@
 {
   "name": "seiso-ui",
   "version": "0.1.0",
-  "description": "This project is currently in progress and not ready for general use.",
+  "description": "UI for Seiso, DevOps data hub.",
   "main": "index.js",
   "scripts": {
+    "start": "gulp build && node index",
     "test": "gulp test"
   },
   "repository": {
@@ -81,6 +82,8 @@
   },
   "dependencies": {
     "body-parser": "^1.14.0",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "logrotate-stream": "^0.2.5",
+    "morgan": "^1.6.1"
   }
 }
