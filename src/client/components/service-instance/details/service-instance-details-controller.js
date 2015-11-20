@@ -36,10 +36,12 @@ module.exports = function(app) {
           { heading: 'Details', content: 'details/index' },
           { heading: 'Dependencies', content: 'dependencies/dependencies-tables' }
         ];
+
         
-        if ($scope.globals.enableActions) {
-          $scope.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
-        }
+        
+        // if ($scope.globals.enableActions) {
+        //   $scope.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
+        // }
         
         $scope.setTabContent = function(name) {
           $scope.tabContentUrl = 'view/service-instance/details/' + name + '.html';

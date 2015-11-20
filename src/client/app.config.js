@@ -5,9 +5,9 @@ module.exports = function(app) {
   function AppConfig($httpProvider, paginationConfig) {
     $httpProvider.defaults.headers.common = {
       // TODO Migrate toward application/hal+json
-      'Accept' : 'application/json',
+      'Accept' : 'application/json'
       // https://spring.io/blog/2015/01/12/the-login-page-angular-js-and-spring-security-part-ii 
-      'X-Requested-With' : 'XMLHttpRequest'
+      // 'X-Requested-With' : 'XMLHttpRequest'
     };
     
     // Pagination configuration. Is this the right place to do this?

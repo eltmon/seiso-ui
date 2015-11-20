@@ -6,7 +6,7 @@ module.exports = function(app) {
   function globalsController($rootScope, $scope, dataService, AuthService) {
     $scope.logout = AuthService.logout;
     
-    AuthService.checkAuthentication(false);
+    // AuthService.checkAuthentication(false);
     
     var getGlobalData = function() {
       var successHandler = function(data) {
@@ -22,8 +22,8 @@ module.exports = function(app) {
         };
       };
       //TODO: Conform to new routes when created on API.
-      dataService.get('/internals/global')
-        .then(successHandler, errorHandler);
+      // dataService.get('/internals/global')
+      //   .then(successHandler, errorHandler);
     };
     getGlobalData();
   }
