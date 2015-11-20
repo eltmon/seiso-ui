@@ -5,7 +5,7 @@ var config = require('../config');
 var path = require('path');
 
 function watchTask() {
-  var watchPath = path.resolve(config.client, '/**');
+  var watchPath = config.client + '/**';
   return gulp.watch([watchPath], ['watch:reload']);
 }
 
