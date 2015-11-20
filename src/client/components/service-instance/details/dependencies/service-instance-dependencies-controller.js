@@ -6,7 +6,7 @@ module.exports = function(app) {
   function serviceInstanceDependenciesController($scope, dataService, $stateParams) {
     $scope.dependenciesStatus = 'loading';
     var siKey = $stateParams.key;
-    var path = '/serviceInstanceDependencies/search/findByKeys?dependecy=' + siKey;
+    var path = '/serviceInstanceDependencies/search/findByKeys?dependency=' + siKey;
     var successHandler = function(res) {
       console.log(res);
       $scope.dependencies = res.data._embedded.serviceInstanceDependencies;
