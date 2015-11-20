@@ -92,18 +92,18 @@ var rotationDetailsPopoverDirective = function() {
         template = angular.element(template);
         var nodeName = $attrs.nodeName;
         var nodeIp = $attrs.nodeIp;
-        console.log('transclude nodes: ', $scope.nodes);
+        // console.log('transclude nodes: ', $scope.nodes);
 
         dataService.get('/nodes/search/findByName?name=' + nodeName)
           .then(function(res) {
-            console.log('popover node: ', res);
+            // console.log('popover node: ', res);
             dataService.get(res.data._links.ipAddresses.href + '?projection=ipAddressDetails')
               .then(function(res) {
-                console.log('ipAddressDetails: ', res);
+                // console.log('ipAddressDetails: ', res);
                 $scope.ipAddress = res.data._embedded.nodeIpAddresses[0];
                 dataService.get($scope.ipAddress._links.endpoints.href + '?projection=endpointDetails')
                   .then(function(res) {
-                    console.log('endpointDetails: ', res);
+                    // console.log('endpointDetails: ', res);
                   });
               });
           }, function(res) {

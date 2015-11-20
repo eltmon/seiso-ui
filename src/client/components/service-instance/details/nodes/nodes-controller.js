@@ -19,7 +19,6 @@ module.exports = function(app) {
           + '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
-          console.log('nodes pane: ', res);
 
           $scope.metadata = res.data.page;
           $scope.nodes = res.data._embedded.nodes;
