@@ -4,5 +4,4 @@
 /node_modules/
 /static/
 **/.DS_Store
-**/config.js
 **/*.log
