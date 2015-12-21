@@ -3,8 +3,16 @@ module.exports = function(app) {
 
   /* @ngInject */
   function dataService($http, $log) {
-    var API_BASE_URL = 'http://localhost:8080/api';
+    var API_BASE_URL;
     var FULL_URL_REGEX = /http:/;
+
+    // Get the api endpoint for this service to interact with
+    $http.get('/getApiConfig')
+      .then(function(res) {
+        API_BASE_URL = res.data.apiEndpoint;
+      }, function(res) {
+        return console.log('err: ', res);
+      });
 
     return {
       get: get
