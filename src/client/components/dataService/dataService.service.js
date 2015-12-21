@@ -28,9 +28,5 @@ module.exports = function(app) {
     function resolve(url) {
       return FULL_URL_REGEX.test(url) ? url : API_BASE_URL + url;      
     }
-
-    function getApi() {
-
-    }
   }
 };
