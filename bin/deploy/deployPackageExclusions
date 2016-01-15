@@ -1,0 +1,14 @@
+browser_sync
+chai
+jasmine
+jasmine-core
+jasmine-node
+jasmine-reporters
+karma
+karma-chrome-launcher
+karma-firefox-launcher
+karma-safari-launcher
+karma-jasmine
+karma-phantomjs-launcher
+phantom
+phantomjs
