@@ -2,18 +2,16 @@
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({ lazy: true });
+var htmlmin = require('gulp-htmlmin');
 var config = require('../config');
-var browserSync = require('../lib/browserSync');
 
 function htmlPartials() {
-  var opts = {
-    conditionals: true,
-    spare: true,
-    empty: true,
-    quotes: true
-  };
   return gulp.src(config.components + '/**/*.html')
-      .pipe($.minifyHtml(opts))
+      .pipe($.htmlmin({
+      	collapseWhiteSpace: true,
+      	preserveLineBreaks: true,
+      	removeComments: true
+      }))
       .pipe(gulp.dest(config.out + '/view'));
 }
 
