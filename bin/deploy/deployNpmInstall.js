@@ -75,6 +75,7 @@ fs.readFile(packageFile, 'utf-8', function(err, data) {
       if (err) return console.log(err);
 
       // Run 'npm install' with deployment dependencies
+      console.log('Installing dependencies...');
       exec('npm install', function(err, stdout, stderr) {
         if (err) return console.log(err);
         console.log(stdout, stderr);
