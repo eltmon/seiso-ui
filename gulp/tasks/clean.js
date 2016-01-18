@@ -1,12 +1,13 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({ lazy: true });
-var config = require('../config');
+var gulp = require('gulp'),
+	del = require('del'),
+	config = require('../config');
 
 function task() {
-  return gulp.src(config.out + '/*', { read: false })
-      .pipe($.rimraf({ force: true }));
+  del(config.out).then(function(paths) {
+    console.log('Deleted files and folders: \n', paths.join('\n'));
+  });
 }
 
 gulp.task('clean', task);
