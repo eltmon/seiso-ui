@@ -16,7 +16,15 @@ webpackConfig.plugins = webpackConfig.plugins.concat(
   }),
   // Search for equal or similar files and deduplicate them in the output. Comes with overhead but reduces filesize.
   new webpack.optimize.DedupePlugin()
-  //new webpack.optimize.UglifyJsPlugin()
+
+  // This is currently taking longer than it should. Leaving it out for now. 
+  // Might need to uglify the output instead. [IDM]
+  // 
+  // new webpack.optimize.UglifyJsPlugin({
+  //  mangle: {
+  //    except: ['$', 'jQuery', 'angular', 'exports', 'require', 'module']
+  //  }
+  // })
 );
 
 function webpackBuild() {
