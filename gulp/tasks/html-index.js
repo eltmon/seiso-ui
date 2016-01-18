@@ -30,15 +30,7 @@ function htmlIndexTask() {
 
   var target = gulp.src(config.out + '/index.html');
 
-  var htmlMinifyOpts = {
-    conditionals: true,
-    spare: true,
-    empty: true,
-    quotes: true
-  };
-
   return target.pipe($.inject(series(css, jquery, bootstrap, build), {ignorePath: 'static/'}))
-    // .pipe($.minifyHtml(htmlMinifyOpts))
     .pipe(gulp.dest(config.out));
 }
 
