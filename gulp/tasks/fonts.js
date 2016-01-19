@@ -9,6 +9,12 @@ function fontsTask() {
   gulp.src(config.client + '/css/fonts/' + exts)
       .pipe(gulp.dest(config.out + '/fonts'));
 
+  gulp.src(config.nodeModules + '/font-awesome/fonts/' + exts)
+      .pipe(gulp.dest(config.out + '/fonts')); 
+ 
+  gulp.src(config.nodeModules + '/bootstrap/fonts/' + exts)
+      .pipe(gulp.dest(config.out + '/css/fonts'));
+
 }
 
 gulp.task('fonts', fontsTask);
