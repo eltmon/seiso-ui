@@ -3,7 +3,6 @@
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')({ lazy: true }),
     config = require('../config'),
-    browserSync = require('browser-sync'),
     series = require('stream-series');
 
 gulp.task('cp:index', function() {
