@@ -1,8 +1,8 @@
 'use strict';
 
 var gulp = require('gulp'),
-  runSequence = require('run-sequence'),
-  getEnabledTasks = require('../lib/getEnabledTasks');
+    runSequence = require('run-sequence'),
+    getEnabledTasks = require('../lib/getEnabledTasks');
 
 function buildTask(cb) {
   var tasks = getEnabledTasks();
