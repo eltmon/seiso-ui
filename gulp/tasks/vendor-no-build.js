@@ -1,7 +1,7 @@
 'use strict';
 
-var gulp = require('gulp');
-var config = require('../config');
+var gulp = require('gulp'),
+    config = require('../config');
 
 var vLibs = {
   bs: config.nodeModules + '/bootstrap/dist/js/bootstrap.min.js',

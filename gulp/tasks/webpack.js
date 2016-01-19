@@ -1,13 +1,14 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({ lazy: true });
-var config = require('../config');
-var wpConfig = require('../../webpack.config.js');
-var browserSync = require('../lib/browserSync');
-var webpack = require('webpack');
+var gulp = require('gulp'),
+    $ = require('gulp-load-plugins')({ lazy: true }),
+    config = require('../config'),
+    wpConfig = require('../../webpack.config.js'),
+    browserSync = require('../lib/browserSync'),
+    webpack = require('webpack'),
+    wpStream = require('webpack-stream'),
+    webpackConfig = Object.create(wpConfig);
 
-var webpackConfig = Object.create(wpConfig);
 webpackConfig.plugins = webpackConfig.plugins.concat(
   new webpack.DefinePlugin({
     "process.env": {
@@ -27,10 +28,10 @@ webpackConfig.plugins = webpackConfig.plugins.concat(
   // })
 );
 
-function webpackBuild() {
+function webpackBuildTask() {
   return gulp.src(config.client + '/app.js')
       .pipe($.ngAnnotate())
-      .pipe($.webpack(webpackConfig, null, function(err, stats) {
+      .pipe(wpStream(webpackConfig, null, function(err, stats) {
         if (err) throw new $.util.PluginError("webpack:build", err);
         $.util.log("[webpack:build]", stats.toString({
           colors: true
@@ -41,5 +42,5 @@ function webpackBuild() {
       .pipe(gulp.dest(config.out + '/js'));
 }
 
-gulp.task('webpack:build', webpackBuild);
-module.exports = webpackBuild;
+gulp.task('webpack:build', webpackBuildTask);
+module.exports = webpackBuildTask;

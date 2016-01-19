@@ -1,5 +1,7 @@
-var nodePageToNodeRows = require('../../../util/ng-mappers.js').nodePageToNodeRows;
-var async = require('async');
+'use strict';
+
+var async = require('async'),
+    nodePageToNodeRows = require('../../../util/ng-mappers.js').nodePageToNodeRows;
 
 module.exports = function(app) {
   app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
@@ -12,11 +14,11 @@ module.exports = function(app) {
         $scope.nodeListStatus = 'loading';
         var pageNumber = $scope.model.nodes.currentPage;
         var apiPageNumber = pageNumber - 1;
-        var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + $stateParams.key
-          + '&page=' + apiPageNumber 
-          + '&size=' + paginationConfig.itemsPerPage 
-          + '&sort=name'
-          + '&projection=serviceInstanceNodes';
+        var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + $stateParams.key +
+            '&page=' + apiPageNumber +
+            '&size=' + paginationConfig.itemsPerPage +
+            '&sort=name' +
+            '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
 

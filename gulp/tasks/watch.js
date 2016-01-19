@@ -1,8 +1,8 @@
 'use strict';
 
-var gulp = require('gulp');
-var config = require('../config');
-var path = require('path');
+var gulp = require('gulp'),
+  config = require('../config'),
+  path = require('path');
 
 function watchTask() {
   var watchPath = config.client + '/**';

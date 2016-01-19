@@ -1,7 +1,7 @@
 //#!/usr/bin/env node
 
 /**
- * npm install without a set of excluded packages.
+ * 'npm install' without a set of excluded packages.
  * 
  * Author: Ian McCunn <imccunn@expedia.com>
  *
@@ -104,5 +104,5 @@ function EXIT1(){
 
 function usage() {
   console.log('Usage: ');
-  console.log('node ./deployInstall.js \'package.json\' textFileOfExclusions true false');
+  console.log('node ./deployInstall.js \'package.json\' textFileOfExclusions Bool:preservePackage Bool:createPackageBackup');
 }
