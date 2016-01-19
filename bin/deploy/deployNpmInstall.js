@@ -16,6 +16,7 @@ var fs = require('fs'),
     exclusionsFile = args[3],
     preservePackage = (args[4] === 'true'),
     createBackup = (args[5] === 'true'),
+    installPackages = (args[6] === 'true'),
     exclusions; // to be set after file is read.
 console.log(args);
 
@@ -74,26 +75,30 @@ fs.readFile(packageFile, 'utf-8', function(err, data) {
     fs.writeFile(packageFile, JSON.stringify(deployPackage, null, 2), 'utf-8', function(err) {
       if (err) return console.log(err);
 
-      // Run 'npm install' with deployment dependencies
-      console.log('Installing dependencies...');
-      exec('npm install', function(err, stdout, stderr) {
-        if (err) return console.log(err);
-        console.log(stdout, stderr);
+      if (installPackages) {
+        // Run 'npm install' with deployment dependencies
+        console.log('Installing dependencies...');
+        exec('npm install', function(err, stdout, stderr) {
+          if (err) return console.log(err);
+          console.log(stdout, stderr);
 
-        // Optionally reinstate original package.json.
-        if (preservePackage) { 
-          fs.writeFile('package.json', JSON.stringify(originalPackage, null, 2), function(err) { 
-            if (err) return console.log(err);
-            console.log('Original package.json restored.');
-          }) 
-        } else {
-          // Otherwise remove package.json from deployment artifact.
-          fs.unlink('package.json', function(err) {
-            if (err) return console.log(err);
-            console.log('Deploy packages installed. package.json removed.');
-          });
-        }
-      });
+          // Optionally reinstate original package.json.
+          if (preservePackage) { 
+            fs.writeFile('package.json', JSON.stringify(originalPackage, null, 2), function(err) { 
+              if (err) return console.log(err);
+              console.log('Original package.json restored.');
+            }) 
+          } else {
+            // Otherwise remove package.json from deployment artifact.
+            fs.unlink('package.json', function(err) {
+              if (err) return console.log(err);
+              console.log('Deploy packages installed. package.json removed.');
+            });
+          }
+        });
+      } else {
+        console.log('Deploy package.json created. Packages not installed.');
+      }
     });
   });
 });
