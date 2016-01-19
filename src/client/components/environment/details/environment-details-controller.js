@@ -51,7 +51,9 @@ module.exports = function(app) {
         .then(function(res) {
           $scope.serviceInstances = res.data._embedded.serviceInstances;
           cb();
-        }, function(res) {return console.log('error getting service instances: ', res)});
+        }, function(res) {
+          return console.log('error getting service instances: ', res);
+        });
     }
 
     $scope.model.serviceInstances.pageSelected();

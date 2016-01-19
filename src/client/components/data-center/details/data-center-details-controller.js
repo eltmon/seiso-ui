@@ -80,10 +80,12 @@ module.exports = function(app) {
         (function getLoadBalancers(pageNumber) {
           $scope.loadBalancerListStatus = 'loading';
           var apiPageNumber = pageNumber - 1;
-          var reqUrl = '/loadBalancers/search/findByDataCenterKey?key=' + $stateParams.key 
-            + '&page=' + apiPageNumber 
-            + '&size=' + paginationConfig.itemsPerPage
-            + '&sort=name';
+
+          var reqUrl = '/loadBalancers/search/findByDataCenterKey?key=' + $stateParams.key +
+              '&page=' + apiPageNumber +
+              '&size=' + paginationConfig.itemsPerPage +
+              '&sort=name';
+
           var successHandler = function(res) {
             var page = res.data;
             $scope.loadBalancers = page._embedded.loadBalancers;
