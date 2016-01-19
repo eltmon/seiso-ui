@@ -59,7 +59,6 @@ require('./components/load-balancer/list/load-balancer-list-controller')(app);
 require('./components/machine/machine-details-controller')(app);
 
 // Person
-
 require('./components/person/details/person-details-controller')(app);
 require('./components/person/list/person-list-controller')(app);
 
@@ -95,9 +94,6 @@ require('./components/service/list/service-list-controller')(app);
 // Other
 require('./components/status/status-list-controller')(app);
 require('./components/type/type-list-controller')(app);
-
-// MB
-require('./components/mb/mb-controller')(app);
 
 /**
  *    Services
