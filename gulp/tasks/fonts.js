@@ -11,5 +11,5 @@ function fontsTask() {
 
 }
 
-gulp.task('fonts', ['clean'], fontsTask);
+gulp.task('fonts', fontsTask);
 module.exports = fontsTask;
