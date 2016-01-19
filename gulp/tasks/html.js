@@ -1,16 +1,16 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({ lazy: true });
-var htmlmin = require('gulp-htmlmin');
-var config = require('../config');
+var gulp = require('gulp'),
+    $ = require('gulp-load-plugins')({ lazy: true }),
+    htmlmin = require('gulp-htmlmin'),
+    config = require('../config');
 
 function htmlPartials() {
   return gulp.src(config.components + '/**/*.html')
       .pipe($.htmlmin({
-      	collapseWhiteSpace: true,
-      	preserveLineBreaks: true,
-      	removeComments: true
+        collapseWhiteSpace: true,
+        preserveLineBreaks: true,
+        removeComments: true
       }))
       .pipe(gulp.dest(config.out + '/view'));
 }

@@ -1,7 +1,7 @@
 'use strict';
 
-var gulp = require('gulp');
-var config = require('../config');
+var gulp = require('gulp'),
+    config = require('../config');
 
 // Using this in case there are multiple CSS libs that need to be copied. [IDM]
 var vLibs = {
