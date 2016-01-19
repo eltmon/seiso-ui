@@ -2,8 +2,7 @@
 
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')({ lazy: true }),
-    config = require('../config'),
-    browserSync = require('browser-sync');
+    config = require('../config');
 
 function lessTask() {
   return gulp.src(config.client + '/css/**/*.less')
