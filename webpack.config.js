@@ -1,7 +1,8 @@
 'use strict';
 
-var path = require('path');
-var webpack = require('webpack');
+var path = require('path'),
+    webpack = require('webpack'),
+    ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -11,7 +12,7 @@ module.exports = {
     build: './src/client/app.js'
   },
   output: {
-    path: path.resolve(__dirname, 'static/js'),
+    path: __dirname + '/static/js/',
     filename: '[name].bundle.js',
     chunkFileName: '[id].bundle.js'
   },
@@ -25,6 +26,9 @@ module.exports = {
       // This is required by many jquery plugins
       // jQuery: "jquery",
       $: 'jquery'
+    }),
+    new ngAnnotatePlugin({
+      add: true
     })
   ]
 };
