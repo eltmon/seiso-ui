@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 var config = require('../config');
-var webpack = require('gulp-webpack');
+var webpack = require('webpack-stream');
 var path = require('path');
 
 var KarmaServer = require('karma').Server;
