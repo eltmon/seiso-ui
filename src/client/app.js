@@ -1,7 +1,7 @@
 'use strict';
 
 require('d3');
-require('angular');
+var angular = require('angular');
 require('angular-route');
 require('angular-sanitize');
 require('angular-material');
