@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 function lessTask() {
   return gulp.src(config.client + '/css/**/*.less')
       .pipe($.less())
-      .pipe($.minifyCss())
+      .pipe($.cssnano())
       .pipe(gulp.dest(config.out + '/css'));
 }
 
