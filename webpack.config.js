@@ -17,7 +17,8 @@ module.exports = {
     chunkFileName: '[id].bundle.js'
   },
   externals: {
-    'jquery': 'jQuery'
+    'jquery': 'jQuery',
+    'angular': 'angular'
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -29,6 +30,11 @@ module.exports = {
     }),
     new ngAnnotatePlugin({
       add: true
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: {
+        except: ['$', 'angular', 'require', 'exports']
+      }
     })
   ]
 };
