@@ -5,8 +5,8 @@ var gulp = require('gulp'),
     config = require('../config');
 
 function cleanTask() {
-  del([config.out]).then(function(paths) {
-    console.log('Deleted files and folders: \n', paths.join('\n'));
+  del([config.out]).then(function(things) {
+    console.log('Deleted files and folders: \n', things.join('\n'));
   });
 }
 
