@@ -4,7 +4,6 @@ var gulp = require('gulp'),
     $ = require('gulp-load-plugins')({ lazy: true }),
     config = require('../config'),
     wpConfig = require('../../webpack.config.js'),
-    browserSync = require('../lib/browserSync'),
     webpack = require('webpack'),
     wpStream = require('webpack-stream'),
     webpackConfig = Object.create(wpConfig);
