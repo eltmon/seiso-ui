@@ -7,7 +7,6 @@ require('angular-sanitize');
 require('angular-material');
 
 var uibs = require('angular-ui-bootstrap');
-// var uiRouter = require('angular-ui-router');
 
 var util = require('./components/util/util');
 
