@@ -29,8 +29,23 @@ module.exports = {
     }),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
+      compress: {
+        sequences: true,
+        dead_code: true,
+        conditionals: true,
+        booleans: true,
+        unused: true,
+        if_return: true,
+        join_vars: true,
+        drop_console: true
+      },
       sourceMap: false,
-      mangle: false
+      mangle: {
+        except: ['$super', '$', 'angular', 'exports', 'require']
+      },
+      output: {
+        comments: false
+      }
     })
   ]
 };
