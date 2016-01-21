@@ -5,3 +5,5 @@
 /static/
 **/.DS_Store
 **/*.log
+lib/logging.js
+src/client/components/dataService/dataService.service.js
