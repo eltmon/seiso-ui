@@ -29,8 +29,10 @@ module.exports = function(app) {
         var sSIHref = service._links.serviceInstances.href;
         dataService.get(sSIHref + '?mode=nodeDetails')
           .then(function(res) {
+
             console.log('mode=nodeDetails: ', res);
-            var nodeDetails = res._embedded.serviceInstanceResources;
+            if (!res.data._embedded) return;
+            var nodeDetails = res.data._embedded.serviceInstanceResources;
             var sis = $scope.serviceInstances;
             for (var i = 0; i < sis.length; i++) {
               for (var j = 0; j < nodeDetails.length; j++) {
