@@ -40,9 +40,7 @@ module.exports = {
         drop_console: true
       },
       sourceMap: false,
-      mangle: {
-        except: ['$super', '$', 'angular', 'exports', 'require']
-      },
+      mangle: false,
       output: {
         comments: false
       }
