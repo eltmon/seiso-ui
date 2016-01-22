@@ -30,7 +30,7 @@ module.exports = function(app) {
         dataService.get(sSIHref + '?mode=nodeDetails')
           .then(function(res) {
             console.log('mode=nodeDetails: ', res);
-            var nodeDetails = res.data._embedded.serviceInstanceResources;
+            var nodeDetails = res._embedded.serviceInstanceResources;
             var sis = $scope.serviceInstances;
             for (var i = 0; i < sis.length; i++) {
               for (var j = 0; j < nodeDetails.length; j++) {
