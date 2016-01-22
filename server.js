@@ -19,7 +19,6 @@ var express = require('express'),
 	apiEndpointCtrl = require('./lib/controllers').apiEndpoint,
 	publicDir = __dirname + '/static';
 
-
 logger.format('access', logConfig.loggerFormat);
 app.use(logger('access', {stream: logConfig.accessLogStream}));
 
@@ -31,7 +30,6 @@ app.use('/getApiConfig', apiEndpointCtrl);
 function start() {
   app.listen(config.port, function() {
     console.log('Server listening on port ', app.get('port'));
-    console.log('Config: \n', config);
   });
 }
 
