@@ -24,11 +24,11 @@ module.exports = function(app) {
             var query = '?mode=nodeDetails&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
             var siRequest =  siUrl + query;
             var siSuccessHandler = function(res) {
-
+              if (!res.data._embedded) return;
               var siPage = res.data;
               $scope.serviceInstanceMetadata = siPage.metadata;
               $scope.serviceInstanceListStatus = 'loaded';
-              var nodeDetails = res._embedded.serviceInstanceResources;
+              var nodeDetails = res.data._embedded.serviceInstanceResources;
               var sis = $scope.serviceInstances;
               for (var i = 0; i < sis.length; i++) {
                 for (var j = 0; j < nodeDetails.length; j++) {
