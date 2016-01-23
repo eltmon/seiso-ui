@@ -64,7 +64,7 @@ exports.nodePageToNodeRows = function(nodePage) {
       nodeRow = {
         name: node.name,
         displayName: node.name,
-        version: node.version || 'Not Imported.',
+        version: node.version || '-',
         healthStatus: node.healthStatus,
         showActions: true
       };
@@ -83,7 +83,7 @@ exports.nodePageToNodeRows = function(nodePage) {
         if (j === 0) {
           // Distinguish name from display name. We want to filter by name, but display by displayName.
           nodeRow.displayName = node.name;
-          nodeRow.version = node.version || 'Not Imported.';
+          nodeRow.version = node.version || '-';
           nodeRow.healthStatus = node.healthStatus;
           nodeRow.nodeAggregateRotationStatus = node.aggregateRotationStatus;
         }
