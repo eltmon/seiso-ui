@@ -6,11 +6,7 @@ var path = require('path'),
 
 module.exports = {
   entry: {
-    // jquery: './node_modules/jquery/dist/jquery.min.js',
-    bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min.js',
-    material: './node_modules/angular-material/angular-material.min.js',
-    build: './src/client/app.js',
-
+    build: './src/client/app.js'
   },
   output: {
     path: __dirname + '/static/js/',
@@ -18,34 +14,36 @@ module.exports = {
     chunkFileName: '[id].bundle.js'
   },
   externals: {
-    'jquery': 'jQuery'
   },
   plugins: [
+    // new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js', Infinity),
     new webpack.ProvidePlugin({
-      $: 'jquery'
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jquery': 'jquery'
     }),
     new ngAnnotatePlugin({
       add: true
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        sequences: true,
-        dead_code: true,
-        conditionals: true,
-        booleans: true,
-        unused: true,
-        if_return: true,
-        join_vars: true,
-        drop_console: true
-      },
-      sourceMap: false,
-      // Don't mangle for now, as angular doesn't play well with obsfucation of directive names. [IDM]
-      // See: https://stackoverflow.com/questions/17238759/angular-module-minification-bug
-      mangle: false,
-      output: {
-        comments: false
-      }
     })
+    // new webpack.optimize.UglifyJsPlugin({
+    //   minimize: true,
+    //   compress: {
+    //     sequences: true,
+    //     dead_code: true,
+    //     conditionals: true,
+    //     booleans: true,
+    //     unused: true,
+    //     if_return: true,
+    //     join_vars: true,
+    //     drop_console: true
+    //   },
+    //   sourceMap: false,
+    //   // Don't mangle for now, as angular doesn't play well with obsfucation of directive names. [IDM]
+    //   // See: https://stackoverflow.com/questions/17238759/angular-module-minification-bug
+    //   mangle: false,
+    //   output: {
+    //     comments: false
+    //   }
+    // })
   ]
 };
