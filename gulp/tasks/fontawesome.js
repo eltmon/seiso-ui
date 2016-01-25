@@ -10,5 +10,5 @@ function task() {
       .pipe(gulp.dest(destPath));
 }
 
-gulp.task('fontawesome', task);
+gulp.task('fontawesome', ['fonts'], task);
 module.exports = task;

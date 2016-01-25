@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 
 function buildTask(cb) {
   var tasks = getEnabledTasks();
-  return runSequence('clean', tasks.assetTasks, tasks.codeTasks, 'html:index', /*'watch',*/ cb);
+  return runSequence(tasks.assetTasks, tasks.codeTasks, 'html:index', /*'watch',*/ cb);
 }
 
 gulp.task('build', buildTask);
