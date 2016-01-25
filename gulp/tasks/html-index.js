@@ -21,15 +21,18 @@ function htmlIndexTask() {
     return gulp.src([config.out + path], {read: false});
   }
 
-  var css = sourceStream('/css/**/*.css');
-  var jquery = sourceStream('/js/jquery.min.js');
-  var bootstrap = sourceStream('/js/bootstrap.bundle.js');
-  var materials = sourceStream('/js/materials.bundle.js');
-  var build = sourceStream('/js/build.bundle.js');
+  var sourceStreams = [];
+  sourceStreams.push(sourceStream('/css/**/*.css'));
+  for (var k in config.vendorLibs) {
+    sourceStreams.push(
+      sourceStream('/js/' + config.vendorLibs[k] + '.min.js')
+    );
+  }
+  sourceStreams.push(sourceStream('/js/build.bundle.js'));
 
   var target = gulp.src(config.out + '/index.html');
 
-  return target.pipe($.inject(series(css, jquery, bootstrap, build), {ignorePath: 'static/'}))
+  return target.pipe($.inject(series.apply(this, sourceStreams), {ignorePath: 'static/'}))
     .pipe(gulp.dest(config.out));
 }
 

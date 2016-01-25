@@ -1,20 +1,37 @@
 'use strict';
 
 var gulp = require('gulp'),
+		stripComments = require('gulp-strip-comments'),
     config = require('../config');
 
-var vLibs = {
-  bs: config.nodeModules + '/bootstrap/dist/js/bootstrap.min.js',
-  jq: config.nodeModules + '/jquery/dist/jquery.min.js'
+/*
+ *  Copy vendor minified libraries directly.
+ *  Check the main app.js entry file for additional deps that might
+ *  be bundled with the app code. [IDM]
+ */
+var libs = {
+  jquery: '/dist/',
+  // bootstrap: '/dist/js/',
+  // angular: '/',
+  async: '/dist/',
+  // angular_ui_router: '/release/',
+  // angular_sanitize: '/',
+  d3: '/'
 };
 
 function vendorTask() {
-  var srcPath = vLibs.jq;
+	var sources = [];
+	for (var k in libs) {
+		var libName = k.replace(/_/g, '-');
+		sources.push(config.nodeModules + '/' + libName + libs[k] + libName + '.min.js');
+	}
+
   var destPath = config.out + '/js';
-  gulp.src(srcPath)
+  gulp.src(sources)
+  	// .pipe(stripComments())
     .pipe(gulp.dest(destPath));
 }
 
-gulp.task('vendorNoBuild', vendorTask);
+gulp.task('vendor:js', vendorTask);
 
 module.exports = vendorTask;

@@ -7,7 +7,7 @@ var _ = require('lodash');
 // Really I think all of these can run in parallel. Collapse? [WLW]
 // Exclude html:index since we have to do that after building all the CSS and JS.
 var assetTasks = ['fontawesome', 'fonts', 'images'],
-    codeTasks = ['html', 'vendorNoBuild', 'less', 'css', 'webpack:build'],
+    codeTasks = ['html', 'less', 'css', 'webpack:build', 'vendor:js'],
     indexInject = ['html:index'];
 
 module.exports = function(env) {
