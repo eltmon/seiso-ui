@@ -14,7 +14,7 @@ module.exports = function(app) {
       dataService.get(siUrl).then(nodeSummarySuccess, function(err) {return console.log(err);});
 
       function nodeSummarySuccess(res) {
-        console.log('node summary: ', res)
+        console.log('node summary: ', res);
         var nodeStats = res.data;
         enrichNodeStats(nodeStats);
         $scope.nodeStats = nodeStats;

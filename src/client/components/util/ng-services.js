@@ -6,10 +6,12 @@ module.exports = function(app) {
 
   
   app.module('seisoServices', [])
-
   // This is a service, not a factory.
-  .service('SearchService', [ '$http', function($http) {
-    var baseUrl = 'internal/search?q=';
+  .service('SearchService', SearchService);
+
+  /* @ngInject */
+  function SearchService(dataService) {
+    var baseUrl = '/internal/search?q=';
     var query = {};
     var results = {};
   
@@ -22,16 +24,13 @@ module.exports = function(app) {
     
     this.search = function(callback) {
       this.results = {};
-      var searchRequest = {
-        method : 'GET',
-        url : this.buildSearchUrl(),
-        headers : { 'Accept' : 'application/hal+json' }
-      };
-      $http(searchRequest)
+      searchUrl = this.buildSearchUrl();
+      dataService.get(searchRequest.url)
           .success(function(data) {
             results = { value : data };
             callback();
           });
     };
-  }]);
+  }
+
 };

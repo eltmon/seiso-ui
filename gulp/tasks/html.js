@@ -1,19 +1,17 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({ lazy: true });
-var config = require('../config');
-var browserSync = require('../lib/browserSync');
+var gulp = require('gulp'),
+    $ = require('gulp-load-plugins')({ lazy: true }),
+    htmlmin = require('gulp-htmlmin'),
+    config = require('../config');
 
 function htmlPartials() {
-  var opts = {
-    conditionals: true,
-    spare: true,
-    empty: true,
-    quotes: true
-  };
   return gulp.src(config.components + '/**/*.html')
-      .pipe($.minifyHtml(opts))
+      .pipe($.htmlmin({
+        collapseWhiteSpace: true,
+        preserveLineBreaks: true,
+        removeComments: true
+      }))
       .pipe(gulp.dest(config.out + '/view'));
 }
 

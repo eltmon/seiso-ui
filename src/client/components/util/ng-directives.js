@@ -1,5 +1,3 @@
-// var $ = require('jquery');
-
 
 var enterDirective = function() {
   var directive = function() {
@@ -103,7 +101,7 @@ var rotationDetailsPopoverDirective = function() {
                 $scope.ipAddress = res.data._embedded.nodeIpAddresses[0];
                 dataService.get($scope.ipAddress._links.endpoints.href + '?projection=endpointDetails')
                   .then(function(res) {
-                    // console.log('endpointDetails: ', res);
+                    console.log('endpointDetails: ', res);
                   });
               });
           }, function(res) {

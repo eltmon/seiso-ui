@@ -1,9 +1,9 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({ lazy: true });
-var config = require('../config');
-var args = require('yargs').argv;
+var gulp = require('gulp'),
+    $ = require('gulp-load-plugins')({ lazy: true }),
+    config = require('../config'),
+    args = require('yargs').argv;
 
 /**
  * Run jshint and jscs for all JS files (src, test, and build tasks).
@@ -20,4 +20,5 @@ function vetTask() {
 }
 
 gulp.task('vet', vetTask);
+
 module.exports = vetTask;

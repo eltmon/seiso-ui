@@ -10,8 +10,6 @@ module.exports = function(app) {
       .state('search', stateConfig('/search', 'Search', 'search'))
       .state('login', stateConfig('/login', 'Login', 'auth/login'))
       .state('admin', stateConfig('/admin', 'Admin', 'admin/index'))
-      .state('mb', viewRoute('/mb', 'mb/index'))
-      .state('mb:type', viewRoute('/mb:type', 'mb/profile'))
       .state('dataCenters', viewRoute('/data-centers', 'data-center/list/data-center-list'))
       .state('dataCenter', stateConfig('/data-centers/:key', 'DataCenterDetails', 'data-center/details/data-center-details'))
       .state('environments', stateConfig('/environments', 'EnvironmentList', 'environment/list/environment-list'))

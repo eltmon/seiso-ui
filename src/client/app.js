@@ -1,23 +1,20 @@
 'use strict';
 
-require('d3');
-require('angular');
-require('angular-route');
-require('angular-sanitize');
-require('angular-material');
-
+var $ = window.$ = require('jquery');
+var angular = require('angular');
+require('angular-animate');
+require('angular-ui-router');
+require('bootstrap');
 var uibs = require('angular-ui-bootstrap');
-// var uiRouter = require('angular-ui-router');
 
 var util = require('./components/util/util');
 
+
 var dependencies = [
-  'ngRoute',
-  'ngSanitize',
+  'ui.router',
+  'ngAnimate',
   'seisoFilters',
   'seisoServices',
-  'ngMaterial',
-  require('angular-ui-router'),
   uibs
 ];
 
@@ -59,7 +56,6 @@ require('./components/load-balancer/list/load-balancer-list-controller')(app);
 require('./components/machine/machine-details-controller')(app);
 
 // Person
-
 require('./components/person/details/person-details-controller')(app);
 require('./components/person/list/person-list-controller')(app);
 
@@ -95,9 +91,6 @@ require('./components/service/list/service-list-controller')(app);
 // Other
 require('./components/status/status-list-controller')(app);
 require('./components/type/type-list-controller')(app);
-
-// MB
-require('./components/mb/mb-controller')(app);
 
 /**
  *    Services

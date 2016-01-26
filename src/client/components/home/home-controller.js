@@ -1,5 +1,5 @@
+
 var pageTitle = require('../util/util').pageTitle;
-var async = require('async');
 
 module.exports = function(app) {
 

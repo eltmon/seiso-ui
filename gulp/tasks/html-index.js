@@ -1,10 +1,9 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({ lazy: true });
-var config = require('../config');
-var browserSync = require('browser-sync');
-var series = require('stream-series');
+var gulp = require('gulp'),
+    $ = require('gulp-load-plugins')({ lazy: true }),
+    config = require('../config'),
+    series = require('stream-series');
 
 gulp.task('cp:index', function() {
   return gulp.src(config.client + '/index.html')
@@ -22,23 +21,18 @@ function htmlIndexTask() {
     return gulp.src([config.out + path], {read: false});
   }
 
-  var css = sourceStream('/css/**/*.css');
-  var jquery = sourceStream('/js/jquery.min.js');
-  var bootstrap = sourceStream('/js/bootstrap.bundle.js');
-  var materials = sourceStream('/js/materials.bundle.js');
-  var build = sourceStream('/js/build.bundle.js');
+  var sourceStreams = [];
+  sourceStreams.push(sourceStream('/css/**/*.css'));
+  for (var k in config.vendorLibs) {
+    sourceStreams.push(
+      sourceStream('/js/' + config.vendorLibs[k] + '.min.js')
+    );
+  }
+  sourceStreams.push(sourceStream('/js/build.bundle.js'));
 
   var target = gulp.src(config.out + '/index.html');
 
-  var htmlMinifyOpts = {
-    conditionals: true,
-    spare: true,
-    empty: true,
-    quotes: true
-  };
-
-  return target.pipe($.inject(series(css, jquery, bootstrap, build), {ignorePath: 'static/'}))
-    // .pipe($.minifyHtml(htmlMinifyOpts))
+  return target.pipe($.inject(series.apply(this, sourceStreams), {ignorePath: 'static/'}))
     .pipe(gulp.dest(config.out));
 }
 

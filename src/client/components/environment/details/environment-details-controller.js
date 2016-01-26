@@ -24,7 +24,7 @@ module.exports = function(app) {
             var query = '?mode=nodeDetails&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
             var siRequest =  siUrl + query;
             var siSuccessHandler = function(res) {
-
+              if (!res.data._embedded) return;
               var siPage = res.data;
               $scope.serviceInstanceMetadata = siPage.metadata;
               $scope.serviceInstanceListStatus = 'loaded';
@@ -51,7 +51,9 @@ module.exports = function(app) {
         .then(function(res) {
           $scope.serviceInstances = res.data._embedded.serviceInstances;
           cb();
-        }, function(res) {return console.log('error getting service instances: ', res)});
+        }, function(res) {
+          return console.log('error getting service instances: ', res);
+        });
     }
 
     $scope.model.serviceInstances.pageSelected();

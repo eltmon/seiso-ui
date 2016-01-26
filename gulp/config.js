@@ -12,5 +12,15 @@ module.exports = {
   components: client + '/components',
   out: './static',
   index: client + '/index.html',
-  spec: './spec/**'
+  spec: './spec/**',
+  // Also acts as html-inject order
+  vendorLibs: [
+  	'jquery',
+  	// 'bootstrap',
+  	// 'angular',
+  	'async',
+  	// 'angular-ui-router',
+  	// 'angular-sanitize',
+  	'd3'
+  ]
 };
