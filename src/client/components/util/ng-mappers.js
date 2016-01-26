@@ -66,7 +66,8 @@ exports.nodePageToNodeRows = function(nodePage) {
         displayName: node.name,
         version: node.version || 'Not Imported.',
         healthStatus: node.healthStatus,
-        showActions: true
+        showActions: true,
+        logLink: 'None',
       };
       nodeRows.push(nodeRow);
     } else {
@@ -78,7 +79,8 @@ exports.nodePageToNodeRows = function(nodePage) {
           ipAddress: ipAddress.ipAddress,
           ipAddressRole: ipAddress.ipAddressRole.name,
           endpoints: ipAddress.endpoints,
-          ipAggregateRotationStatus: ipAddress.aggregateRotationStatus
+          ipAggregateRotationStatus: ipAddress.aggregateRotationStatus,
+          logLink: node.ipAddresses[0].node.log_link
         };
         if (j === 0) {
           // Distinguish name from display name. We want to filter by name, but display by displayName.
