@@ -1,5 +1,7 @@
-var nodePageToNodeRows = require('../../../util/ng-mappers.js').nodePageToNodeRows;
-var async = require('async');
+'use strict';
+
+var async = require('async'),
+    nodePageToNodeRows = require('../../../util/ng-mappers.js').nodePageToNodeRows;
 
 module.exports = function(app) {
   app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
@@ -12,11 +14,11 @@ module.exports = function(app) {
         $scope.nodeListStatus = 'loading';
         var pageNumber = $scope.model.nodes.currentPage;
         var apiPageNumber = pageNumber - 1;
-        var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + $stateParams.key
-          + '&page=' + apiPageNumber 
-          + '&size=' + paginationConfig.itemsPerPage 
-          + '&sort=name'
-          + '&projection=serviceInstanceNodes';
+        var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + $stateParams.key +
+            '&page=' + apiPageNumber +
+            '&size=' + paginationConfig.itemsPerPage +
+            '&sort=name' +
+            '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
 
@@ -26,14 +28,27 @@ module.exports = function(app) {
           async.each($scope.nodes, function(node, cb) {
             dataService.get(node._links.ipAddresses.href + '?projection=ipAddressDetails')
               .then(function(res) {
+                console.log('ipAddressDetails: ', res);
                 node.ipAddresses = res.data._embedded.nodeIpAddresses;
-                cb();
-              }, function(res) {
-                cb(res);
+                async.each(node.ipAddresses, function(nIp, cb2) {
+                  dataService.get(nIp._links.rotationStatus.href + '?projection=rotationStatusDetails')
+                    .then(function(res) {
+                      console.log('rotoStatusDets: ', res.data);
+                      nIp.ipAggregateRotationStatus = res.data;
+                      cb2();
+                    });
+                }, function(err) {
+                  if (err) {
+                    cb2(res);
+                  } else {
+                    cb();
+                  }
+                });
               });
           }, function(err) {
             if (err) return console.log(err);
             var nodePage = $scope.nodes;
+            console.log('sss: ', nodePage);
             $scope.nodeRows = nodePageToNodeRows(nodePage);
             $scope.nodeListStatus = 'loaded';
           });

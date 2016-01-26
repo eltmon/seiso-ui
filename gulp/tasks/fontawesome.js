@@ -1,8 +1,7 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({ lazy: true });
-var config = require('../config');
+var gulp = require('gulp'),
+    config = require('../config');
 
 function task() {
   var srcPath = config.nodeModules + '/font-awesome/css/font-awesome.min.css';
@@ -11,5 +10,5 @@ function task() {
       .pipe(gulp.dest(destPath));
 }
 
-gulp.task('fontawesome', task);
+gulp.task('fontawesome', ['fonts'], task);
 module.exports = task;

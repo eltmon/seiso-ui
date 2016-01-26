@@ -1,12 +1,12 @@
 'use strict';
 
-var gulp = require('gulp');
-var jasmine = require('gulp-jasmine');
-var config = require('../config');
-var reporters = require('jasmine-reporters');
-var webpack = require('gulp-webpack');
-var KarmaServer = require('karma').Server;
-var path = require('path');
+var gulp = require('gulp'),
+    config = require('../config'),
+    webpack = require('webpack-stream'),
+    path = require('path'),
+    KarmaServer = require('karma').Server,
+    reporters = require('jasmine-reporters'),
+    jasmine = require('gulp-jasmine');
 
 gulp.task('build:test', function() {
   

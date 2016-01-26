@@ -4,7 +4,7 @@ module.exports = function(app) {
   /* @ngInject */
   function dataService($http, $log) {
     var API_BASE_URL;
-    var FULL_URL_REGEX = /http:/;
+    var FULL_URL_REGEX = /https?:\/\//;
 
     // Get the api endpoint for this service to interact with
     $http.get('/getApiConfig')

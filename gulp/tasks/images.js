@@ -1,8 +1,7 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')({ lazy: true });
-var config = require('../config');
+var gulp = require('gulp'),
+    config = require('../config');
 
 function imagesTask() {
   var srcPath = config.client + '/images/**/*.png';

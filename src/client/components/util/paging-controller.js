@@ -24,11 +24,12 @@ module.exports = function(title, name, projection, sortKey) {
       var apiPageNumber = vm.query.pageNumber - 1;
       //FIXME: Handing optional projections here. Is the controller a good place to define the projection? [IDM]
       projection = (projection === null) ? projection = '' : projection = '&projection=' + projection;
-      var path = '/' + name
-          + '?page=' + apiPageNumber
-          + '&size=' + vm.query.pageSize
-          + '&sort=' + vm.query.sort
-          + projection;
+      
+      var path = '/' + name +
+            '?page=' + apiPageNumber +
+            '&size=' + vm.query.pageSize +
+            '&sort=' + vm.query.sort +
+            projection;
 
       vm.loadStatus = 'loading';
 

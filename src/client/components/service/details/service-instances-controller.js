@@ -1,4 +1,3 @@
-var async = require('async');
 
 module.exports = function(app) {
 
@@ -30,7 +29,9 @@ module.exports = function(app) {
         var sSIHref = service._links.serviceInstances.href;
         dataService.get(sSIHref + '?mode=nodeDetails')
           .then(function(res) {
+
             console.log('mode=nodeDetails: ', res);
+            if (!res.data._embedded) return;
             var nodeDetails = res.data._embedded.serviceInstanceResources;
             var sis = $scope.serviceInstances;
             for (var i = 0; i < sis.length; i++) {
