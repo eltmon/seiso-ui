@@ -124,15 +124,6 @@ var rotationDetailsPopoverDirective = function() {
               });
 
           });
-        
-        // var popoverContent = $compile(template)($scope);
-        // $($element).popover({
-        //   title: 'Rotation Details',
-        //   content: popoverContent,
-        //   placement: 'top',
-        //   html: true,
-        //   date: $scope.date
-        // });
 
         // click off popover to close
         $('body').on('click', function(e) {
