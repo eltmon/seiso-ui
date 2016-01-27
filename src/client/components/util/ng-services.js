@@ -25,7 +25,7 @@ module.exports = function(app) {
     this.search = function(callback) {
       this.results = {};
       searchUrl = this.buildSearchUrl();
-      dataService.get(searchRequest.url)
+      dataService.get(searchUrl)
           .success(function(data) {
             results = { value : data };
             callback();

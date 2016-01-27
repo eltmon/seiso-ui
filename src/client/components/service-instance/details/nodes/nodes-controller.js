@@ -21,25 +21,22 @@ module.exports = function(app) {
             '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
-
           $scope.metadata = res.data.page;
           $scope.nodes = res.data._embedded.nodes;
 
           async.each($scope.nodes, function(node, cb) {
             dataService.get(node._links.ipAddresses.href + '?projection=ipAddressDetails')
               .then(function(res) {
-                console.log('ipAddressDetails: ', res);
                 node.ipAddresses = res.data._embedded.nodeIpAddresses;
                 async.each(node.ipAddresses, function(nIp, cb2) {
                   dataService.get(nIp._links.rotationStatus.href + '?projection=rotationStatusDetails')
                     .then(function(res) {
-                      console.log('rotoStatusDets: ', res.data);
-                      nIp.ipAggregateRotationStatus = res.data;
+                      nIp.aggregateRotationStatus = res.data;
                       cb2();
                     });
                 }, function(err) {
                   if (err) {
-                    cb2(res);
+                    cb2(err);
                   } else {
                     cb();
                   }
@@ -48,7 +45,6 @@ module.exports = function(app) {
           }, function(err) {
             if (err) return console.log(err);
             var nodePage = $scope.nodes;
-            console.log('sss: ', nodePage);
             $scope.nodeRows = nodePageToNodeRows(nodePage);
             $scope.nodeListStatus = 'loaded';
           });
