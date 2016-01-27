@@ -6,7 +6,7 @@ require('angular-animate');
 require('angular-ui-router');
 require('bootstrap');
 var uibs = require('angular-ui-bootstrap');
-
+var async = require('async');
 var util = require('./components/util/util');
 
 

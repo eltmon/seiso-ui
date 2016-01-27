@@ -1,4 +1,6 @@
 
+var async = require('async');
+
 var enterDirective = function() {
   var directive = function() {
     return function(scope, element, attrs) {
@@ -32,7 +34,7 @@ var pieChartDirective = function() {
     // chartId: chart container
     // dataset: chart data
     function drawPieChart(chartId, dataset) {
-      console.log('Drawing pie chart');
+      // console.log('Drawing pie chart');
 
       var width = 120;
       var height = 120;
@@ -65,7 +67,7 @@ var pieChartDirective = function() {
     return {
       restrict: 'EA',
       link: function(scope, elem, attrs) {
-        console.log('chartData=' + attrs.chartData);
+        // console.log('chartData=' + attrs.chartData);
         // FIXME There must be some way to pass the element in and then have
         // drawPieChart() attach the svg to the element...
         drawPieChart(attrs.id, scope[attrs.chartData]);
@@ -90,32 +92,38 @@ var rotationDetailsPopoverDirective = function() {
         template = angular.element(template);
         var nodeName = $attrs.nodeName;
         var nodeIp = $attrs.nodeIp;
-        // console.log('transclude nodes: ', $scope.nodes);
 
-        dataService.get('/nodes/search/findByName?name=' + nodeName)
+        dataService.get('/nodeIpAddresses/search/findByNodeNameAndIpAddress?node=' + nodeName + '&ipAddress=' + nodeIp)
           .then(function(res) {
-            // console.log('popover node: ', res);
-            dataService.get(res.data._links.ipAddresses.href + '?projection=ipAddressDetails')
+            $scope.ipAddress = res.data;
+            dataService.get($scope.ipAddress._links.rotationStatus.href + '?projection=rotationStatusDetails')
               .then(function(res) {
-                // console.log('ipAddressDetails: ', res);
-                $scope.ipAddress = res.data._embedded.nodeIpAddresses[0];
+                $scope.ipAddress.rotationStatus = res.data;
                 dataService.get($scope.ipAddress._links.endpoints.href + '?projection=endpointDetails')
                   .then(function(res) {
-                    console.log('endpointDetails: ', res);
+                    $scope.ipAddress.endpoints = res.data._embedded.endpoints;
+                    async.each($scope.ipAddress.endpoints, function(ipEndpoint, cb) {
+                      dataService.get(ipEndpoint._links.rotationStatus.href + '?projection=rotationStatusDetails')
+                        .then(function(res) {
+                          ipEndpoint.rotationStatus = res.data;
+                          cb();
+                        });
+                    }, function(err) {
+                      if (err) return console.log(err);
+                      var popoverContent = $compile(template)($scope);
+                      $($element).popover({
+                        title: 'Rotation Details',
+                        content: popoverContent,
+                        placement: 'top',
+                        html: true,
+                        date: $scope.date
+                      }); 
+                      
+                    });
                   });
               });
-          }, function(res) {
-            return console.log(res);
+
           });
-        
-        var popoverContent = $compile(template)($scope);
-        $($element).popover({
-          title: 'Rotation Details',
-          content: popoverContent,
-          placement: 'top',
-          html: true,
-          date: $scope.date
-        });
 
         // click off popover to close
         $('body').on('click', function(e) {
