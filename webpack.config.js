@@ -26,21 +26,21 @@ module.exports = {
       add: true
     }),
     new webpack.optimize.UglifyJsPlugin({
-      // minimize: true,
-      // compress: {
-      //   sequences: true,
-      //   dead_code: true,
-      //   conditionals: true,
-      //   booleans: true,
-      //   unused: true,
-      //   if_return: true,
-      //   join_vars: true,
-      //   drop_console: true
-      // },
+      minimize: false,
+      compress: {
+        sequences: true,
+        dead_code: true,
+        conditionals: true,
+        booleans: true,
+        unused: true,
+        if_return: true,
+        join_vars: true,
+        drop_console: true
+      },
       // sourceMap: false,
       // // Don't mangle for now, as angular doesn't play well with obsfucation of directive names. [IDM]
       // // See: https://stackoverflow.com/questions/17238759/angular-module-minification-bug
-      // mangle: false,
+      mangle: false,
       output: {
         comments: false
       }
