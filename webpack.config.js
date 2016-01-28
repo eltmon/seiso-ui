@@ -26,7 +26,7 @@ module.exports = {
       add: true
     }),
     new webpack.optimize.UglifyJsPlugin({
-      minimize: true
+      minimize: true,
       // compress: {
       //   sequences: true,
       //   dead_code: true,
@@ -41,9 +41,9 @@ module.exports = {
       // // Don't mangle for now, as angular doesn't play well with obsfucation of directive names. [IDM]
       // // See: https://stackoverflow.com/questions/17238759/angular-module-minification-bug
       // mangle: false,
-      // output: {
-      //   comments: false
-      // }
+      output: {
+        comments: false
+      }
     });
   ]
 };
