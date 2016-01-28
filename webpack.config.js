@@ -26,7 +26,7 @@ module.exports = {
       add: true
     }),
     new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
+      // minimize: true,
       // compress: {
       //   sequences: true,
       //   dead_code: true,
