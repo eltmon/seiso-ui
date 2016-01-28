@@ -12,3 +12,4 @@ karma-jasmine
 karma-phantomjs-launcher
 phantom
 phantomjs
+webpack-dev-server
