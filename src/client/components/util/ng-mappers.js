@@ -45,7 +45,7 @@ exports.nodePageToNodeRows = function(nodePage) {
   var nodeRows = [];
   var nodeRow = {};
   for (var i = 0; i < nodes.length; i++) {
-
+    
     var node = nodes[i];
     
     if (node.healthStatus === null) {

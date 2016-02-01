@@ -118,7 +118,6 @@ var rotationDetailsPopoverDirective = function() {
                         html: true,
                         date: $scope.date
                       }); 
-                      
                     });
                   });
               });
