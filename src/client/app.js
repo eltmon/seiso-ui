@@ -1,21 +1,16 @@
 'use strict';
 
-var $ = window.$ = require('jquery');
-var angular = require('angular');
-require('angular-animate');
-require('angular-ui-router');
-require('bootstrap');
-var uibs = require('angular-ui-bootstrap');
 var async = require('async');
 var util = require('./components/util/util');
 
 
 var dependencies = [
   'ui.router',
+  'ngRoute',
   'ngAnimate',
+  'ui.bootstrap',
   'seisoFilters',
   'seisoServices',
-  uibs
 ];
 
 var app = angular.module('seiso', dependencies);
