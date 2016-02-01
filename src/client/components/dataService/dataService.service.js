@@ -11,7 +11,7 @@ module.exports = function(app) {
     $http.get('/getApiConfig')
       .then(function(res) {
         BASE_URL = res.data.apiEndpoint;
-        API_BASE_URL = res.data.apiEndpoint + '/api';
+        API_BASE_URL = res.data.apiEndpoint;
       }, function(res) {
         return console.log('err: ', res);
       });
@@ -20,7 +20,7 @@ module.exports = function(app) {
       get: get,
       getBaseUrl: function() {
         return BASE_URL;
-      };
+      }
     };
 
     // Returning promises here so components can attach to them (e.g. automatically
