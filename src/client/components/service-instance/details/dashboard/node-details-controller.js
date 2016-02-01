@@ -6,32 +6,63 @@ module.exports = function(app) {
 
   /* @ngInject */
   function nodeDetailsController($scope, dataService, $stateParams) {
-    var successHandler = function(data) {
-      console.log('node details controller: ', data);
-      $scope.model.page.title = pageTitle(data.name);
-      $scope.node = data;
+    var successHandler = function(res) {
+      console.log('node details controller: ', res.data);
+      $scope.model.page.title = pageTitle(res.data.name);
+      $scope.node = res.data;
       if ($scope.node !== null) {
-        $scope.serviceInstance = $scope.node.serviceInstance;
-        if ($scope.serviceInstance !== null) {
-          $scope.service = $scope.serviceInstance.service;
-          $scope.owner = $scope.service.owner;
-          if ($scope.owner !== null) {
-            $scope.owner.fullName = $scope.displayName($scope.owner);
-          }
-          $scope.environment = $scope.serviceInstance.environment;
-          $scope.dataCenter = $scope.serviceInstance.dataCenter;
-          if ($scope.dataCenter !== null) {
-            $scope.region = $scope.dataCenter.region;
-            if ($scope.region !== null) {
-              $scope.infrastructureProvider = $scope.region.infrastructureProvider;
+        var nodeSIHref = $scope.node._links.serviceInstance.href;
+        dataService.get(nodeSIHref + '?projection=serviceInstanceDetails')
+          .then(function(res) {
+            $scope.serviceInstance = res.data;
+            if ($scope.serviceInstance !== null) {
+              var siServiceHref = $scope.serviceInstance._links.service.href;
+              $scope.environment = res.data.environment;
+              $scope.dataCenter = res.data.dataCenter;
+              dataService.get(siServiceHref + '?projection=serviceDetails')
+                .then(function(res) {
+                  $scope.service = res.data;
+                  if ($scope.dataCenter !== null) {
+                    dataService.get($scope.serviceInstance._links.dataCenter.href)
+                      .then(function(res) {
+                        dataService.get(res.data._links.region.href)
+                          .then(function(res) {
+                            $scope.region = res.data;
+
+                            if ($scope.region !== null) {
+                              dataService.get(res.data._links.infrastructureProvider.href)
+                                .then(function(res) {
+                                  $scope.infrastructureProvider = res.data;
+                                });
+                            }
+                          });
+                    });
+                  }
+
+                  var sOwnerHref = res.data._links.owner.href;
+                  dataService.get(sOwnerHref)
+                    .then(function(res) {
+                      $scope.owner = res.data;
+                      console.log('scope owner: ', $scope.owner);
+                      if ($scope.owner !== null) {
+                        $scope.owner.fullName = $scope.displayName($scope.owner);
+                      }
+                    });
+                });
             }
-          }
-          $scope.machine = $scope.node.machine;
-        }
+          });
+
+        var nodeMachineHref = $scope.node._links.machine.href;
+        dataService.get(nodeMachineHref)
+          .then(function(res) {
+            $scope.machine = res.data;
+          }, function(err) {
+            if (err) return console.log(err);
+          });
       }
     };
     
-    dataService.get('/nodes/search/findByKey?key=' + $stateParams.name)
+    dataService.get('/nodes/search/findByName?name=' + $stateParams.name + '&projection=nodeDetails')
         .then(successHandler, function() { console.log('Error while getting node.');});
   }
 };
