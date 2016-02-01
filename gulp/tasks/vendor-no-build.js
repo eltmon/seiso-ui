@@ -18,7 +18,6 @@ var libs = {
   angular_ui_router: '/release/',
   angular_sanitize: '/',
   angular_animate: '/',
-  // angular_ui_bootstrap: '/',
   d3: '/'
 };
 
