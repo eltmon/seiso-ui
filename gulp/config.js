@@ -16,11 +16,14 @@ module.exports = {
   // Also acts as html-inject order
   vendorLibs: [
   	'jquery',
-  	// 'bootstrap',
-  	// 'angular',
+  	'bootstrap',
+  	'angular',
   	'async',
-  	// 'angular-ui-router',
-  	// 'angular-sanitize',
+  	'angular-ui-router',
+    'angular-route',
+  	'angular-sanitize',
+    'angular-animate',
+    'ui-bootstrap-tpls',
   	'd3'
   ]
 };

@@ -11,7 +11,7 @@ module.exports = function(app) {
 
   /* @ngInject */
   function SearchService(dataService) {
-    var baseUrl = '/internal/search?q=';
+    var baseUrl = dataService.getBaseUrl() + '/internal/search?q=';
     var query = {};
     var results = {};
   
