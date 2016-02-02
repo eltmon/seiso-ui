@@ -63,7 +63,6 @@ module.exports = function(app) {
                   si.nodeSummary = res.data;
                   dataService.get(siHref + '/healthBreakdown')
                     .then(function(res) {
-                      console.log('healthBreakdown: ', res.data);
                       si.healthBreakdown = res.data;
 
                       // Handle the case where a service instance has no nodes.
