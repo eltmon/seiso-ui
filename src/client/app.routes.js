@@ -17,7 +17,7 @@ module.exports = function(app) {
       .state('loadBalancers', stateConfig('/load-balancers', 'LoadBalancerList', 'load-balancer/list/load-balancer-list'))
       .state('loadBalancer', stateConfig('/load-balancers/:name', 'LoadBalancerDetails', 'load-balancer/details/load-balancer-details'))
       .state('machine', stateConfig('/machines/:name', 'MachineDetails', 'machine/machine-details'))
-      .state('node', stateConfig('/nodes/:name', 'NodeDetails', 'service-instance/details/nodes/details/node-details'))
+      .state('node', stateConfig('/nodes/:name', 'NodeDetails', 'service-instance/details/nodes/node-details'))
       .state('peoples', stateConfig('/people', 'PersonList', 'person/list/person-list'))
       .state('person', stateConfig('/paople/:username', 'PersonDetails', 'person/details/person-details'))
       .state('services', stateConfig('/services', 'ServiceList', 'service/list/service-list'))

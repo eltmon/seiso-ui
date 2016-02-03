@@ -4,18 +4,23 @@ module.exports = function(app) {
   /* @ngInject */
   function dataService($http, $log) {
     var API_BASE_URL;
+    var BASE_URL;
     var FULL_URL_REGEX = /https?:\/\//;
 
     // Get the api endpoint for this service to interact with
     $http.get('/getApiConfig')
       .then(function(res) {
+        BASE_URL = res.data.apiEndpoint;
         API_BASE_URL = res.data.apiEndpoint;
       }, function(res) {
         return console.log('err: ', res);
       });
 
     return {
-      get: get
+      get: get,
+      getBaseUrl: function() {
+        return BASE_URL;
+      }
     };
 
     // Returning promises here so components can attach to them (e.g. automatically

@@ -40,12 +40,12 @@ exports.enrichNodeStats = function(nodeStats) {
 // Supports the service instance details page.
 exports.nodePageToNodeRows = function(nodePage) {
   var nodes = nodePage;
-  console.log('nodePage: ', nodePage);
   
   // Build the node table, which is really a list of IP addresses grouped by node. [WLW]
   var nodeRows = [];
   var nodeRow = {};
   for (var i = 0; i < nodes.length; i++) {
+    
     var node = nodes[i];
     
     if (node.healthStatus === null) {
@@ -80,7 +80,7 @@ exports.nodePageToNodeRows = function(nodePage) {
           ipAddress: ipAddress.ipAddress,
           ipAddressRole: ipAddress.ipAddressRole.name,
           endpoints: ipAddress.endpoints,
-          ipAggregateRotationStatus: ipAddress.ipAggregateRotationStatus,
+		  ipAggregateRotationStatus: ipAddress.aggregateRotationStatus,
           details: node.ipAddresses[0].node.details
         };
         if (j === 0) {
@@ -93,7 +93,6 @@ exports.nodePageToNodeRows = function(nodePage) {
         nodeRows.push(nodeRow);
       }
     }
-    console.log('nodeRows Post: ', nodeRows);
   }
     
   return nodeRows;

@@ -11,16 +11,22 @@ var gulp = require('gulp'),
  */
 var libs = {
   jquery: '/dist/',
-  // bootstrap: '/dist/js/',
-  // angular: '/',
+  bootstrap: '/dist/js/',
+  angular: '/',
   async: '/dist/',
-  // angular_ui_router: '/release/',
-  // angular_sanitize: '/',
+  angular_route: '/',
+  angular_ui_router: '/release/',
+  angular_sanitize: '/',
+  angular_animate: '/',
   d3: '/'
 };
 
 function vendorTask() {
 	var sources = [];
+
+  // special case because the lib dir doesn't match the lib filename. [IDM]
+  sources.push(config.nodeModules + '/angular-ui-bootstrap/ui-bootstrap-tpls.min.js');
+
 	for (var k in libs) {
 		var libName = k.replace(/_/g, '-');
 		sources.push(config.nodeModules + '/' + libName + libs[k] + libName + '.min.js');

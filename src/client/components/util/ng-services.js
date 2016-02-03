@@ -11,7 +11,7 @@ module.exports = function(app) {
 
   /* @ngInject */
   function SearchService(dataService) {
-    var baseUrl = '/internal/search?q=';
+    var baseUrl = dataService.getBaseUrl() + '/internal/search?q=';
     var query = {};
     var results = {};
   
@@ -25,7 +25,7 @@ module.exports = function(app) {
     this.search = function(callback) {
       this.results = {};
       searchUrl = this.buildSearchUrl();
-      dataService.get(searchRequest.url)
+      dataService.get(searchUrl)
           .success(function(data) {
             results = { value : data };
             callback();
