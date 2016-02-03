@@ -30,13 +30,11 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th style="width:16.666%">Node</th>
-              <th style="width:16.666%">Version</th>
-              <th style="width:16.666%">Health</th>
-              <th style="width:16.666%">Log Link</th>
-              <!--th style="width:17%">Node Rotation <a href="" tooltip="Node rotation status, aggregated across all IPs and ports."><i class="fa fa-question-circle fa-lg"></i></a></th-->
-              <th style="width:16.666%" colspan="2">IP Address</th>
-              <th style="width:16.666%">IP Rotation <a href="" tooltip="IP rotation status, aggregated across all ports."><i class="fa fa-question-circle fa-lg"></i></a></th>
+              <th style="width:20.0%">Node</th>
+              <th style="width:20.0%">Version</th>
+              <th style="width:20.0%">Health</th>
+              <th style="width:20.0%" colspan="2">IP Address</th>
+              <th style="width:20.0%">IP Rotation <a href="" tooltip="IP rotation status, aggregated across all ports."><i class="fa fa-question-circle fa-lg"></i></a></th>
             </tr>
           </thead>
           <tbody>
@@ -58,13 +56,8 @@
               <td style="white-space:nowrap;">
                 <div ng-if="firstRow">
                   <i class="fa fa-circle fa-circle-{{healthStatusTypeKey}}"></i>
-                  {{nodeRow.healthStatus.name}}
-                </div>
-              </td>
-              
-              <td style="white-space:nowrap;">
-                <div ng-if="firstRow">
-                  <a href="{{nodeRow.logLink}}" target="_blank">{{nodeRow.logLink}}</a>
+                  {{nodeRow.healthStatus.name}}<br>
+                  <a href="{{nodeRow.details}}" target="_blank">Details</a>
                 </div>
               </td>
               

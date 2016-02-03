@@ -68,7 +68,7 @@ exports.nodePageToNodeRows = function(nodePage) {
         version: node.version || '-',
         healthStatus: node.healthStatus,
         showActions: true,
-        logLink: 'None',
+        details: 'None',
       };
       nodeRows.push(nodeRow);
     } else {
@@ -81,7 +81,7 @@ exports.nodePageToNodeRows = function(nodePage) {
           ipAddressRole: ipAddress.ipAddressRole.name,
           endpoints: ipAddress.endpoints,
           ipAggregateRotationStatus: ipAddress.ipAggregateRotationStatus,
-          logLink: node.ipAddresses[0].node.log_link
+          details: node.ipAddresses[0].node.details
         };
         if (j === 0) {
           // Distinguish name from display name. We want to filter by name, but display by displayName.
