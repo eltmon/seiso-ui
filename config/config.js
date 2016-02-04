@@ -1,4 +1,4 @@
 
 module.exports = {
-	apiEndpoint: 'http://localhost:8080/api'
+	apiEndpoint: 'http://localhost:8080'
 };

@@ -55,7 +55,6 @@ module.exports = function(app) {
             dataService.get(reqUrl + pageQuery)
               .then(successHandler, errorHandler);
 
-            
             function getNodeSummary(si, cb) {
               var siHref = si._links.self.href;
               dataService.get(siHref + '/nodeSummary')
@@ -64,10 +63,16 @@ module.exports = function(app) {
                   dataService.get(siHref + '/healthBreakdown')
                     .then(function(res) {
                       si.healthBreakdown = res.data;
+
+                      // Handle the case where a service instance has no nodes.
+                      if (res.data._embedded ===  undefined) {
+                        si.healthKey = 'warning';
+                      } else {
+                        si.healthKey = res.data._embedded.breakdownItems[0].statusType;
+                      }
                       cb();
-                      si.healthKey = res.data._embedded.breakdownItems[0].statusType;
                     });
-                }, function(res) {return cb(res);});
+                });
             }
 
           })($scope.model.serviceInstances.currentPage);

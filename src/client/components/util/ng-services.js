@@ -11,26 +11,26 @@ module.exports = function(app) {
 
   /* @ngInject */
   function SearchService(dataService) {
+
+    // Private
     var baseUrl = dataService.getBaseUrl() + '/internal/search?q=';
     var query = {};
     var results = {};
-  
+    var self = this;
+    // Public
     // TODO replace concat with URI template?
     this.buildSearchUrl = function() { return baseUrl + query.value; };
     this.getQuery = function() { return query; };
     this.setQuery = function(newQuery) { query = { value : newQuery }; };
     this.getResults = function() { return results; };
     this.setResults = function(newResults) { results = { value : newResults }; };
-    
     this.search = function(callback) {
-      this.results = {};
-      searchUrl = this.buildSearchUrl();
-      dataService.get(searchUrl)
-          .success(function(data) {
-            results = { value : data };
+      self.searchUrl = this.buildSearchUrl();
+      dataService.get(self.searchUrl)
+          .then(function(res) {
+            self.setResults(res.data);
             callback();
           });
     };
   }
-
 };
