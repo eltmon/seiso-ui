@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -r ./static/",
+    "start": "node index",
     "start:prod": "npm run-script build:all && node index",
-    "start:dev": "npm run-script build:all && npm run-script watch",
-    "watch": "npm run build:all && gulp watch",
+    "start:dev": "npm run-script build:all && npm run-script watch && npm run start",
+    "watch": "gulp watch",
     "test": "gulp test",
     "vet": "gulp vet",
     "build:all": "npm run-script clean && gulp build"
