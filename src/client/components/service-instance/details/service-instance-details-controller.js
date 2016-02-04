@@ -34,11 +34,10 @@ module.exports = function(app) {
           { heading: 'Dashboard', content: 'dashboard/index' },
           { heading: 'All Nodes', content: 'nodes/node-pane' },
           { heading: 'Details', content: 'details/index' },
-          { heading: 'Dependencies', content: 'dependencies/dependencies-tables' }
+          { heading: 'Dependencies', content: 'dependencies/dependencies-tables' },
+          { heading: 'Actions', content: 'eos-actions/index' }
         ];
 
-        
-        
         // if ($scope.globals.enableActions) {
         //   $scope.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
         // }
