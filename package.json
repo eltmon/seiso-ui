@@ -6,12 +6,12 @@
   "scripts": {
     "clean": "rm -r ./static/",
     "start": "node index",
-    "start:prod": "npm run-script build:all && node index",
-    "start:dev": "npm run-script build:all && npm run-script watch && npm run start",
+    "start:prod": "npm run build:all && node index",
+    "start:dev": "npm run build:all && npm run-script watch && npm run start",
     "watch": "gulp watch",
     "test": "gulp test",
     "vet": "gulp vet",
-    "build:all": "npm run-script clean && gulp build"
+    "build:all": "npm run clean && gulp build"
   },
   "repository": {
     "type": "git",
