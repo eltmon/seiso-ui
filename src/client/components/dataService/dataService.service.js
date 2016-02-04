@@ -11,7 +11,7 @@ module.exports = function(app) {
     $http.get('/getApiConfig')
       .then(function(res) {
         BASE_URL = res.data.apiEndpoint;
-        API_BASE_URL = res.data.apiEndpoint;
+        API_BASE_URL = res.data.apiEndpoint + '/api';
       }, function(res) {
         return console.log('err: ', res);
       });
