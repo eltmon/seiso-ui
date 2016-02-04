@@ -37,7 +37,6 @@ module.exports = function(app) {
             var pageQuery = '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key' + '&projection=serviceInstanceDetails';
 
             var successHandler = function(res) {
-              console.log('serviceInstances: ', res.data);
               var page = res.data;
               $scope.serviceInstances = page._embedded.serviceInstances;
               $scope.serviceInstanceMetadata = page.metadata;
