@@ -1,4 +1,4 @@
-<div id="page-spinner-panel" ng-hide="machine">
+<div id="page-spinner-panel" ng-hide="machine" ng-controller="MachineDetailsController">
   <i class="fa fa-spinner fa-spin fa-5x"></i>
 </div>
 <div ng-show="machine">
@@ -85,5 +85,5 @@
       </div>
     </div>
   </section>
-  <ng-include src="'view/items/machine/details/nodes-pane.html'" />
+  <ng-include src="'view/machine/nodes-pane.html'" />
 </div>
