@@ -8,7 +8,6 @@ module.exports = function(app) {
   function serviceInstanceDetailsController($scope, dataService, $stateParams) {
     $scope.serviceInstanceStatus = 'loading';
     var serviceInstanceKey = $stateParams.key;
-
     var path = '/serviceInstances/search/findByKey?key=' + serviceInstanceKey;
     dataService.get(path).then(successHandler, errorHandler);
     function successHandler(res) {
