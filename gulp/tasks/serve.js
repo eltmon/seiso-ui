@@ -9,7 +9,8 @@ function watchTask() {
   var watchPath = config.client + '/**';
 
   browserSync.init({
-    server: config.out
+    proxy: 'localhost:3001',
+    port: 3000
   });
 
   gulp.watch(watchPath, ['watch:reload']);
