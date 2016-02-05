@@ -1,11 +1,7 @@
 'use strict';
 
-require('raw!./index.html');
-require('raw!./components/service-instance/list/service-instance-list.html');
-
 var async = require('async');
 var util = require('./components/util/util');
-
 
 var dependencies = [
   'ui.router',
