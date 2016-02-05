@@ -5,15 +5,19 @@ var path = require('path'),
     ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
+  cache: true,
   entry: {
-    build: './src/client/app.js',
+    build: './src/client/app.js'
   },
   output: {
     path: __dirname + '/static/js/',
     filename: '[name].bundle.js',
-    chunkFileName: '[id].bundle.js'
+    chunkFileName: '[id].bundle.js',
+    publicPath: '/static/'
   },
-
+  loaders: [
+    { test: /\.html$/, loader: 'raw-loader'}
+  ],
   // Allows us to require a lib in our app but just references an available, global reference to the library.
   // This is for vendor files that have been included in a script tag and avoids adding external libs to the
   // app bundle. [IDM]
@@ -54,4 +58,24 @@ module.exports = {
     //   }
     // })
   ]
+  // devServer: {
+  //   contentBase: './static',
+  //   hot: true,
+  //   host: '0.0.0.0',
+  //   port: 3000,
+  //   proxy: {
+  //     '*': 'http://localhost:3001'
+  //   },
+  //   quiet: false,
+  //   noInfo: false,
+  //   lazy: false,
+  //   filename: 'build.bundle.js',
+  //   watchOptions: {
+  //     aggregateTimeout: 300,
+  //     poll: 1000
+  //   },
+  //   // publicPath: '/static',
+  //   headers: {'application/json': 'yes'},
+  //   stats: {colors: true}
+  // }
 };

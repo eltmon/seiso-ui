@@ -14,7 +14,6 @@ module.exports = function(app) {
         dataService.get(nodesHref)
           .then(function(res) {
             $scope.nodes = res.data._embedded.nodes;
-
           });
       });
   }

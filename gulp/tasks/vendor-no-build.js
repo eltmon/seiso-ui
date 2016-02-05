@@ -41,4 +41,3 @@ function vendorTask() {
 gulp.task('vendor:js', vendorTask);
 
 module.exports = vendorTask;
-

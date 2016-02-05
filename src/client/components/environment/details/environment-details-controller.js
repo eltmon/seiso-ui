@@ -37,7 +37,6 @@ module.exports = function(app) {
                   }
                 }
               }
-              console.log($scope.serviceInstances);
             };
             dataService.get(siRequest)
               .then(siSuccessHandler, function(err) { return console.log(err); });

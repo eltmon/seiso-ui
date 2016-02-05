@@ -4,7 +4,7 @@ var pageTitle = require('../util/util').pageTitle;
 module.exports = function(app) {
   app.controller('TypeListController', TypeListController);
 
-  /*@ngInject*/
+  /* @ngInject */
   function TypeListController($scope, dataService, paginationConfig) {
     $scope.model.page.title = pageTitle('Types');
     var path = '/serviceTypes';

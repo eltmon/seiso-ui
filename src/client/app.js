@@ -3,7 +3,6 @@
 var async = require('async');
 var util = require('./components/util/util');
 
-
 var dependencies = [
   'ui.router',
   'ngRoute',
@@ -54,16 +53,6 @@ require('./components/load-balancer/list/load-balancer-list-controller')(app);
 require('./components/machine/machine-details-controller')(app);
 
 // Person
-require('./components/person/details/person-details-controller')(app);
-require('./components/person/list/person-list-controller')(app);
-
-// Service Instance
-require('./components/service-instance/details/service-instance-details-controller')(app);
-require('./components/service-instance/details/nodes/nodes-controller')(app);
-require('./components/service-instance/details/dependencies/service-instance-dependencies-controller')(app);
-require('./components/service-instance/details/dependencies/service-instance-dependents-controller')(app);
-require('./components/service-instance/list/service-instance-list-controller')(app);
-
 require('./components/person/details/person-details-controller')(app);
 require('./components/person/list/person-list-controller')(app);
 
