@@ -7,7 +7,7 @@ module.exports = function(app) {
     
     $stateProvider
       .state('home', stateConfig('/', 'Home', 'home/home'))
-      .state('search', stateConfig('/search', 'Search', 'search'))
+      .state('searchResults', stateConfig('/search-results', 'SearchResults', 'search/searchResults'))
       .state('login', stateConfig('/login', 'Login', 'auth/login'))
       .state('admin', stateConfig('/admin', 'Admin', 'admin/index'))
       .state('dataCenters', viewRoute('/data-centers', 'data-center/list/data-center-list'))

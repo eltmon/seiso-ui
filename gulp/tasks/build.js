@@ -9,5 +9,5 @@ function buildTask(cb) {
   return runSequence(tasks.assetTasks, tasks.codeTasks, 'html:index', /*'watch',*/ cb);
 }
 
-gulp.task('build', buildTask);
+gulp.task('build', ['clean'], buildTask);
 module.exports = buildTask;

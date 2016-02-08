@@ -17,6 +17,7 @@ var express = require('express'),
 	config =  require('./config'),
 	logConfig = require('./lib/logging'),
 	apiEndpointCtrl = require('./lib/controllers').apiEndpoint,
+	favicon = require('serve-favicon'),
 	publicDir = __dirname + '/static';
 
 logger.format('access', logConfig.loggerFormat);
@@ -24,6 +25,8 @@ app.use(logger('access', {stream: logConfig.accessLogStream}));
 
 app.set('port', config.port);
 app.use('/', express.static(publicDir));
+
+app.use(favicon(publicDir + '/images/favicon.ico'));
 
 app.use('/getApiConfig', apiEndpointCtrl);
 

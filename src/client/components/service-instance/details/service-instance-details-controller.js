@@ -8,7 +8,6 @@ module.exports = function(app) {
   function serviceInstanceDetailsController($scope, dataService, $stateParams) {
     $scope.serviceInstanceStatus = 'loading';
     var serviceInstanceKey = $stateParams.key;
-
     var path = '/serviceInstances/search/findByKey?key=' + serviceInstanceKey;
     dataService.get(path).then(successHandler, errorHandler);
     function successHandler(res) {
@@ -34,11 +33,10 @@ module.exports = function(app) {
           { heading: 'Dashboard', content: 'dashboard/index' },
           { heading: 'All Nodes', content: 'nodes/node-pane' },
           { heading: 'Details', content: 'details/index' },
-          { heading: 'Dependencies', content: 'dependencies/dependencies-tables' }
+          { heading: 'Dependencies', content: 'dependencies/dependencies-tables' },
+          { heading: 'Actions', content: 'eos-actions/index' }
         ];
 
-        
-        
         // if ($scope.globals.enableActions) {
         //   $scope.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
         // }

@@ -26,7 +26,6 @@ module.exports = function(app) {
       $scope.serviceGroups = serviceGroupsMap;
       $scope.serviceStatus = 'loaded';
     }
-
     $scope.getServices = function(group) {
       if ($scope.serviceGroups[group.key].services.length > 0) {
         return;

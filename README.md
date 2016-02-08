@@ -3,35 +3,20 @@
 
 This project is currently in progress and not ready for general use. 
 
-### Install
+### Quick Dev Start
 
-Install necessary build and run dependencies.
-
+Install dependencies.
 ```
 $ npm install
 ```
-
-### Build
-
-Run the build process to set up the static folder from which the site is served.
-
+Run Primary Node Server
 ```
-$ gulp build
+$ node index
 ```
-
-### Tests/Spec
-```
-$ gulp spec
-```
-### jshint and jscs
-```
-$ gulp vet
-```
-
-### Run
-
+In seperate process, serve content through browser-sync. This is configured to proxy to the application server (on port 3001)
 ```
 $ gulp serve
 ```
+
 
 
