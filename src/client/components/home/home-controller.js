@@ -29,10 +29,16 @@ module.exports = function(app) {
       }
       dataService.get(group._links.services.href)
         .then(function(res) {
-          $scope.serviceGroups[group.key].services = res.data._embedded.services;
+          $scope.serviceGroups[group.key].services = res.data._embedded.services.sort(alphaSort); 
         }, function(err) {
           if (err) return console.log(err);
       });
     };
+
+    function alphaSort(a, b) {
+      var textA = a.name.toUpperCase();
+      var textB = b.name.toUpperCase();
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    }
   }
 };
