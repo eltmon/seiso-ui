@@ -29,13 +29,6 @@ describe('seiso-ui', function() {
       expect($scope.model.title).toBe('Home - Seiso');
       expect($scope.serviceStatus).toBe('loading');
     });
-
-    it('should do another thing', function() {
-      var homeController = $ControllerContructor('HomeController', {$scope: $scope});
-      expect(1).toBe(1);
-    })
-
-    
   });
-
 });
+
