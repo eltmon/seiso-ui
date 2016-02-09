@@ -126,7 +126,7 @@ var rotationDetailsPopoverDirective = function() {
 
         // click off popover to close
         $('body').on('click', function(e) {
-          e.preventDefault();
+
           if (!e.target.hasAttribute('rotation-details-popover')) $($element).popover('hide');
         });
       }
