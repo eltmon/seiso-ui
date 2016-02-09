@@ -1,24 +1,23 @@
 var ListController = require('../util/paging-controller');
-var pageTitle = require('../util/util').pageTitle;
 
 module.exports = function(app) {
   app.controller('TypeListController', TypeListController);
 
   /* @ngInject */
-  function TypeListController($scope, dataService, paginationConfig) {
-    $scope.model.page.title = pageTitle('Types');
-    var path = '/serviceTypes';
+  function TypeListController($scope, dataService, paginationConfig, Page) {
+    Page.setTitle('Types');
 
-    dataService.get(path).then(successHandler, errorHandler);
+    dataService.get('/serviceTypes')
+      .then(successHandler, errorHandler);
 
-    var successHandler = function(res, status, headers) {
+    function successHandler(res) {
+      console.log(res);
       $scope.items = res.data._embedded.serviceTypes;
     };
 
-    var errorHandler = function(err) {
+    function errorHandler(err) {
       $scope.errors = [];
       $scope.errors.push(err);
     };
-
   }
 };

@@ -1,12 +1,11 @@
-var pageTitle = require('../util/util').pageTitle;
 
 module.exports = function(app) {
 
   app.controller('StatusListController', StatusListController);
   
   /*@ngInject*/
-  function StatusListController($scope, dataService) {
-    $scope.model.page.title = pageTitle('Statuses');
+  function StatusListController($scope, dataService, Page) {
+    Page.setTitle('Statuses');
     $scope.errors = [];
 
     dataService.get('/statusTypes')

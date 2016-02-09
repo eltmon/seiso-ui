@@ -1,4 +1,3 @@
-var pageTitle = require('../../util/util').pageTitle;
 var EE = require('events').EventEmitter;
 var ee = new EE();
 var async = require('async');
@@ -8,7 +7,7 @@ module.exports = function(app) {
   app.controller('DataCenterDetailsController', dataCenterDetailsController);
 
   /* @ngInject */
-  function dataCenterDetailsController($scope, $http, paginationConfig, $stateParams, dataService) {
+  function dataCenterDetailsController($scope, $http, paginationConfig, $stateParams, dataService, Page) {
     var siUri;
     var lbUri;
 
@@ -19,7 +18,7 @@ module.exports = function(app) {
         siUri = res.data._links.serviceInstances.href;
         lbUri = res.data._links.loadBalancers.href;
         ee.emit('dataCenter');        
-        $scope.model.page.title = pageTitle(dataCenter.name);
+        Page.setTitle(dataCenter.name);
       };
       var errorHandler = function() { console.log('Error while getting data center.'); };
       dataService.get('/dataCenters/search/findByKey?key=' + $stateParams.key)

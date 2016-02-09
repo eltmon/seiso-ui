@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="seiso">
+<html lang="en" data-ng-app="seiso" data-ng-controller="GlobalsController">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -8,13 +8,13 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Not working. Need to correct the scoping. -->
-    <title data-ng-bind="model.page.title"></title>
+    <title data-ng-bind="Page.title()"></title>
     <base href="/" />
     <!-- inject:css -->
     <!-- endinject -->
     <link rel="icon" type="image/png" href="images/favicon.ico">
   </head>
-  <body data-ng-class="{wait: model.wait}" data-ng-controller="GlobalsController">
+  <body data-ng-class="{wait: model.wait}">
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->

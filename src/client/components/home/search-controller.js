@@ -1,5 +1,3 @@
-var pageTitle = require('../util/util').pageTitle;
-
 module.exports = function(app) {
   app.controller('SearchController', SearchController);
 

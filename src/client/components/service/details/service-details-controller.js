@@ -1,18 +1,16 @@
-var pageTitle = require('../../util/util').pageTitle;
-
 module.exports = function(app) {
 
   app.controller('ServiceDetailsController', ServiceDetailsController);
 
   /* @ngInject */
-  function ServiceDetailsController($scope, $stateParams, dataService) {
+  function ServiceDetailsController($scope, $stateParams, dataService, Page) {
     $scope.serviceStatus = 'loading';
     $scope.viewing = $stateParams.key;
     var path = '/services/search/findByKey?key=' + $stateParams.key + '&projection=serviceDetails';
 
     var successHandler = function(res) {
       var service = res.data;
-      $scope.model.page.title = pageTitle(res.data.name);
+      Page.setTitle(res.data.name);
 
       $scope.service = service;
       $scope.serviceGroup = res.data.group;
