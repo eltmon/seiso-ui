@@ -23,6 +23,7 @@ require('./components/home/home-controller')(app);
 require('./components/global/globals-controller')(app);
 require('./components/auth/login-controller')(app);
 require('./components/admin/admin-controller')(app);
+require('./components/home/navbar-controller')(app);
 
 // Search
 require('./components/home/search-controller')(app);

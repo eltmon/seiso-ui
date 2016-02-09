@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse navbar-fixed-top" style="margin-bottom: 0;">
+<div class="navbar navbar-inverse navbar-fixed-top" style="margin-bottom: 0;" ng-controller="NavbarController">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -10,11 +10,11 @@
       <a class="navbar-brand" ng-href="{{uri()}}" style="margin-top:-8px"><img src="images/seiso-logo-white.png" style="width:82px;height:40px;"></a>
     </div>
     <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav" ng-if="globals.nav.seisoInstances.length &gt; 1">
+      <ul class="nav navbar-nav" ng-if="nav.seisoInstances.length > 1">
         <li class="dropdown">
-          <a class="dropdown-toggle"><span ng-bind="globals.nav.currentSeisoInstance"></span> <b class="caret"></b></a>
+          <a class="dropdown-toggle" data-toggle="dropdown"><span ng-bind="nav.self.name"></span> <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li ng-repeat="inst in globals.nav.seisoInstances">
+            <li ng-repeat="inst in nav.seisoInstances">
             	<a href="{{inst.href}}" ng-bind="inst.name"></a>
             </li>
           </ul>
@@ -24,7 +24,7 @@
         <li>
           <form name="searchForm" class="navbar-form navbar-left form-group" role="search" ng-controller="SearchController">
             <div id="searchInputGroup" class="input-group input-group-sm input-xs">
-              <input type="text" class="form-control input-xs" placeholder="Search" ng-model="searchQuery" ng-enter="search()" />
+              <input type="text" class="form-control input-xs" placeholder="Search" ng-model="searchQuery" ng-enter="search()" autofocus />
               <div class="input-group-btn">
                 <button class="btn btn-default" type="submit" ng-click="search()"><i class="fa fa-search"></i></button>
               </div>
