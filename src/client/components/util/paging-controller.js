@@ -1,10 +1,8 @@
-var pageTitle = require('./util').pageTitle;
-
 module.exports = function(title, name, projection, sortKey) {
   return PagingController;
 
   /* @ngInject */
-  function PagingController(dataService, paginationConfig, $log) {
+  function PagingController(dataService, paginationConfig, $log, Page) {
     $log.debug('Entered PagingController');
 
     var vm = this;
@@ -15,8 +13,7 @@ module.exports = function(title, name, projection, sortKey) {
       pageSize: paginationConfig.itemsPerPage,
       sort: sortKey
     };
-    // FIXME Need to fix scoping to get this to show up in the HTML page title.
-    vm.title = pageTitle(title);
+    Page.setTitle(title)
 
     loadPage();
 

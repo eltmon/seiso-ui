@@ -1,11 +1,9 @@
-var pageTitle = require('../../util/util').pageTitle;
-
 module.exports = function(app) {
 
   app.controller('ServiceInstanceDetailsController', serviceInstanceDetailsController);
 
   /* @ngInject */
-  function serviceInstanceDetailsController($scope, dataService, $stateParams) {
+  function serviceInstanceDetailsController($scope, dataService, $stateParams, Page) {
     $scope.serviceInstanceStatus = 'loading';
     var serviceInstanceKey = $stateParams.key;
     var path = '/serviceInstances/search/findByKey?key=' + serviceInstanceKey;
@@ -18,7 +16,7 @@ module.exports = function(app) {
         var si = res.data;
         var service = si.service;
         $scope.serviceInstance = si;
-        $scope.model.page.title = pageTitle(si.key);
+        Page.setTitle(si.key);
         $scope.dataCenter = si.dataCenter;
         $scope.environment = si.environment;
         $scope.ipAddressRoles = si.ipAddressRoles;

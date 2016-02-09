@@ -1,5 +1,4 @@
 var organizeDataCenters = require('../../util/ng-mappers').organizeDataCenters;
-var pageTitle = require('../../util/util').pageTitle;
 var async = require('async');
 
 module.exports = function(app) {
@@ -7,9 +6,9 @@ module.exports = function(app) {
   app.controller('DataCenterListController', dataCenterListController);
 
   /* @ngInject */
-  function dataCenterListController($scope, generalRegions, $http, dataService) {
+  function dataCenterListController($scope, generalRegions, $http, dataService, Page) {
     $scope.listStatus = 'loading';
-    $scope.model.page.title = pageTitle('Data Centers');
+    Page.setTitle('Data Centers');
     
     var path = '/infrastructureProviders?projection=dataCenters';
     var successHandler = function(res) {

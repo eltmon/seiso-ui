@@ -1,16 +1,14 @@
-var pageTitle = require('../../util/util.js').pageTitle;
-
 module.exports = function(app) {
 
   app.controller('LoadBalancerDetailsController', loadBalancerDetailsController);
 
   /* @ngInject */
-  function loadBalancerDetailsController($scope, $http, $stateParams, dataService) {
+  function loadBalancerDetailsController($scope, $http, $stateParams, dataService, Page) {
     dataService.get('/loadBalancers/search/findByName?name=' + $stateParams.name)
       .then(function(res) {
         $http.get(res.data._links.self.href + '?projection=loadBalancersList')
           .then(function(res) {
-            $scope.model.page.title = pageTitle(res.data.name);
+            Page.setTitle(res.data.name);
             $scope.loadBalancer = res.data;
           }, function(res) {
             if (res) return console.log(res);

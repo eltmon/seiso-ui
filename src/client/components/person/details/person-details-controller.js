@@ -1,15 +1,13 @@
-var pageTitle = require('../../util/util').pageTitle;
-
 module.exports = function(app) {
 
   app.controller('PersonDetailsController', PersonDetailsController);
 
   /*@ngInject*/
-  function PersonDetailsController($scope, dataService, $stateParams) {
+  function PersonDetailsController($scope, dataService, $stateParams, Page) {
     var successHandler = function(res) {
       $scope.person = res.data;
       $scope.person.firstNameLastName = $scope.displayName(res.data);
-      $scope.model.page.title = pageTitle($scope.person.firstNameLastName);
+      Page.setTitle($scope.person.firstNameLastName);
       
       dataService.get(res.data._links.directReports.href)
         .then(function(res) {

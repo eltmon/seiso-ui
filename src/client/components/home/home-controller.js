@@ -1,13 +1,10 @@
-
-var pageTitle = require('../util/util').pageTitle;
-
 module.exports = function(app) {
 
   app.controller('HomeController', HomeController);
 
   /* @ngInject */
-  function HomeController($scope, $http, dataService) {
-    $scope.model.page.title = pageTitle('Home');
+  function HomeController($scope, $http, dataService, Page) {
+    Page.setTitle('Home');
     $scope.serviceStatus = 'loading';
 
     dataService.get('/serviceGroups')

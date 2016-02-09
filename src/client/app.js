@@ -1,7 +1,6 @@
 'use strict';
 
 var async = require('async');
-var util = require('./components/util/util');
 
 var dependencies = [
   'ui.router',
@@ -24,6 +23,7 @@ require('./components/global/globals-controller')(app);
 require('./components/auth/login-controller')(app);
 require('./components/admin/admin-controller')(app);
 require('./components/home/navbar-controller')(app);
+require('./components/util/PageService')(app);
 
 // Search
 require('./components/home/search-controller')(app);

@@ -1,14 +1,11 @@
-var pageTitle = require('../util/util').pageTitle;
-
 // FIXME Break this up into multiple controllers so we don't have to load so much data at once. [WLW]
 module.exports = function(app) {
 
   app.controller('adminController', adminController);
 
-  adminController.$inject = ['$scope', '$http'];
-
-  function adminController($scope, $http) {
-    $scope.model.page.title = pageTitle('Admin Console');
+  /* @ngInject */
+  function adminController($scope, $http, Page) {
+    Page.setTitle('Admin Console');
     console.log('Getting health');
     $http.get('http://localhost:8080/health').success(function(data) {
       console.log('Got health');

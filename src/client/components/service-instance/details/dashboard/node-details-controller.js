@@ -1,14 +1,11 @@
-var pageTitle = require('../../../util/util').pageTitle;
-
 module.exports = function(app) {
 
   app.controller('NodeDetailsController', nodeDetailsController);
 
   /* @ngInject */
-  function nodeDetailsController($scope, dataService, $stateParams) {
+  function nodeDetailsController($scope, dataService, $stateParams, Page) {
     var successHandler = function(res) {
-      console.log('node details controller: ', res.data);
-      $scope.model.page.title = pageTitle(res.data.name);
+      Page.setTitle(res.data.name);
       $scope.node = res.data;
       if ($scope.node !== null) {
         var nodeSIHref = $scope.node._links.serviceInstance.href;

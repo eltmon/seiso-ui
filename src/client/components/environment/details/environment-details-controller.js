@@ -1,4 +1,3 @@
-var pageTitle = require('../../util/util.js').pageTitle;
 var EE = require('events').EventEmitter;
 var ee = new EE();
 var async = require('async');
@@ -8,7 +7,7 @@ module.exports = function(app) {
   app.controller('EnvironmentDetailsController', environmentDetailsController);
 
   /* @ngInject */
-  function environmentDetailsController($scope, dataService, paginationConfig, $stateParams) {
+  function environmentDetailsController($scope, dataService, paginationConfig, $stateParams, Page) {
     var siUrl;
     
     getEnvironment();
@@ -61,7 +60,7 @@ module.exports = function(app) {
       var successHandler = function(res) {
         siUrl = res.data._links.serviceInstances.href;
         $scope.environment = res.data;
-        $scope.model.page.title = pageTitle($scope.environment.name);
+        Page.setTitle($scope.environment.name);
         getServiceInstanceDetails(siUrl + '?projection=serviceInstanceDetails', function() {
           ee.emit('si');
         });

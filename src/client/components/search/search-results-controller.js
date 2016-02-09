@@ -1,11 +1,9 @@
-var pageTitle = require('../util/util').pageTitle;
-
 module.exports = function(app) {
   app.controller('SearchResultsController', SearchResultsController);
 
   /* @ngInject */
-  function SearchResultsController($scope, SearchService) {
-    $scope.model.page.title = pageTitle('Search Results');
+  function SearchResultsController($scope, SearchService, Page) {
+    Page.setTitle('Search Results');
     $scope.searchService = SearchService;
     $scope.searchResults = SearchService.getResults()['value'];
 
