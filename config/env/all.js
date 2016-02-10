@@ -1,4 +1,3 @@
-
 module.exports = {
   accessLog: {
     fileSize: '1m',
