@@ -3,14 +3,7 @@ module.exports = function(app) {
 
   /* @ngInject */
   function Run($rootScope, $http) {
-    // TODO The functions here belong in a service. See
-    // http://stackoverflow.com/questions/11938380/global-variables-in-angularjs/11938785#11938785
-    // https://docs.angularjs.org/misc/faq ('$rootScope exists, but it can be used for evil')
-    $rootScope.model = {
-      page: {
-        title: 'Seiso'
-      }
-    };
+
     $rootScope.uri = function(repoKey, itemKey) {
       if (!repoKey) {
         return '#/';

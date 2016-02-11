@@ -7,6 +7,7 @@ var dependencies = [
   'ngRoute',
   'ngAnimate',
   'ui.bootstrap',
+  'ngCookies',
   'seisoFilters',
   'seisoServices',
 ];
