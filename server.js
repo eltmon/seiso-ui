@@ -13,22 +13,37 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 var express = require('express'),
-	app = express(),
-	bodyParser = require('body-parser'),
-	logger = require('morgan'),
-	config =  require('./config'),
-	logConfig = require('./lib/logging'),
-	controllers = require('./lib/controllers'),
-	favicon = require('serve-favicon'),
-	publicDir = __dirname + '/static';
+  app = express(),
+  bodyParser = require('body-parser'),
+  logger = require('morgan'),
+  favicon = require('serve-favicon'),
+  session = require('express-session'),
+  cookieParser = require('cookie-parser'),
+  passport = require('passport');
+
+var config =  require('./config'),
+  logConfig = require('./lib/logging'),
+  controllers = require('./lib/controllers'),
+  publicDir = __dirname + '/static',
+  configAuth = require('./src/server/auth'),
+  homeController = require('./src/server/controllers/home');
+
 
 logger.format('access', logConfig.loggerFormat);
 app.use(logger('access', {stream: logConfig.accessLogStream}));
+
+app.use(bodyParser.json());
+app.use(cookieParser());
+
+configAuth(app);
 
 app.set('port', config.port);
 app.use('/', express.static(publicDir));
 
 app.use(favicon(publicDir + '/images/favicon.ico'));
+
+app.get('/isactive', homeController.isactive);
+app.get('/buildinfo', homeController.buildinfo);
 
 app.use('/instances', controllers.instances);
 app.use('/getApiConfig', controllers.apiEndpoint);

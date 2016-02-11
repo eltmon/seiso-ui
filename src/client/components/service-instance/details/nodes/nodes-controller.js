@@ -8,6 +8,7 @@ module.exports = function(app) {
 
   /* @ngInject */  
   function serviceInstanceNodesController($scope, dataService, paginationConfig, $stateParams) {
+    $scope.model = {};
     $scope.model.nodes = {
       currentPage: 1,
       pageSelected: function() {
@@ -29,7 +30,7 @@ module.exports = function(app) {
               .then(function(res) {
                 node.ipAddresses = res.data._embedded.nodeIpAddresses;
                 async.each(node.ipAddresses, function(nIp, cb2) {
-                  dataService.get(nIp._links.rotationStatus.href + '?projection=rotationStatusDetails')
+                  dataService.get(nIp._links.aggregateRotationStatus.href + '?projection=rotationStatusDetails')
                     .then(function(res) {
                       nIp.aggregateRotationStatus = res.data;
                       cb2();
