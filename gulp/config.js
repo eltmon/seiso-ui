@@ -23,6 +23,7 @@ module.exports = {
     'angular-route',
   	'angular-sanitize',
     'angular-animate',
+    'angular-cookies',
     'ui-bootstrap-tpls',
   	'd3'
   ]
