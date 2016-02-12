@@ -14,17 +14,11 @@
     <link rel="icon" type="image/png" href="images/favicon.ico">
   </head>
   <body data-ng-class="{wait: model.wait}">
-    <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
     <ng-include src="'view/home/navbar.html'"></ng-include>
     <div class="page-content">
       <div class="container">
         <div class="alert alert-info" ng-if="globals.motd" ng-bind-html="globals.motd.message"></div>
-          <div ui-view></div>
-        
-<!--         <ng-view>
-        </ng-view> -->
+        <div ui-view></div>
       </div>
     </div>
     <ng-include src="'view/home/footer.html'"></ng-include>
