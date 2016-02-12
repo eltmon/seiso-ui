@@ -24,5 +24,5 @@ module.exports = {
     }
   },
   hostingEnvironment: '',
-  seissionSecret: 'secret'
+  sessionSecret: 'secret'
 };
