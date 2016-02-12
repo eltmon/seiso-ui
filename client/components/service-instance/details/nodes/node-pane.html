@@ -10,8 +10,7 @@
         </span>
         <span data-ng-if="metadata.totalElements > 0">
           <small>
-            ({{(metadata.number * metadata.size) + 1}}-
-            {{metadata.totalElements - ((metadata.number + 1) * metadata.size)}} of 
+            ({{(metadata.number * metadata.size) + 1}}-{{((metadata.number) * metadata.size) + nodes.length}} of 
             {{metadata.totalElements}})
           </small>
         </span>
@@ -80,16 +79,16 @@
               <td style="white-space:nowrap;">
                 <span data-ng-if="nodeRow.ipAddress">
                   <i class="fa fa-circle fa-circle-{{ipAggregateRotationStatusTypeKey}}"></i>
-                  <button rotation-details-popover node-name="{{nodeRow.name}}" node-ip="{{nodeRow.ipAddress}}">
+                  <a rotation-details-popover node-name="{{nodeRow.name}}" node-ip="{{nodeRow.ipAddress}}" style="cursor: pointer;">
                     {{nodeRow.ipAggregateRotationStatus.name}}
-                  </button>
+                  </a>
                 </span>
               </td>
             </tr>
           </tbody>
         </table>
         <div class="pagination-wrapper" data-ng-if="metadata.totalPages > 1">
-          <pagination total-items="metadata.totalItems" data-ng-model="model.nodes.currentPage" data-ng-change="model.nodes.pageSelected()" />
+          <pagination total-items="metadata.totalElements" data-ng-model="model.nodes.currentPage" data-ng-change="model.nodes.pageSelected()" />
         </div>
       </div>
     </div>
