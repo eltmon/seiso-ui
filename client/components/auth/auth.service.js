@@ -1,19 +1,10 @@
   
-// Both $location.path('xxx') and $window.location.href = 'xxx' are generating mixed content errors. See
-// http://stackoverflow.com/questions/29302160/https-with-http-in-angular-not-working
-// http://stackoverflow.com/questions/30538209/get-request-throws-error-after-app-implemented-ssl-mixed-content-this-request
-// Hm, it may not be AngularJS doing this at all. It could be Spring Security login/logout redirection.
 module.exports = function(app) {
   
   app.factory('AuthService', AuthService);
 
   /* @ngInject */
   function AuthService($rootScope, $http, $location, $cookies) {
-
-    $cookies.put('userId', null);
-    
-    console.log('userId: ', $cookies.get('userId'));
-    console.log('things: ', $cookies.get('things'));
 
     var checkAuthentication = function(login) {
       console.log('Checking authentication');
@@ -57,7 +48,9 @@ module.exports = function(app) {
     };
 
     return {
+
       checkAuthentication: checkAuthentication,
+
       login: function(credentials) {
         console.log('Authenticating');
         
@@ -89,6 +82,7 @@ module.exports = function(app) {
           $rootScope.authenticated = false;
         }
       },
+      
       logout: function() {
         console.log('Logging out');
         var successHandler = function() {
