@@ -1,0 +1,40 @@
+<div id="page-spinner-panel" data-ng-hide="vm.items">
+  <i class="fa fa-spinner fa-spin fa-5x"></i>
+</div>
+<div data-ng-show="vm.items">
+  <div class="page-header">
+    <ul class="breadcrumb">
+      <li><a data-ng-href="{{uri()}}">Home</a></li>
+    </ul>
+    <h1>
+      Services
+      <span data-ng-if="vm.items.length === 0"><small>(0)</small></span>
+      <span data-ng-if="vm.items.length > 0"><small>({{vm.page.lowerIndex}}-{{vm.page.upperIndex}} of {{vm.page.totalElements}})</small></span>
+    </h1>
+  </div>
+  <div data-ng-if="vm.items.length === 0">
+    <p><i class="fa fa-info-circle"></i> No services.</p>
+  </div>
+  <div data-ng-if="vm.items.length > 0">
+    <div class="pagination-wrapper" data-ng-if="vm.page.totalPages > 1">
+      <pagination data-total-items="vm.page.totalElements" data-ng-model="vm.query.pageNumber" data-ng-change="vm.pageSelected()" />
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width:25%">Service</th>
+          <th style="width:75%">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="service in vm.items | orderBy:'name'">
+          <td><a data-ng-href="{{uri('services', service.key)}}">{{service.name}}</a></td>
+          <td>{{service.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination-wrapper" data-ng-if="vm.page.totalPages > 1">
+      <pagination data-total-items="vm.page.totalElements" data-ng-model="vm.query.pageNumber" data-ng-change="vm.pageSelected()" />
+    </div>
+  </div>
+</div>

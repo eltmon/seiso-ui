@@ -1,0 +1,53 @@
+<div id="page-spinner-panel" data-ng-hide="vm.items">
+  <i class="fa fa-spinner fa-spin fa-5x"></i>
+</div>
+<div data-ng-show="vm.items">
+  <div class="page-header">
+    <ul class="breadcrumb">
+      <li><a data-ng-href="{{uri()}}">Home</a></li>
+    </ul>
+    <h1>
+      Load Balancers
+      <span data-ng-if="vm.items.length === 0"><small>(0)</small></span>
+      <!-- FIXME This should be paging -->
+      <span data-ng-if="vm.items.length > 0"><small>({{vm.page.lowerIndex}}-{{vm.page.upperIndex}} of {{vm.page.totalElements}})</small></span>
+    </h1>
+  </div>
+  <div data-ng-if="vm.items.length === 0">
+    <div class="alert alert-info">
+      <i class="fa fa-info-circle"></i> No load balancers.
+    </div>
+  </div>
+  <div data-ng-if="vm.items.length > 0">
+    <div class="pagination-wrapper" data-ng-if="vm.page.totalPages > 1">
+      <pagination data-total-items="vm.page.totalElements" data-ng-model="vm.query.pageNumber" data-ng-change="vm.pageSelected()" />
+    </div>
+    <table class="table table-striped">
+      <colgroup>
+        <col style="width:25%">
+        <col style="width:20%">
+        <col style="width:35%">
+        <col style="width:20%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Load Balancer</th>
+          <th>Type</th>
+          <th>Data Center</th>
+          <th>IP Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="loadBalancer in vm.items">
+          <td><a data-ng-href="{{uri('load-balancers', loadBalancer.name)}}">{{loadBalancer.name}}</a></td>
+          <td>{{loadBalancer.type || '-'}}</td>
+          <td><a data-ng-href="{{uri('data-centers', loadBalancer.dataCenter.key)}}">{{loadBalancer.dataCenter.name || '-'}}</a></td>
+          <td>{{loadBalancer.ipAddress || '-'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination-wrapper" data-ng-if="vm.page.totalPages > 1">
+      <pagination data-total-items="vm.page.totalElements" data-ng-model="vm.query.pageNumber" data-ng-change="vm.pageSelected()" />
+    </div>
+  </div>
+</div>
