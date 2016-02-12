@@ -8,8 +8,13 @@ module.exports = function(app) {
   app.factory('AuthService', AuthService);
 
   /* @ngInject */
-  function AuthService($rootScope, $http, $location) {
+  function AuthService($rootScope, $http, $location, $cookies) {
+
+    $cookies.put('userId', null);
     
+    console.log('userId: ', $cookies.get('userId'));
+    console.log('things: ', $cookies.get('things'));
+
     var checkAuthentication = function(login) {
       console.log('Checking authentication');
       var successHandler = function(data) {
@@ -46,8 +51,7 @@ module.exports = function(app) {
         console.log('Authentication check failed');
         $rootScope.authenticated = false;
       };
-      // TODO: Conform to new api internal/auth routes when they're created. 
-      $http.get('http://localhost:8080/internal/security/user')
+      $http.get('/login')
           .success(successHandler)
           .error(errorHandler);
     };
@@ -56,27 +60,34 @@ module.exports = function(app) {
       checkAuthentication: checkAuthentication,
       login: function(credentials) {
         console.log('Authenticating');
-        var reqData = 'username=' + encodeURIComponent(credentials.username) + 
-          '&password=' + encodeURIComponent(credentials.password);
+        
+        var reqData = {
+          username: credentials.username,
+          password: credentials.password
+        };
+
         var request = {
           method: 'POST',
-          url: 'http://localhost:8080/login',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          url: '/login',
+          headers: { 'Content-Type': 'application/json' },
           data: reqData
         };
-        var successHandler = function() {
+
+        $http.get('/login')
+          .success(successHandler)
+          .error(errorHandler);
+
+        function successHandler() {
           // This just means that the request succeeded, not that authentication succeeded.
           // Whether authentication succeeded or not, /login returns an HTTP 302 redirect.
           // So we still need to check.
           checkAuthentication(true);
-        };
-        var errorHandler = function() {
+        }
+
+        function errorHandler() {
           console.log('Authentication failed');
           $rootScope.authenticated = false;
-        };
-        $http(request)
-            .success(successHandler)
-            .error(errorHandler);
+        }
       },
       logout: function() {
         console.log('Logging out');

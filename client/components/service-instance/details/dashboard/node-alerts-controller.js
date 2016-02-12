@@ -6,15 +6,17 @@ module.exports = function(app) {
 
   /* @ngInject */
   function nodeAlertsController($scope, dataService, paginationConfig, $stateParams) {
+    $scope.model = {};
     $scope.model.nodeAlerts = {
       currentPage: 1,
       pageSelected: function() {
         $scope.nodeAlertsStatus = 'loading';
         var pageNumber = $scope.model.nodeAlerts.currentPage;
         var apiPageNumber = pageNumber - 1;
-        var path = '/nodes/search/findNodeAlertsByServiceInstance?key=' + 
-          $stateParams.key + '&view=serviceInstanceNodes&page=' + apiPageNumber + 
-          '&size=' + paginationConfig.itemsPerPage + '&sort=name';
+        var path = '/nodes/search/findNodeAlertsByServiceInstance?key=' + $stateParams.key + 
+            '&view=serviceInstanceNodes&page=' + apiPageNumber + 
+            '&size=' + paginationConfig.itemsPerPage + 
+            '&sort=name';
 
         var successHandler = function(res) {
           $scope.nodeAlertsPage = res.data._embedded;

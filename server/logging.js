@@ -1,13 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var lgrStream = require('logrotate-stream');
-var config = require('../config');
+var FS = require('fs'),
+    lgrStream = require('logrotate-stream'),
+    config = require('../config');
 
 // Set access logs
 try {
   console.log('Setting access logs...');
-  fs.mkdirSync('./logs/');
+  FS.mkdirSync('./logs/');
 } catch (ex) {
   if (ex.code !== 'EEXIST') {
     throw ex;

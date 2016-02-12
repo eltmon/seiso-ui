@@ -22,6 +22,7 @@ module.exports = function(app) {
             '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
+          console.log(res); 
           $scope.metadata = res.data.page;
           $scope.nodes = res.data._embedded.nodes;
 
@@ -37,7 +38,7 @@ module.exports = function(app) {
                     });
                 }, function(err) {
                   if (err) {
-                    cb2(err);
+                    cb(err);
                   } else {
                     cb();
                   }

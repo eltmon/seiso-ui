@@ -13,11 +13,11 @@ module.exports = function(app) {
     function successHandler(res) {
       console.log(res);
       $scope.items = res.data._embedded.serviceTypes;
-    };
+    }
 
     function errorHandler(err) {
       $scope.errors = [];
       $scope.errors.push(err);
-    };
+    }
   }
 };

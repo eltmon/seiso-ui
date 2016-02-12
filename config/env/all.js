@@ -1,3 +1,6 @@
+
+var path = require('path');
+
 module.exports = {
   applicationName: '',
   accessLog: {
@@ -6,6 +9,7 @@ module.exports = {
     compress: true
   },
   auth: {
+    // passport-saml configuration
     secured: (process.env.NODE_ENV === 'dev' ? false : true),
     strategy: 'saml',
     acceptableClockSkewInMs: 360000,
@@ -19,9 +23,13 @@ module.exports = {
     serviceProvider: {
       name: '',
       identity: '',
-      desiredSubjectFormat: 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified'
+      desiredSubjectFormat: ''
     }
   },
   hostingEnvironment: '',
-  sessionSecret: 'secret'
+  sessionSecret: 'secret',
+  client: {
+    // Used for both server public directory and gulp build output directory.
+    publicDir: path.resolve(__dirname + '/../../static')
+  }
 };

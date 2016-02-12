@@ -1,4 +1,4 @@
-//#!/usr/bin/env node
+#!/usr/bin/env node
 
 /**
  * 'npm install' without a set of excluded packages.

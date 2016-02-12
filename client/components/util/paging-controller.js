@@ -13,7 +13,7 @@ module.exports = function(title, name, projection, sortKey) {
       pageSize: paginationConfig.itemsPerPage,
       sort: sortKey
     };
-    Page.setTitle(title)
+    Page.setTitle(title);
 
     loadPage();
 

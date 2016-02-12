@@ -1,7 +1,7 @@
 'use strict';
 
-var client = './src/client';
-var server = './src/server';
+var client = './client';
+var server = './server';
 
 // Gulp config
 module.exports = {

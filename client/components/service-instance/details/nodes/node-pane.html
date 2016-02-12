@@ -9,7 +9,11 @@
           <small>(0)</small>
         </span>
         <span data-ng-if="metadata.totalElements > 0">
-          <small>({{metadata.number + 1}}-{{metadata.totalPages + 1}} of {{metadata.totalPages}})</small>
+          <small>
+            ({{(metadata.number * metadata.size) + 1}}-
+            {{metadata.totalElements - ((metadata.number + 1) * metadata.size)}} of 
+            {{metadata.totalElements}})
+          </small>
         </span>
       </span>
     </h1>

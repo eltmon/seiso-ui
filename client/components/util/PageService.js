@@ -3,12 +3,12 @@ module.exports = function(app) {
 
   function PageService() {
 
+    var title = 'Home';
+
     return {
       title: function() { return fullTitle(title); },
       setTitle: function(newTitle) { title = newTitle; }
-    }
-
-    var title = 'Home';
+    };
 
     function fullTitle(title) {
       return title + ' - Seiso';

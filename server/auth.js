@@ -1,21 +1,31 @@
 
 var passport = require('passport'),
-  session = require('express-session'),
-  config = require('../../config')
-  SamlStrategy = require('passport-saml').Strategy,
-  routes = require('./routes');
+    session = require('express-session'),
+    config = require('../config'),
+    SamlStrategy = require('passport-saml').Strategy,
+    cookieParser = require('cookie-parser'),
+    authRoutes = require('./routes').auth;
 
-module.exports = function(app) {
-
+module.exports = function(app, router) {
+  
+  app.use(cookieParser());
+  
   var sessionConfig = {
     secret: config.sessionSecret,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    // genid: function(req) {
+    //   return genuuid();
+    // },
+    cookie: {
+      secure: false,
+    }
   };
-  // app.use(session(sessionConfig));
+
+  app.use(session(sessionConfig));
 
   app.use(passport.initialize());
-  // app.use(passport.session());
+  app.use(passport.session());
 
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -37,7 +47,6 @@ module.exports = function(app) {
   };
 
   function stratCb(profile, done) {
-    console.log(profile);
     var profileObj = {
       id: profile.NameID,
       email: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
@@ -54,6 +63,6 @@ module.exports = function(app) {
 
   passport.use(config.auth.strategy, authenticationStrategy);
 
-  routes.init(app, passport, authenticationStrategy, config);
+  authRoutes.init(router, passport, authenticationStrategy, config);
 
 };
