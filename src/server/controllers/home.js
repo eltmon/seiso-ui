@@ -4,20 +4,13 @@ var config = require('../../../config');
 
 module.exports = {
 
-  // Home page
-  index: function(req, res) {
-    res.sendStatus(200);
-  },
-
-  // Display generic login failure page
   loginFailed: function (req, res) {
-    res.json({info: 'login failed.'});
+    res.redirect('/');
   },
 
-  // Display generic logout page
   logout: function (req, res) {
     req.logout();
-    res.send(200);
+    res.sendStatus(200);
   },
 
   generateServiceProviderMetadataEndpoint: function(authenticationStrategy) {

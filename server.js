@@ -16,10 +16,7 @@ var express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
   logger = require('morgan'),
-  favicon = require('serve-favicon'),
-  session = require('express-session'),
-  cookieParser = require('cookie-parser'),
-  passport = require('passport');
+  favicon = require('serve-favicon');
 
 var config =  require('./config'),
   logConfig = require('./lib/logging'),
@@ -28,12 +25,10 @@ var config =  require('./config'),
   configAuth = require('./src/server/auth'),
   homeController = require('./src/server/controllers/home');
 
-
 logger.format('access', logConfig.loggerFormat);
 app.use(logger('access', {stream: logConfig.accessLogStream}));
 
 app.use(bodyParser.json());
-app.use(cookieParser());
 
 configAuth(app);
 
@@ -55,7 +50,6 @@ function start() {
     console.log('------------------------------');
     console.log('Using this config: \n', JSON.stringify(config, null, 2));
     console.log('------------------------------');
-
   });
 }
 
