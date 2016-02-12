@@ -14,7 +14,8 @@ module.exports = function(app) {
         var pageNumber = $scope.model.nodeAlerts.currentPage;
         var apiPageNumber = pageNumber - 1;
         var path = '/nodes/search/findNodeAlertsByServiceInstance?key=' + $stateParams.key + 
-            '&view=serviceInstanceNodes&page=' + apiPageNumber + 
+            '&view=serviceInstanceNodes' + 
+            '&page=' + apiPageNumber + 
             '&size=' + paginationConfig.itemsPerPage + 
             '&sort=name';
 
@@ -25,9 +26,11 @@ module.exports = function(app) {
           $scope.nodeAlerts = $scope.nodeAlertsPage.nodes;
           $scope.nodeAlertsStatus = 'loaded';
         };
+        
         var errorHandler = function() { $scope.nodeAlertsStatus = 'error'; };
 
-        dataService.get(path).then(successHandler, errorHandler);
+        dataService.get(path)
+          .then(successHandler, errorHandler);
       }
     };
     $scope.model.nodeAlerts.pageSelected();
