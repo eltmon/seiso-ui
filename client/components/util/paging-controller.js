@@ -30,10 +30,10 @@ module.exports = function(title, name, projection, sortKey) {
 
       vm.loadStatus = 'loading';
 
-      dataService.get(path).then(success, error);
+      dataService.get(path)
+        .then(success, error);
 
       function success(response) {
-        console.log(response);
         $log.debug('Loaded data');
         vm.loadStatus = 'loaded';
         vm.page = response.data.page;
