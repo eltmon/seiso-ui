@@ -7,52 +7,62 @@ module.exports = function(app) {
   app.controller('DataCenterDetailsController', dataCenterDetailsController);
 
   /* @ngInject */
-  function dataCenterDetailsController($scope, $http, paginationConfig, $stateParams, dataService, Page) {
-    var siUri;
-    var lbUri;
+  function dataCenterDetailsController($http, paginationConfig, $stateParams, dataService, Page) {
+    var siUri,
+        lbUri,
+        vm = this;
 
     (function getDataCenter() {
-      var successHandler = function(res) {
-        var dataCenter = res.data;
-        $scope.dataCenter = dataCenter;
-        siUri = res.data._links.serviceInstances.href;
-        lbUri = res.data._links.loadBalancers.href;
-        ee.emit('dataCenter');        
-        Page.setTitle(dataCenter.name);
-      };
-      var errorHandler = function() { console.log('Error while getting data center.'); };
+
       dataService.get('/dataCenters/search/findByKey?key=' + $stateParams.key)
         .then(successHandler, errorHandler);
-    })();
 
-    $scope.model.serviceInstances = {
+      function successHandler(res) {
+        vm.dataCenter = res.data;
+        siUri = res.data._links.serviceInstances.href;
+        lbUri = res.data._links.loadBalancers.href;
+        Page.setTitle(vm.dataCenter.name);
+        ee.emit('dataCenter');
+      }
+
+      function errorHandler() { return console.log('Error while getting data center.'); }
+      
+    })();
+    vm.model = {};
+    vm.model.serviceInstances = {
       currentPage: 1,
       pageSelected: function() {
           (function getServiceInstances(pageNumber) {
-            $scope.serviceInstanceListStatus = 'loading';
+            vm.serviceInstanceListStatus = 'loading';
             var apiPageNumber = pageNumber - 1;
-            // FIXME
-            var reqUrl = '/serviceInstances/search/findByDataCenterKey?key=' + $scope.dataCenter.key;
-            var pageQuery = '&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key' + '&projection=serviceInstanceDetails';
 
-            var successHandler = function(res) {
+            var reqUrl = '/serviceInstances/search/findByDataCenterKey' +
+              '?key=' + vm.dataCenter.key +
+              '&page=' + apiPageNumber + 
+              '&size=' + paginationConfig.itemsPerPage + 
+              '&projection=serviceInstanceDetails' +
+              '&sort=key';
+
+            dataService.get(reqUrl)
+              .then(successHandler, errorHandler);
+
+            function successHandler(res) {
               var page = res.data;
-              $scope.serviceInstances = page._embedded.serviceInstances;
-              $scope.serviceInstanceMetadata = page.metadata;
-              $scope.serviceInstanceListStatus = 'loaded';
+              vm.serviceInstances = page._embedded.serviceInstances;
+              vm.serviceInstanceMetadata = page.metadata;
+              vm.serviceInstanceListStatus = 'loaded';
               ee.emit('sis');
-              async.each($scope.serviceInstances, function(si, cb) {
+              async.each(vm.serviceInstances, function(si, cb) {
                 getNodeSummary(si, cb);
               }, function(err) {
                 if (err) return console.log(err);
               });
             };
 
-            var errorHandler = function(res) {
-              $scope.serviceInstanceListStatus = 'error';
+            function errorHandler(res) {
+              vm.serviceInstanceListStatus = 'error';
             };
-            dataService.get(reqUrl + pageQuery)
-              .then(successHandler, errorHandler);
+
 
             function getNodeSummary(si, cb) {
               var siHref = si._links.self.href;
@@ -74,42 +84,45 @@ module.exports = function(app) {
                 });
             }
 
-          })($scope.model.serviceInstances.currentPage);
+          })(vm.model.serviceInstances.currentPage);
       }
     };
 
-    $scope.model.loadBalancers = {
+    vm.model.loadBalancers = {
       currentPage: 1,
       pageSelected: function() {
         (function getLoadBalancers(pageNumber) {
-          $scope.loadBalancerListStatus = 'loading';
+          vm.loadBalancerListStatus = 'loading';
           var apiPageNumber = pageNumber - 1;
 
-          var reqUrl = '/loadBalancers/search/findByDataCenterKey?key=' + $stateParams.key +
-              '&page=' + apiPageNumber +
-              '&size=' + paginationConfig.itemsPerPage +
-              '&sort=name';
+          var reqUrl = '/loadBalancers/search/findByDataCenterKey' +
+            '?key=' + $stateParams.key +
+            '&page=' + apiPageNumber +
+            '&size=' + paginationConfig.itemsPerPage +
+            '&sort=name';
 
-          var successHandler = function(res) {
-            var page = res.data;
-            $scope.loadBalancers = page._embedded.loadBalancers;
-            $scope.loadBalancerMetadata = page.metadata;
-            $scope.loadBalancerListStatus = 'loaded';
-            ee.emit('lbs');
-          };
-          var errorHandler = function(res) {
-            $scope.loadBalancerListStatus = 'error';
-          };
           dataService.get(reqUrl)
             .then(successHandler, errorHandler);
 
-        })($scope.model.loadBalancers.currentPage);
+          function successHandler(res) {
+            var page = res.data;
+            vm.loadBalancers = page._embedded.loadBalancers;
+            vm.loadBalancerMetadata = page.metadata;
+            vm.loadBalancerListStatus = 'loaded';
+            ee.emit('lbs');
+          }
+
+          function errorHandler(res) {
+            vm.loadBalancerListStatus = 'error';
+          }
+
+        })(vm.model.loadBalancers.currentPage);
       }
     };
 
     ee.on('dataCenter', function() {
-      $scope.model.serviceInstances.pageSelected();
-      $scope.model.loadBalancers.pageSelected();
+      vm.model.serviceInstances.pageSelected();
+      vm.model.loadBalancers.pageSelected();
     });
   }
 };

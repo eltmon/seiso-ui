@@ -1,26 +1,26 @@
-<div id="page-spinner-panel" ng-hide="dataCenter">
+<div id="page-spinner-panel" ng-hide="vm.dataCenter">
   <i class="fa fa-spinner fa-spin fa-5x"></i>
 </div>
-<div ng-show="dataCenter">
+<div ng-show="vm.dataCenter">
   <div class="page-header">
     <ul class="breadcrumb">
       <li><a ng-href="{{uri()}}">Home</a></li>
       <li><a ng-href="{{uri('data-centers')}}">Data Centers</a></li>
     </ul>
-    <h1 ng-bind="dataCenter.name"></h1>
+    <h1 ng-bind="vm.dataCenter.name"></h1>
   </div>
   <ul class="field-list">
     <li>
       <div>Key:</div>
-      <div ng-bind="dataCenter.key"></div>
+      <div ng-bind="vm.dataCenter.key"></div>
     </li>
     <li>
       <div>Region:</div>
-      <div ng-bind="dataCenter._embedded.region.name || '-'"></div>
+      <div ng-bind="vm.dataCenter._embedded.region.name || '-'"></div>
     </li>
     <li>
       <div>Infrastructure Provider:</div>
-      <div ng-bind="dataCenter._embedded.region._embedded.infrastructureProvider.name || '-'"></div>
+      <div ng-bind="vm.dataCenter._embedded.region._embedded.infrastructureProvider.name || '-'"></div>
     </li>
   </ul>
   <tabset>

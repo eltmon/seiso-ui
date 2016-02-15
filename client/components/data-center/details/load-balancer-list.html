@@ -1,4 +1,4 @@
-<section ng-switch="loadBalancerListStatus">
+<section ng-switch="vm.loadBalancerListStatus">
   <!-- No need for spinner here since context already provides one -->
   <div ng-switch-when="error">
     <div class="alert alert-warning">
@@ -6,14 +6,14 @@
     </div>
   </div>
   <div ng-switch-when="loaded">
-    <div ng-if="loadBalancers.length == 0">
+    <div ng-if="vm.loadBalancers.length == 0">
       <!-- FIXME Sometimes this shows and sometimes not. I think it's a data race. -->
       <!-- Might try using a dedicated controller for this list. -->
       <p><i class="fa fa-info-circle"></i> No load balancers.</p>
     </div>
-    <div ng-if="loadBalancers.length &gt; 0">
-      <div class="pagination-wrapper" ng-if="loadBalancerMetadata.totalPages &gt; 1">
-        <pagination total-items="loadBalancerMetadata.totalItems" ng-model="model.loadBalancers.currentPage" ng-change="model.loadBalancers.pageSelected()" />
+    <div ng-if="vm.loadBalancers.length > 0">
+      <div class="pagination-wrapper" ng-if="vm.loadBalancerMetadata.totalPages > 1">
+        <pagination total-items="vm.loadBalancerMetadata.totalItems" ng-model="vm.model.loadBalancers.currentPage" ng-change="vm.model.loadBalancers.pageSelected()" />
       </div>
       <table class="table">
         <colgroup>
@@ -29,15 +29,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="loadBalancer in loadBalancers">
+          <tr ng-repeat="loadBalancer in vm.loadBalancers">
             <td><a ng-href="{{uri('load-balancers', loadBalancer.name)}}">{{loadBalancer.name}}</a></td>
             <td>{{loadBalancer.type || '-'}}</a></td>
             <td>{{loadBalancer.ipAddress || '-'}}</td>
           </tr>
         </tbody>
       </table>
-      <div class="pagination-wrapper" ng-if="loadBalancerMetadata.totalPages &gt; 1">
-        <pagination total-items="loadBalancerMetadata.totalItems" ng-model="model.loadBalancers.currentPage" ng-change="model.loadBalancers.pageSelected()" />
+      <div class="pagination-wrapper" ng-if="vm.loadBalancerMetadata.totalPages > 1">
+        <pagination total-items="vm.loadBalancerMetadata.totalItems" ng-model="vm.model.loadBalancers.currentPage" ng-change="vm.model.loadBalancers.pageSelected()" />
       </div>
     </div>
   </div>

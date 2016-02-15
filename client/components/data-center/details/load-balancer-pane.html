@@ -1,13 +1,13 @@
 <section>
   <header>
     <h1>Load Balancers
-      <span ng-show="loadBalancerListStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
-      <span ng-show="loadBalancerListStatus == 'loaded'">
-        <span ng-if="loadBalancerMetadata.totalItems == 0">
+      <span ng-show="vm.loadBalancerListStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+      <span ng-show="vm.loadBalancerListStatus == 'loaded'">
+        <span ng-if="vm.loadBalancerMetadata.totalItems == 0">
           <small>(0)</small>
         </span>
-        <span ng-if="loadBalancerMetadata.totalItems &gt; 0">
-          <small>({{loadBalancerMetadata.pageLowIndex + 1}}-{{loadBalancerMetadata.pageHighIndex + 1}} of {{loadBalancerMetadata.totalItems}})</small>
+        <span ng-if="vm.loadBalancerMetadata.totalItems > 0">
+          <small>({{vm.loadBalancerMetadata.pageLowIndex + 1}}-{{vm.loadBalancerMetadata.pageHighIndex + 1}} of {{vm.loadBalancerMetadata.totalItems}})</small>
         </span>
       </span>
     </h1>

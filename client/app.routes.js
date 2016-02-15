@@ -10,7 +10,7 @@ module.exports = function(app) {
       .state('searchResults', stateConfig('/search-results', 'SearchResults', 'search/searchResults'))
       .state('login', stateConfig('/login', 'Login', 'auth/login'))
       .state('admin', stateConfig('/admin', 'Admin', 'admin/index'))
-      .state('dataCenters', viewRoute('/data-centers', 'data-center/list/data-center-list'))
+      .state('dataCenters', stateConfig('/data-centers', 'DataCenterList', 'data-center/list/data-center-list'))
       .state('dataCenter', stateConfig('/data-centers/:key', 'DataCenterDetails', 'data-center/details/data-center-details'))
       .state('environments', stateConfig('/environments', 'EnvironmentList', 'environment/list/environment-list'))
       .state('environment', stateConfig('/environments/:key', 'EnvironmentDetails', 'environment/details/environment-details'))

@@ -6,8 +6,9 @@ module.exports = function(app) {
   app.controller('DataCenterListController', dataCenterListController);
 
   /* @ngInject */
-  function dataCenterListController($scope, generalRegions, $http, dataService, Page) {
-    $scope.listStatus = 'loading';
+  function dataCenterListController(generalRegions, $http, dataService, Page) {
+    var vm = this;
+    vm.listStatus = 'loading';
     Page.setTitle('Data Centers');
     
     var path = '/infrastructureProviders?projection=dataCenters';
@@ -37,14 +38,14 @@ module.exports = function(app) {
       }, function(err) {
         if (err) return console.log(err);
         var destProviders = organizeDataCenters(srcProviders, generalRegions);
-        $scope.generalRegions = generalRegions;
-        $scope.infrastructureProviders = destProviders;
-        $scope.listStatus = 'loaded';
+        vm.generalRegions = generalRegions;
+        vm.infrastructureProviders = destProviders;
+        vm.listStatus = 'loaded';
       });
 
     };
     var errorHandler = function(data) {
-      $scope.listStatus = 'error';
+      vm.listStatus = 'error';
     };
     dataService.get(path)
       .then(successHandler, errorHandler);
