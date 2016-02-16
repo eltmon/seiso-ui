@@ -5,23 +5,24 @@ module.exports = function(app) {
 
   /* @ngInject */
   function serviceServiceInstancesController($scope, $stateParams, dataService) {
-    $scope.serviceInstancesStatus = 'loading';
+    var vm = this;
+    vm.serviceInstancesStatus = 'loading';
 
     $scope.$on('onService', function(event) {
-      $scope.service = event.targetScope.service;
-      var successHandler = function(res) {
-        $scope.serviceInstances = res.data._embedded.serviceInstances;
-        $scope.serviceInstancesStatus = 'loaded';
-        getSiNodes($scope.service);
-
-      };
-      var errorHandler = function(res) {
-        $scope.serviceInstancesStatus = 'error';
-      };
-
-      var siLink = event.targetScope.service._links.serviceInstances.href;
+      vm.service = event.targetScope.vm.service;
+      var siLink = vm.service._links.serviceInstances.href;
       dataService.get(siLink + '?projection=serviceInstanceDetails')
         .then(successHandler, errorHandler);
+
+      function successHandler(res) {
+        vm.serviceInstances = res.data._embedded.serviceInstances;
+        vm.serviceInstancesStatus = 'loaded';
+        getSiNodes(vm.service);
+      }
+
+      function errorHandler(res) {
+        vm.serviceInstancesStatus = 'error';
+      }
 
       // TODO: we'll want to clean this up a bit. Possibly getting the node summary details with the
       // request to get all service instances.
@@ -32,11 +33,11 @@ module.exports = function(app) {
 
             if (!res.data._embedded) return;
             var nodeDetails = res.data._embedded.serviceInstanceResources;
-            var sis = $scope.serviceInstances;
+            var sis = vm.serviceInstances;
             for (var i = 0; i < sis.length; i++) {
               for (var j = 0; j < nodeDetails.length; j++) {
-                if (nodeDetails[j].key == $scope.serviceInstances[i].key) {
-                  $scope.serviceInstances[i].nodesDetails = nodeDetails[j];
+                if (nodeDetails[j].key == vm.serviceInstances[i].key) {
+                  vm.serviceInstances[i].nodesDetails = nodeDetails[j];
                 }
               }
             }

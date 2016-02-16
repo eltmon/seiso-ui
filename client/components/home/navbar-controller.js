@@ -9,7 +9,6 @@ module.exports = function(app) {
     $http
       .get('/instances')
       .then(function(res) {
-        console.log(res);
         var self = res.data.instances.self;
         $scope.nav.self = self;
         var instances = [];

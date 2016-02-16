@@ -4,16 +4,16 @@ module.exports = function(app) {
 
   /* @ngInject */
   function serviceDocumentationController($scope, $http, $stateParams) {
-    $scope.serviceDocumentationStatus = 'loading';
+    var vm = this;
+    vm.serviceDocumentationStatus = 'loading';
     
     $scope.$on('onService', function(event) {
-      if (!event.targetScope.docLinks) {
-        $scope.serviceDocumentationStatus = 'error';
+      if (!event.targetScope.vm.docLinks) {
+        vm.serviceDocumentationStatus = 'error';
         return;
       }
-      $scope.docLinks = event.targetScope.docLinks;
-      $scope.serviceDocumentationStatus = 'loaded';
+      vm.docLinks = event.targetScope.vm.docLinks;
+      vm.serviceDocumentationStatus = 'loaded';
     });
-  
   }
 };

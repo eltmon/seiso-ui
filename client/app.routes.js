@@ -21,7 +21,7 @@ module.exports = function(app) {
       .state('peoples', stateConfig('/people', 'PersonList', 'person/list/person-list'))
       .state('person', stateConfig('/people/:username', 'PersonDetails', 'person/details/person-details'))
       .state('services', stateConfig('/services', 'ServiceList', 'service/list/service-list'))
-      .state('service', viewRoute('/services/:key', 'service/details/service-details'))
+      .state('service', stateConfig('/services/:key', 'ServiceDetails', 'service/details/service-details'))
       .state('serviceInstances', stateConfig('/service-instances', 'ServiceInstanceList', 'service-instance/list/service-instance-list'))
       .state('serviceInstance', viewRoute('/service-instances/:key', 'service-instance/details/service-instance-details'))
       .state('statuses', stateConfig('/statuses', 'StatusList', 'status/status-list'))
