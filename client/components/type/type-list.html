@@ -9,11 +9,11 @@
     <header>
       <h1>
         Service Types
-        <span ng-show="items"><small>({{items.length}})</small></span>
-        <span ng-hide="items"><i class="fa fa-spinner fa-spin"></i></span>
+        <span ng-show="vm.items"><small>({{vm.items.length}})</small></span>
+        <span ng-hide="vm.items"><i class="fa fa-spinner fa-spin"></i></span>
       </h1>
     </header>
-    <div ng-if="items.length > 0">
+    <div ng-if="vm.items.length > 0">
       <table class="table">
         <colgroup>
           <col style="width:25%">
@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="serviceType in items | orderBy:'name'">
+          <tr ng-repeat="serviceType in vm.items | orderBy:'name'">
             <td>{{serviceType.name}}</td>
             <td>{{serviceType.key}}</td>
             <td>{{serviceType.description || '-'}}</td>
