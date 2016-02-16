@@ -19,7 +19,7 @@ module.exports = function(app) {
       .state('machine', stateConfig('/machines/:name', 'MachineDetails', 'machine/machine-details'))
       .state('node', stateConfig('/nodes/:name', 'NodeDetails', 'service-instance/details/nodes/node-details'))
       .state('peoples', stateConfig('/people', 'PersonList', 'person/list/person-list'))
-      .state('person', stateConfig('/paople/:username', 'PersonDetails', 'person/details/person-details'))
+      .state('person', stateConfig('/people/:username', 'PersonDetails', 'person/details/person-details'))
       .state('services', stateConfig('/services', 'ServiceList', 'service/list/service-list'))
       .state('service', viewRoute('/services/:key', 'service/details/service-details'))
       .state('serviceInstances', stateConfig('/service-instances', 'ServiceInstanceList', 'service-instance/list/service-instance-list'))
