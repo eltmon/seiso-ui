@@ -1,4 +1,4 @@
-<div ng-controller="DataCenterListController" ng-switch="listStatus">
+<div ng-switch="vm.listStatus">
   <div ng-switch-when="loading">
     <div id="page-spinner-panel"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
   </div>
@@ -12,12 +12,12 @@
       </ul>
       <h1>Data Centers</h1>
     </div>
-    <section ng-repeat="provider in infrastructureProviders" style="margin-top: 30px">
+    <section ng-repeat="provider in vm.infrastructureProviders" style="margin-top: 30px">
       <header>
         <h1 ng-bind="provider.name"></h1>
       </header>
       <div class="row">
-        <div class="col-md-3" ng-repeat="generalRegion in generalRegions">
+        <div class="col-md-3" ng-repeat="generalRegion in vm.generalRegions">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 ng-bind="generalRegion.name"></h4>

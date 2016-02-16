@@ -4,7 +4,6 @@ var async = require('async');
 
 var dependencies = [
   'ui.router',
-  'ngRoute',
   'ngAnimate',
   'ui.bootstrap',
   'ngCookies',

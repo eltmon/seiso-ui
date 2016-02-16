@@ -9,6 +9,8 @@ module.exports = function(app) {
   /* @ngInject */
   function environmentDetailsController($scope, dataService, paginationConfig, $stateParams, Page) {
     var siUrl;
+    var vm = this;
+    $scope.model = {};
     
     getEnvironment();
 
@@ -20,12 +22,19 @@ module.exports = function(app) {
           (function getServiceInstanceNodeDetails(pageNumber) {
             $scope.serviceInstanceListStatus = 'loading';
             var apiPageNumber = pageNumber - 1;
-            var query = '?mode=nodeDetails&page=' + apiPageNumber + '&size=' + paginationConfig.itemsPerPage + '&sort=key';
+            var query = '?mode=nodeDetails' + 
+                        '&page=' + apiPageNumber + 
+                        '&size=' + paginationConfig.itemsPerPage + 
+                        '&sort=key';
             var siRequest =  siUrl + query;
             var siSuccessHandler = function(res) {
-              if (!res.data._embedded) return;
-              var siPage = res.data;
-              $scope.serviceInstanceMetadata = siPage.metadata;
+              if (!res.data._embedded) {
+                $scope.serviceInstances = [];
+                $scope.serviceInstanceMetadata = res.data.metadata;
+                $scope.serviceInstanceListStatus = 'loaded';
+                return;
+              }
+              $scope.serviceInstanceMetadata = res.data.metadata;
               $scope.serviceInstanceListStatus = 'loaded';
               var nodeDetails = res.data._embedded.serviceInstanceResources;
               var sis = $scope.serviceInstances;
@@ -48,6 +57,7 @@ module.exports = function(app) {
       dataService.get(siUrl)
         .then(function(res) {
           $scope.serviceInstances = res.data._embedded.serviceInstances;
+          $scope.serviceInstanceListStatus = 'loaded';
           cb();
         }, function(res) {
           return console.log('error getting service instances: ', res);

@@ -3,9 +3,11 @@ module.exports = function(app) {
   app.controller('HomeController', HomeController);
 
   /* @ngInject */
-  function HomeController($scope, $http, dataService, Page) {
+  function HomeController($http, dataService, Page) {
+
     Page.setTitle('Home');
-    $scope.serviceStatus = 'loading';
+    var vm = this;
+    vm.serviceStatus = 'loading';
 
     dataService.get('/serviceGroups')
       .then(successHandler, function(err) { return console.log(err);});
@@ -20,16 +22,16 @@ module.exports = function(app) {
         serviceGroupsMap[group.key] = group;
       });
       
-      $scope.serviceGroups = serviceGroupsMap;
-      $scope.serviceStatus = 'loaded';
+      vm.serviceGroups = serviceGroupsMap;
+      vm.serviceStatus = 'loaded';
     }
-    $scope.getServices = function(group) {
-      if ($scope.serviceGroups[group.key].services.length > 0) {
+    vm.getServices = function(group) {
+      if (vm.serviceGroups[group.key].services.length > 0) {
         return;
       }
       dataService.get(group._links.services.href)
         .then(function(res) {
-          $scope.serviceGroups[group.key].services = res.data._embedded.services.sort(alphaSort); 
+          vm.serviceGroups[group.key].services = res.data._embedded.services.sort(alphaSort); 
         }, function(err) {
           if (err) return console.log(err);
       });

@@ -7,10 +7,10 @@
       <header>
         <h1>
           Services by Group
-          <span ng-show="serviceStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+          <span ng-show="vm.serviceStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
         </h1>
       </header>
-      <div ng-switch="serviceStatus">
+      <div ng-switch="vm.serviceStatus">
         <div ng-switch-when="error">
           <div class="alert alert-warning">
             <i class="fa fa-times-circle"></i> Couldn't load services.
@@ -18,9 +18,9 @@
         </div> <!-- when error -->
         <div ng-switch-when="loaded">
           <accordion close-others="true">
-            <accordion-group is-open="status.open" ng-repeat="group in serviceGroups" style="opacity:0.8" >
+            <accordion-group is-open="status.open" ng-repeat="group in vm.serviceGroups" style="opacity:0.8" >
               <accordion-heading style="padding: 0;" >
-                 <a style="display: block;" data-ng-click="getServices(group);">{{group.name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></a>
+                 <a style="display: block;" data-ng-click="vm.getServices(group);">{{group.name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></a>
               </accordion-heading>
               <div data-ng-if="group.services.length === 0">
                 <p>No services.</p>

@@ -5,13 +5,13 @@
   <h1>Statuses</h1>
 </div>
 <section>
-  <div ng-hide="statusTypes">
+  <div ng-hide="vm.statusTypes">
     <h1><i class="fa fa-spinner fa-spin"></i></h1>
   </div>
-  <div ng-show="statusTypes" class="well well-sm">
+  <div ng-show="vm.statusTypes" class="well well-sm">
     <ul class="list-inline" style="margin:0">
       <li>Legend:</li>
-      <li ng-repeat="statusType in statusTypes | orderBy:'name'">
+      <li ng-repeat="statusType in vm.statusTypes | orderBy:'name'">
         <span style="margin-left:5px"><i class="fa fa-circle fa-circle-{{statusType.key}}"></i> {{statusType.name}}</span>
       </li>
     </ul>
@@ -21,8 +21,8 @@
   <header>
     <h1>
       Health Statuses
-      <span ng-hide="healthStatuses"><i class="fa fa-spinner fa-spin"></i></span>
-      <span ng-show="healthStatuses"><small>({{healthStatuses.length}})</small></span>
+      <span ng-hide="vm.healthStatuses"><i class="fa fa-spinner fa-spin"></i></span>
+      <span ng-show="vm.healthStatuses"><small>({{vm.healthStatuses.length}})</small></span>
     </h1>
   </header>
   <div ng-show="healthStatuses">
@@ -40,7 +40,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="healthStatus in healthStatuses | orderBy:'name'">
+        <tr ng-repeat="healthStatus in vm.healthStatuses | orderBy:'name'">
           <td><i class="fa fa-circle fa-circle-{{healthStatus.statusType.key}}"></i> {{healthStatus.name}}</td>
           <td>{{healthStatus.key}}</td>
           <td>{{healthStatus.description || '-'}}</td>
@@ -53,11 +53,11 @@
   <header>
     <h1>
       Rotation Statuses
-      <span ng-hide="rotationStatuses"><i class="fa fa-spinner fa-spin"></i></span>
-      <span ng-show="rotationStatuses"><small>({{rotationStatuses.length}})</small></span>
+      <span ng-hide="vm.rotationStatuses"><i class="fa fa-spinner fa-spin"></i></span>
+      <span ng-show="vm.rotationStatuses"><small>({{vm.rotationStatuses.length}})</small></span>
     </h1>
   </header>
-  <div ng-show="rotationStatuses">
+  <div ng-show="vm.rotationStatuses">
     <table class="table">
       <colgroup>
         <col style="width:25%">
@@ -72,7 +72,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="rotationStatus in rotationStatuses | orderBy:'name'">
+        <tr ng-repeat="rotationStatus in vm.rotationStatuses | orderBy:'name'">
           <td><i class="fa fa-circle fa-circle-{{rotationStatus.statusType.key}}"></i> {{rotationStatus.name}}</td>
           <td>{{rotationStatus.key}}</td>
           <td>{{rotationStatus.description || '-'}}</td>

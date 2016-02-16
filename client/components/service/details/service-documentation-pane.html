@@ -1,23 +1,23 @@
-<section data-ng-controller="ServiceDocumentationController">
+<section data-ng-controller="ServiceDocumentationController as vm">
   <header>
     <h1>
       External Documentation
-      <span data-ng-switch="serviceDocumentationStatus">
-        <span data-ng-switch-when="loaded"><small>({{docLinks.length || 0}})</small></span>
+      <span data-ng-switch="vm.serviceDocumentationStatus">
+        <span data-ng-switch-when="loaded"><small>({{vm.docLinks.length || 0}})</small></span>
         <span data-ng-switch-when="loading"><i class="fa fa-spinner fa-spin"></i></span>
       </span>
     </h1>
   </header>
   <p><i class="fa fa-info-circle"></i> See <a href="http://seiso.io/guides/working-with-seiso-data-masters/">Working with Seiso Data Masters</a> for help with defining external documentation.</p>
-  <div data-ng-switch="serviceDocumentationStatus">
+  <div data-ng-switch="vm.serviceDocumentationStatus">
     <div data-ng-switch-when="error">
       <p><i class="fa fa-exclamation-triangle"></i> Couldn't get external documentation.</p>
     </div>
     <div data-ng-switch-when="loaded">
-      <div data-ng-if="docLinks.length === 0 || !docLinks.length">
+      <div data-ng-if="vm.docLinks.length === 0 || !vm.docLinks.length">
         <p><i class="fa fa-info-circle"></i> No external documentation.</p>
       </div>
-      <div data-ng-if="docLinks.length > 0">
+      <div data-ng-if="vm.docLinks.length > 0">
         <table class="table table-striped">
           <colgroup>
             <col style="width:50%">
@@ -30,7 +30,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-ng-repeat="docLink in docLinks">
+            <tr data-ng-repeat="docLink in vm.docLinks">
               <td><a data-ng-href="{{docLink.href}}" target="_blank"><span data-ng-bind="docLink.title"></span></a></td>
               <td data-ng-bind="docLink.description"></td>
             </tr>

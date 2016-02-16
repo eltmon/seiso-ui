@@ -1,4 +1,4 @@
-<section data-ng-switch="serviceInstanceListStatus">
+<section data-ng-switch="vm.serviceInstanceListStatus">
   <!-- No need for spinner here since context already provides one -->
   <div data-ng-switch-when="error">
     <div class="alert alert-warning">
@@ -11,9 +11,9 @@
       <!-- Might try using a dedicated controller for this list. -->
       <p><i class="fa fa-info-circle"></i> No service instances.</p>
     </div>
-    <div data-ng-if="serviceInstances.length > 0">
-      <div class="pagination-wrapper" data-ng-if="serviceInstanceMetadata.totalPages > 1">
-        <pagination total-items="serviceInstanceMetadata.totalItems" data-ng-model="model.serviceInstances.currentPage" data-ng-change="model.serviceInstances.pageSelected()" />
+    <div data-ng-if="vm.serviceInstances.length > 0">
+      <div class="pagination-wrapper" data-ng-if="vm.serviceInstanceMetadata.totalPages > 1">
+        <pagination total-items="vm.serviceInstanceMetadata.totalItems" data-ng-model="vm.model.serviceInstances.currentPage" data-ng-change="vm.model.serviceInstances.pageSelected()" />
       </div>
       <table class="table">
         <colgroup>
@@ -31,7 +31,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr data-ng-repeat="serviceInstance in serviceInstances" data-ng-init="
+          <tr data-ng-repeat="serviceInstance in vm.serviceInstances" data-ng-init="
               service = serviceInstance.service;
               environment = serviceInstance.environment;">
               
@@ -42,8 +42,8 @@
           </tr>
         </tbody>
       </table>
-      <div class="pagination-wrapper" data-ng-if="serviceInstanceMetadata.totalPages > 1">
-        <pagination total-items="serviceInstanceMetadata.totalItems" data-ng-model="model.serviceInstances.currentPage" data-ng-change="model.serviceInstances.pageSelected()" />
+      <div class="pagination-wrapper" data-ng-if="vm.serviceInstanceMetadata.totalPages > 1">
+        <pagination total-items="vm.serviceInstanceMetadata.totalItems" data-ng-model="vm.model.serviceInstances.currentPage" data-ng-change="vm.model.serviceInstances.pageSelected()" />
       </div>
     </div>
   </div>
