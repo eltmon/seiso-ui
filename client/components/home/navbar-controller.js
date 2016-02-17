@@ -9,13 +9,15 @@ module.exports = function(app) {
     $http
       .get('/instances')
       .then(function(res) {
-        var self = res.data.instances.self;
-        $scope.nav.self = self;
-        var instances = [];
-        var sInstances = res.data.instances.env;
-        for (var k in sInstances) {
-          instances.push(sInstances[k]);
+        var instances = res.data.instances;
+        var self = res.data.current_instance;
+        for (var i = 0; i < instances.length; i++) {
+          if (instances[i].name === self) {
+            self = instances[i];
+            break;
+          }
         }
+        $scope.nav.self = self;
         $scope.nav.seisoInstances = instances;
       });
   }
