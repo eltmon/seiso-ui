@@ -9,7 +9,8 @@ module.exports = function(req, res) {
     };
   } else {
     responseBody = {
-      instances: config.instances
+      instances: config.instances,
+      current_instance: config.current_instance
     };
   }
   res.status(200).json(responseBody);

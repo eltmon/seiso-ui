@@ -7,5 +7,5 @@ module.exports = function(router) {
   router.get('/buildinfo', controllers.internal.buildinfo);
 
   router.get('/instances', controllers.instances);
-  router.use('/getApiConfig', controllers.apiEndpoint);
+  router.get('/getApiConfig', controllers.apiEndpoint);
 };

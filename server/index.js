@@ -1,13 +1,3 @@
-/**
- * seiso-ui Web Server
- *
- * Serves static content of static ui with configuration
- * for service endpoints (seiso-api, etc).
- *
- * Author: Ian McCunn <imccunn@expedia.com>
- * 
- */
-
 'use strict';
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
@@ -29,7 +19,6 @@ app.use(logger('access', {stream: logConfig.accessLogStream}));
 app.use(bodyParser.json());
 
 // Routes
-
 
 var authRouter = express.Router();
 configAuth(app, authRouter);
