@@ -15,6 +15,6 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
   router.post('/saml/consume', passport.authenticate(config.auth.strategy, redirectConfig));
   router.get('/login-failed', authControllers.loginFailed);
   router.get('/logout', authControllers.logout);
-  router.get('/sp/metadata.xml', authControllers.generateServiceProviderMetadataEndpoint());
+  router.get('/sp/metadata.xml', authControllers.generateServiceProviderMetadataEndpoint(authenticationStrategy));
 
 };

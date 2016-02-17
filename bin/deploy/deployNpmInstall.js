@@ -1,12 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * 'npm install' without a set of excluded packages.
- * 
- * Author: Ian McCunn <imccunn@expedia.com>
- *
- */
-
 'use strict';
 
 var fs = require('fs'),

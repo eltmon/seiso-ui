@@ -14,9 +14,6 @@ module.exports = function(app, router) {
     secret: config.sessionSecret,
     resave: false,
     saveUninitialized: true,
-    // genid: function(req) {
-    //   return genuuid();
-    // },
     cookie: {
       secure: false,
     }
