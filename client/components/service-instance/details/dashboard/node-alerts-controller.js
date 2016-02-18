@@ -5,13 +5,13 @@ module.exports = function(app) {
   app.controller('NodeAlertsController', nodeAlertsController);
 
   /* @ngInject */
-  function nodeAlertsController($scope, dataService, paginationConfig, $stateParams) {
-    $scope.model = {};
-    $scope.model.nodeAlerts = {
+  function nodeAlertsController(dataService, paginationConfig, $stateParams) {
+    var vm = this;
+    vm.nodeAlerts = {
       currentPage: 1,
       pageSelected: function() {
-        $scope.nodeAlertsStatus = 'loading';
-        var pageNumber = $scope.model.nodeAlerts.currentPage;
+        vm.nodeAlertsStatus = 'loading';
+        var pageNumber = vm.nodeAlerts.currentPage;
         var apiPageNumber = pageNumber - 1;
         var path = '/nodes/search/findNodeAlertsByServiceInstance?key=' + $stateParams.key + 
             '&view=serviceInstanceNodes' + 
@@ -20,19 +20,19 @@ module.exports = function(app) {
             '&sort=name';
 
         var successHandler = function(res) {
-          $scope.nodeAlertsPage = res.data._embedded;
-          $scope.metadata = $scope.nodeAlertsPage.metadata;
-          $scope.nodeRows = nodePageToNodeRows($scope.nodeAlertsPage);
-          $scope.nodeAlerts = $scope.nodeAlertsPage.nodes;
-          $scope.nodeAlertsStatus = 'loaded';
+          vm.nodeAlertsPage = res.data._embedded;
+          vm.metadata = vm.nodeAlertsPage.metadata;
+          vm.nodeRows = nodePageToNodeRows(vm.nodeAlertsPage);
+          vm.nodeAlerts = vm.nodeAlertsPage.nodes;
+          vm.nodeAlertsStatus = 'loaded';
         };
         
-        var errorHandler = function() { $scope.nodeAlertsStatus = 'error'; };
+        var errorHandler = function() { vm.nodeAlertsStatus = 'error'; };
 
         dataService.get(path)
           .then(successHandler, errorHandler);
       }
     };
-    $scope.model.nodeAlerts.pageSelected();
+    vm.nodeAlerts.pageSelected();
   }
 };

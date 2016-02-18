@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-6">
       <header>
-        <h1>IP Address Roles <small>({{ipAddressRoles.length}})</small></h1>
+        <h1>IP Address Roles <small>({{vm.ipAddressRoles.length}})</small></h1>
       </header>
-      <div ng-show="ipAddressRoles.length &gt; 0">
+      <div ng-show="vm.ipAddressRoles.length > 0">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -13,7 +13,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="ipAddressRole in ipAddressRoles">
+            <tr ng-repeat="ipAddressRole in vm.ipAddressRoles">
               <td>{{ipAddressRole.name}}</td>
               <td>{{ipAddressRole.description}}</td>
             </tr>
@@ -23,9 +23,9 @@
     </div>
     <div class="col-md-6">
       <header>
-        <h1>Private Ports <small>({{ports.length}})</small></h1>
+        <h1>Private Ports <small>({{vm.ports.length}})</small></h1>
       </header>
-      <div ng-show="ports.length &gt; 0">
+      <div ng-show="vm.ports.length > 0">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -35,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="port in ports">
+            <tr ng-repeat="port in vm.ports">
               <td>{{port.number}}</td>
               <td>{{port.protocol}}</td>
               <td>{{port.description}}</td>

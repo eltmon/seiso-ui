@@ -7,16 +7,18 @@ module.exports = function(app) {
 
   /* @ngInject */
   function nodeSummaryController($scope, dataService, $stateParams) {
-    $scope.nodeStatsStatus = 'loading';
+    var vm = this;
+    vm.nodeStatsStatus = 'loading';
     
     var successHandler = function(res) {
       var siUrl = res.data._links.self.href + '/nodeSummary';
-      dataService.get(siUrl).then(nodeSummarySuccess, function(err) {return console.log(err);});
+      dataService.get(siUrl)
+        .then(nodeSummarySuccess, function(err) {return console.log(err);});
 
       function nodeSummarySuccess(res) {
         var nodeStats = res.data;
         enrichNodeStats(nodeStats);
-        $scope.nodeStats = nodeStats;
+        vm.nodeStats = nodeStats;
         
         var numHealthy = nodeStats.numHealthy;
         var numUnhealthy = nodeStats.numNodes - numHealthy;
@@ -27,26 +29,26 @@ module.exports = function(app) {
         
 
         $scope.healthDataset = [
-          { type: 'Healthy', count: numHealthy }, 
+          { type: 'Healthy', count: numHealthy },
           { type: 'Unhealthy', count: numUnhealthy }
         ];
         
         $scope.enabledDataset = [
-          { type: 'Enabled', count: numEnabled }, 
+          { type: 'Enabled', count: numEnabled },
           { type: 'Not enabled', count: numNotEnabled }
         ];
         
         $scope.healthyGivenEnabledDataset = [
-          { type: 'Healthy given enabled', count: numHealthyGivenEnabled || 0 }, 
+          { type: 'Healthy given enabled', count: numHealthyGivenEnabled || 0 },
           { type: 'Unhealthy given enabled', count: numUnhealthyGivenEnabled || 0 }
         ];
         
-        $scope.nodeStatsStatus = 'loaded';
+        vm.nodeStatsStatus = 'loaded';
       }
     };
 
     var errorHandler = function(res) {
-      $scope.nodeStatsStatus = 'error';
+      vm.nodeStatsStatus = 'error';
       return;
     };
 

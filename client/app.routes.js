@@ -23,7 +23,7 @@ module.exports = function(app) {
       .state('services', stateConfig('/services', 'ServiceList', 'service/list/service-list'))
       .state('service', stateConfig('/services/:key', 'ServiceDetails', 'service/details/service-details'))
       .state('serviceInstances', stateConfig('/service-instances', 'ServiceInstanceList', 'service-instance/list/service-instance-list'))
-      .state('serviceInstance', viewRoute('/service-instances/:key', 'service-instance/details/service-instance-details'))
+      .state('serviceInstance', stateConfig('/service-instances/:key', 'ServiceInstanceDetails', 'service-instance/details/service-instance-details'))
       .state('statuses', stateConfig('/statuses', 'StatusList', 'status/status-list'))
       .state('types', stateConfig('/types', 'TypeList', 'type/type-list'));
 
