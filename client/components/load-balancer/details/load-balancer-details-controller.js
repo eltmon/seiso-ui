@@ -3,11 +3,11 @@ module.exports = function(app) {
   app.controller('LoadBalancerDetailsController', loadBalancerDetailsController);
 
   /* @ngInject */
-  function loadBalancerDetailsController($http, $stateParams, dataService, Page) {
+  function loadBalancerDetailsController($stateParams, dataService, Page) {
     var vm = this;
     dataService.get('/loadBalancers/search/findByName?name=' + $stateParams.name)
       .then(function(res) {
-        $http.get(res.data._links.self.href + '?projection=loadBalancersList')
+        dataService.get(res.data._links.self.href + '?projection=loadBalancersList')
           .then(function(res) {
             Page.setTitle(res.data.name);
             vm.loadBalancer = res.data;
@@ -16,7 +16,7 @@ module.exports = function(app) {
             console.log(res);
           });
 
-        $http.get(res.data._links.serviceInstances.href + '?projection=serviceServiceInstances')
+        dataService.get(res.data._links.serviceInstances.href + '?projection=serviceServiceInstances')
           .then(function(res) {
             vm.serviceInstances = res.data._embedded.serviceInstances; 
           }, function(res) {

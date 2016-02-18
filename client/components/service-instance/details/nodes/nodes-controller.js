@@ -7,13 +7,13 @@ module.exports = function(app) {
   app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
 
   /* @ngInject */  
-  function serviceInstanceNodesController($scope, dataService, paginationConfig, $stateParams) {
-    $scope.model = {};
-    $scope.model.nodes = {
+  function serviceInstanceNodesController(dataService, paginationConfig, $stateParams) {
+    var vm = this;
+    vm.nodes = {
       currentPage: 1,
       pageSelected: function() {
-        $scope.nodeListStatus = 'loading';
-        var pageNumber = $scope.model.nodes.currentPage;
+        vm.nodeListStatus = 'loading';
+        var pageNumber = vm.nodes.currentPage;
         var apiPageNumber = pageNumber - 1;
         var requestUrl = '/nodes/search/findByServiceInstanceKey?key=' + $stateParams.key +
             '&page=' + apiPageNumber +
@@ -22,10 +22,10 @@ module.exports = function(app) {
             '&projection=serviceInstanceNodes';
 
         var successHandler = function(res) {
-          $scope.metadata = res.data.page;
-          $scope.nodes = res.data._embedded.nodes;
+          vm.metadata = res.data.page;
+          vm.nodes = res.data._embedded.nodes;
 
-          async.each($scope.nodes, function(node, cb) {
+          async.each(vm.nodes, function(node, cb) {
             dataService.get(node._links.ipAddresses.href + '?projection=ipAddressDetails')
               .then(function(res) {
                 node.ipAddresses = res.data._embedded.nodeIpAddresses;
@@ -45,9 +45,9 @@ module.exports = function(app) {
               });
           }, function(err) {
             if (err) return console.log(err);
-            var nodePage = $scope.nodes;
-            $scope.nodeRows = nodePageToNodeRows(nodePage);
-            $scope.nodeListStatus = 'loaded';
+            var nodePage = vm.nodes;
+            vm.nodeRows = nodePageToNodeRows(nodePage);
+            vm.nodeListStatus = 'loaded';
           });
         };
 
@@ -60,6 +60,6 @@ module.exports = function(app) {
       }
     };
 
-    $scope.model.nodes.pageSelected();
+    vm.nodes.pageSelected();
   }
 };

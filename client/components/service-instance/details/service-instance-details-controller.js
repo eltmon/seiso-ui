@@ -4,30 +4,33 @@ module.exports = function(app) {
 
   /* @ngInject */
   function serviceInstanceDetailsController($scope, dataService, $stateParams, Page) {
-    $scope.serviceInstanceStatus = 'loading';
+    var vm = this;
+    vm.serviceInstanceStatus = 'loading';
     var serviceInstanceKey = $stateParams.key;
     var path = '/serviceInstances/search/findByKey?key=' + serviceInstanceKey;
-    dataService.get(path).then(successHandler, errorHandler);
+    dataService.get(path)
+      .then(successHandler, errorHandler);
     function successHandler(res) {
       var actualPath = res.data._links.self.href;
-      dataService.get(actualPath + '?projection=serviceInstanceDetails').then(siSuccess, function(err){ return console.log(err);});
+      dataService.get(actualPath + '?projection=serviceInstanceDetails')
+        .then(siSuccess, function(err){ return console.log(err);});
       function siSuccess(res) {
         getServiceInstanceService(res.data._links.service.href);
         var si = res.data;
         var service = si.service;
-        $scope.serviceInstance = si;
+        vm.serviceInstance = si;
         Page.setTitle(si.key);
-        $scope.dataCenter = si.dataCenter;
-        $scope.environment = si.environment;
-        $scope.ipAddressRoles = si.ipAddressRoles;
-        $scope.loadBalancer = si.loadBalancer;
-        $scope.ports = si.ports;
-        $scope.service = service;
-        $scope.owner = '';
-        $scope.dashboards = si.dashboards;
-        $scope.checks = si.seyrenChecks;
+        vm.dataCenter = si.dataCenter;
+        vm.environment = si.environment;
+        vm.ipAddressRoles = si.ipAddressRoles;
+        vm.loadBalancer = si.loadBalancer;
+        vm.ports = si.ports;
+        vm.service = service;
+        vm.owner = '';
+        vm.dashboards = si.dashboards;
+        vm.checks = si.seyrenChecks;
     
-        $scope.tabs = [
+        vm.tabs = [
           { heading: 'Dashboard', content: 'dashboard/index' },
           { heading: 'All Nodes', content: 'nodes/node-pane' },
           { heading: 'Details', content: 'details/index' },
@@ -35,20 +38,20 @@ module.exports = function(app) {
           { heading: 'Actions', content: 'eos-actions/index' }
         ];
 
-        // if ($scope.globals.enableActions) {
-        //   $scope.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
+        // if (vm.globals.enableActions) {
+        //   vm.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
         // }
         
-        $scope.setTabContent = function(name) {
-          $scope.tabContentUrl = 'view/service-instance/details/' + name + '.html';
+        vm.setTabContent = function(name) {
+          vm.tabContentUrl = 'view/service-instance/details/' + name + '.html';
         };
       
-        $scope.serviceInstanceStatus = 'loaded';
+        vm.serviceInstanceStatus = 'loaded';
       }
     }
 
     var errorHandler = function() {
-      $scope.serviceInstanceStatus = 'error';
+      vm.serviceInstanceStatus = 'error';
     };
 
     var gError = function(err) {
@@ -58,7 +61,7 @@ module.exports = function(app) {
     function getServiceInstanceService(serviceHref) {
       dataService.get(serviceHref + '?projection=serviceDetails')
         .then(function(res) {
-          $scope.service = res.data;
+          vm.service = res.data;
         }, gError);
     }
     

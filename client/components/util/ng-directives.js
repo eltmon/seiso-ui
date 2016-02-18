@@ -34,7 +34,6 @@ var pieChartDirective = function() {
     // chartId: chart container
     // dataset: chart data
     function drawPieChart(chartId, dataset) {
-      // console.log('Drawing pie chart');
 
       var width = 120;
       var height = 120;

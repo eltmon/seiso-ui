@@ -1,23 +1,23 @@
-<section ng-controller="ServiceInstanceDependentsController">
+<section ng-controller="ServiceInstanceDependentsController as vm">
   <header>
     <h1>
       Dependents
-      <span ng-show="dependentsStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
-      <span ng-show="dependentsStatus == 'loaded'">
-        <small>({{dependents.length}})</small>
+      <span ng-show="vm.dependentsStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+      <span ng-show="vm.dependentsStatus == 'loaded'">
+        <small>({{vm.dependents.length}})</small>
       </span>
-      <small><a href="" tooltip="Service instances that depend upon {{serviceInstance.key}}."><i class="fa fa-question-circle"></i></a></small>
+      <small><a href="" tooltip="Service instances that depend upon {{vm.serviceInstance.key}}."><i class="fa fa-question-circle"></i></a></small>
     </h1>
   </header>
-  <div ng-switch="dependentsStatus">
+  <div ng-switch="vm.dependentsStatus">
     <div ng-switch-when="error">
       <p><i class="fa fa-exclamation-triangle"></i> Couldn't get dependents.</p>
     </div>
     <div ng-switch-when="loaded">
-      <div ng-if="dependents.length == 0">
+      <div ng-if="vm.dependents.length == 0">
         <p><i class="fa fa-info-circle"></i> No known dependents.</p>
       </div>
-      <div ng-if="dependents.length &gt; 0">
+      <div ng-if="vm.dependents.length > 0">
         <table class="table table-striped">
           <colgroup>
             <col style="width:25%">
@@ -34,7 +34,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="edge in dependents" ng-init="
+            <tr ng-repeat="edge in vm.dependents" ng-init="
                 dependent = edge._embedded.dependent;
                 service = dependent._embedded.service;">
                 
@@ -52,26 +52,26 @@
   </div>
 </section>
 
-<section ng-controller="ServiceInstanceDependenciesController">
+<section ng-controller="ServiceInstanceDependenciesController as vm">
   <header>
     <h1>
       Dependencies
-      <span ng-show="dependenciesStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
-      <span ng-show="dependenciesStatus == 'loaded'">
-        <small>({{dependencies.length}})</small>
+      <span ng-show="vm.dependenciesStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+      <span ng-show="vm.dependenciesStatus == 'loaded'">
+        <small>({{vm.dependencies.length}})</small>
       </span>
-      <small><a href="" tooltip="Service instances upon which {{serviceInstance.key}} depends."><i class="fa fa-question-circle"></i></a></small>
+      <small><a href="" tooltip="Service instances upon which {{vm.serviceInstance.key}} depends."><i class="fa fa-question-circle"></i></a></small>
     </h1>
   </header>
-  <div ng-switch="dependenciesStatus">
+  <div ng-switch="vm.dependenciesStatus">
     <div ng-switch-when="error">
       <p><i class="fa fa-exclamation-triangle"></i> Couldn't get dependencies.</p>
     </div>
     <div ng-switch-when="loaded">
-      <div ng-if="dependencies.length == 0">
+      <div ng-if="vm.dependencies.length == 0">
         <p><i class="fa fa-info-circle"></i> No known dependencies.</p>
       </div>
-      <div ng-if="dependencies.length &gt; 0">
+      <div ng-if="vm.dependencies.length &gt; 0">
         <table class="table table-striped">
           <colgroup>
             <col style="width:25%">
@@ -88,7 +88,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="edge in dependencies" ng-init="
+            <tr ng-repeat="edge in vm.dependencies" ng-init="
                 dependency = edge._embedded.dependency;
                 service = dependency._embedded.service">
                 

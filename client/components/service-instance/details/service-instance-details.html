@@ -1,4 +1,4 @@
-<div ng-controller="ServiceInstanceDetailsController" ng-switch="serviceInstanceStatus">
+<div ng-switch="vm.serviceInstanceStatus">
   <div ng-switch-when="loading">
     <div id="page-spinner-panel"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
   </div>
@@ -10,11 +10,11 @@
       <ul class="breadcrumb">
         <li><a ng-href="{{uri()}}">Home</a></li>
         <li><a ng-href="{{uri('services')}}">Services</a></li>
-        <li><a ng-href="{{uri('services', service.key)}}" ng-bind="service.name"></a></li>
+        <li><a ng-href="{{uri('services', vm.service.key)}}" ng-bind="vm.service.name"></a></li>
         <li>Service instances</li>
       </ul>
-      <h1 ng-bind="serviceInstance.key"></h1>
-      <p class="lead" ng-if="serviceInstance.description" ng-bind="serviceInstance.description"></p>
+      <h1 ng-bind="vm.serviceInstance.key"></h1>
+      <p class="lead" ng-if="vm.serviceInstance.description" ng-bind="vm.serviceInstance.description"></p>
     </div>
     <section>
       <!-- Also Mike is going to want to see the Eos-enabled flag, but we need a way to do this without hardcoding it
@@ -22,36 +22,36 @@
       <ul class="field-list">
         <li>
           <div>Service:</div>
-          <div ng-if="service"><a ng-href="{{uri('services', service.key)}}">{{service.name}}</a></div>
-          <div ng-if="!service">-</div>
+          <div ng-if="vm.service"><a ng-href="{{uri('services', vm.service.key)}}">{{vm.service.name}}</a></div>
+          <div ng-if="!vm.service">-</div>
         </li>
         <li>
           <div>Environment:</div>
-          <div ng-if="environment"><a ng-href="{{uri('environments', environment.key)}}">{{environment.name}}</a></div>
-          <div ng-if="!environment">-</div>
+          <div ng-if="vm.environment"><a ng-href="{{uri('environments', vm.environment.key)}}">{{vm.environment.name}}</a></div>
+          <div ng-if="!vm.environment">-</div>
         </li>
         <li>
           <div>Data Center:</div>
-          <div ng-if="dataCenter"><a ng-href="{{uri('data-centers', dataCenter.key)}}">{{dataCenter.name}}</a></div>
-          <div ng-if="!dataCenter">-</div>
+          <div ng-if="vm.dataCenter"><a ng-href="{{uri('data-centers', vm.dataCenter.key)}}">{{vm.dataCenter.name}}</a></div>
+          <div ng-if="!vm.dataCenter">-</div>
         </li>
         <li>
           <div>Owner:</div>
-          <span ng-if="owner"><a ng-href="{{uri('people', owner.username)}}">{{displayName(owner)}}</a></span>
-          <span ng-if="!owner">-</span>
+          <span ng-if="vm.owner"><a ng-href="{{uri('people', vm.owner.username)}}">{{vm.displayName(owner)}}</a></span>
+          <span ng-if="!vm.owner">-</span>
         </li>
         <li>
           <div>Load Balancer:</div>
-          <div ng-if="loadBalancer"><a ng-href="{{uri('load-balancers', loadBalancer.name)}}">{{loadBalancer.name}}</a></div>
-          <div ng-if="!loadBalancer">-</div>
+          <div ng-if="vm.loadBalancer"><a ng-href="{{uri('load-balancers', vm.loadBalancer.name)}}">{{vm.loadBalancer.name}}</a></div>
+          <div ng-if="!vm.loadBalancer">-</div>
         </li>
       </ul>
     </section>
     <div>
       <tabset>
-        <tab ng-repeat="tab in tabs" heading="{{tab.heading}}" select="setTabContent(tab.content)"></tab>
+        <tab ng-repeat="tab in vm.tabs" heading="{{tab.heading}}" select="vm.setTabContent(tab.content)"></tab>
       </tabset>
-      <ng-include src="tabContentUrl"></ng-include>
+      <ng-include src="vm.tabContentUrl"></ng-include>
     </div>
   </div>
 </div>

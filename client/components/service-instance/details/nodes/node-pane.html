@@ -1,23 +1,23 @@
-<section data-ng-controller="ServiceInstanceNodesController">
+<section data-ng-controller="ServiceInstanceNodesController as vm">
   <header>
     <h1>
       Nodes
-      <span data-ng-show="nodeListStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
-      <span data-ng-show="nodeListStatus == 'loaded'">
+      <span data-ng-show="vm.nodeListStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+      <span data-ng-show="vm.nodeListStatus == 'loaded'">
         <!-- TODO Scope metadata to the node list, since we could conceivably have other pages here as well. -->
-        <span data-ng-if="metadata.totalElements == 0">
+        <span data-ng-if="vm.metadata.totalElements == 0">
           <small>(0)</small>
         </span>
-        <span data-ng-if="metadata.totalElements > 0">
+        <span data-ng-if="vm.metadata.totalElements > 0">
           <small>
-            ({{(metadata.number * metadata.size) + 1}}-{{((metadata.number) * metadata.size) + nodes.length}} of 
-            {{metadata.totalElements}})
+            ({{(vm.metadata.number * vm.metadata.size) + 1}}-{{((vm.metadata.number) * vm.metadata.size) + vm.nodes.length}} of 
+            {{vm.metadata.totalElements}})
           </small>
         </span>
       </span>
     </h1>
   </header>
-  <div data-ng-switch="nodeListStatus">
+  <div data-ng-switch="vm.nodeListStatus">
     <!-- No need for spinner here since context already provides one -->
     <div data-ng-switch-when="error">
       <div class="alert alert-warning">
@@ -25,13 +25,13 @@
       </div>
     </div>
     <div data-ng-switch-when="loaded">
-      <div data-ng-if="nodeRows.length == 0">
+      <div data-ng-if="vm.nodeRows.length == 0">
         <p><i class="fa fa-info-circle"></i> No nodes.</p>
       </div>
-      <div data-ng-if="nodeRows.length > 0">
+      <div data-ng-if="vm.nodeRows.length > 0">
         <!-- TODO Refactor this and node-alerts.html, which are almost exactly the same. -->
-        <div class="pagination-wrapper" data-ng-if="metadata.totalPages > 1">
-          <pagination total-items="metadata.totalElements" data-ng-model="model.nodes.currentPage" data-ng-change="model.nodes.pageSelected()" />
+        <div class="pagination-wrapper" data-ng-if="vm.metadata.totalPages > 1">
+          <pagination total-items="vm.metadata.totalElements" data-ng-model="vm.nodes.currentPage" data-ng-change="vm.nodes.pageSelected()" />
         </div>
         <table class="table table-striped">
           <thead>
@@ -45,7 +45,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-ng-repeat="nodeRow in nodeRows" data-ng-init="
+            <tr data-ng-repeat="nodeRow in vm.nodeRows" data-ng-init="
                 firstRow = nodeRow.displayName;
                 healthStatusTypeKey = nodeRow.healthStatus._embedded.statusType.key;
                 nodeAggregateRotationStatusTypeKey = nodeRow.nodeAggregateRotationStatus._embedded.statusType.key;
@@ -87,8 +87,8 @@
             </tr>
           </tbody>
         </table>
-        <div class="pagination-wrapper" data-ng-if="metadata.totalPages > 1">
-          <pagination total-items="metadata.totalElements" data-ng-model="model.nodes.currentPage" data-ng-change="model.nodes.pageSelected()" />
+        <div class="pagination-wrapper" data-ng-if="vm.metadata.totalPages > 1">
+          <pagination total-items="vm.metadata.totalElements" data-ng-model="vm.nodes.currentPage" data-ng-change="vm.nodes.pageSelected()" />
         </div>
       </div>
     </div>

@@ -3,18 +3,19 @@ module.exports = function(app) {
   app.controller('NodeBreakdownController', nodeBreakdownController);
 
   /* @ngInject */
-  function nodeBreakdownController($scope, dataService, $stateParams, $http) {
+  function nodeBreakdownController(dataService, $stateParams, $http) {
+    var vm = this;
     function getBreakdown(statusVar, path, resultVar) {
-      $scope[statusVar] = 'loading';
+      vm[statusVar] = 'loading';
 
       var successHandler = function(res) {
         var data = res.data._embedded ? res.data._embedded.breakdownItems : [];
-        $scope[resultVar] = data;
-        $scope[statusVar] = 'loaded';
+        vm[resultVar] = data;
+        vm[statusVar] = 'loaded';
       };
 
       var errorHandler = function(err) {
-        $scope[statusVar] = 'error';
+        vm[statusVar] = 'error';
       };
 
       dataService.get('/serviceInstances/search/findByKey?key=' + $stateParams.key)
