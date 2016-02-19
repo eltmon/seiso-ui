@@ -3,7 +3,7 @@
 var _ = require('lodash');
 
 var all = require('./env/all.js');
-var envConfig = require('./env/' + (process.env.NODE_ENV || 'dev') + '.js') || {};
+var envConfig = require('./env/' + (process.env.NODE_ENV || 'test') + '.js') || {};
 var deployConfig = {};
 
 try {
