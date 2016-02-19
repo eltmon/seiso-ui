@@ -1,6 +1,6 @@
 'use strict';
 
-var env = process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'test';
 
 var express = require('express'),
     app = express(),
