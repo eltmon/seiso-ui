@@ -29,8 +29,6 @@ routes.internal(internalRouter);
 app.use('/', internalRouter);
 
 app.use('*', function(req, res, next) {
-  console.log(req.session);
-  console.log(req.sessionID);
   next();
 });
 
