@@ -22,24 +22,31 @@
               <accordion-heading style="padding: 0;" >
                  <a style="display: block;" data-ng-click="vm.getServices(group);">{{group.name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></a>
               </accordion-heading>
-              <div data-ng-if="group.services.length === 0">
-                <p>No services.</p>
-              </div>
-              <div data-ng-if="group.services.length > 0">
-                <div class="row">
-                  <div class="col-md-6">
-                    <ul class="list-unstyled">
-                      <li ng-repeat="service in group.services.slice(0, (group.services.length + 1) / 2)">
-                        <a ng-href="{{uri('services', service.key)}}">{{service.name}}</a>
-                      </li>
-                    </ul>
+              <div ng-switch="vm.serviceGroupStatus">
+                <div ng-switch-when="loading">
+                  <span><i class="fa fa-spinner fa-spin"></i></span>
+                </div>
+                <div ng-switch-when="loaded">
+                  <div data-ng-if="group.services.length === 0">
+                    <p>No services.</p>
                   </div>
-                  <div class="col-md-6">
-                    <ul class="list-unstyled">
-                      <li ng-repeat="service in group.services.slice((group.services.length + 1) / 2, group.services.length)">
-                        <a ng-href="{{uri('services', service.key)}}">{{service.name}}</a>
-                      </li>
-                    </ul>
+                  <div data-ng-if="group.services.length > 0">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <ul class="list-unstyled">
+                          <li ng-repeat="service in group.services.slice(0, (group.services.length + 1) / 2)">
+                            <a ng-href="{{uri('services', service.key)}}">{{service.name}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-md-6">
+                        <ul class="list-unstyled">
+                          <li ng-repeat="service in group.services.slice((group.services.length + 1) / 2, group.services.length)">
+                            <a ng-href="{{uri('services', service.key)}}">{{service.name}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
