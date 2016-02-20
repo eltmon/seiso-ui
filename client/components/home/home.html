@@ -20,9 +20,9 @@
           <accordion close-others="true">
             <accordion-group is-open="status.open" ng-repeat="group in vm.serviceGroups" style="opacity:0.8" >
               <accordion-heading style="padding: 0;" >
-                 <a style="display: block;" data-ng-click="vm.getServices(group);">{{group.name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></a>
+                 <a style="display: block; color: #333;" data-ng-click="vm.getServices(group);">{{group.name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></a>
               </accordion-heading>
-              <div ng-switch="vm.serviceGroupStatus">
+              <div ng-switch="group.status">
                 <div ng-switch-when="loading">
                   <span><i class="fa fa-spinner fa-spin"></i></span>
                 </div>

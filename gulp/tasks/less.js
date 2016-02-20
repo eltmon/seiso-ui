@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     config = require('../config');
 
 function lessTask() {
-  return gulp.src(config.client + '/css/**/*.less')
+  return gulp.src(config.client.all + '/css/**/*.less')
       .pipe($.less())
       .pipe($.cssnano())
       .pipe(gulp.dest(config.out + '/css'));

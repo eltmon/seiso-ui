@@ -26,14 +26,16 @@ module.exports = function(app) {
       vm.serviceStatus = 'loaded';
     }
     vm.getServices = function(group) {
-      vm.serviceGroupStatus = 'loading';
+      // services for this group are already loaded
       if (vm.serviceGroups[group.key].services.length > 0) {
         return;
       }
+      group.status = 'loading';
+
       dataService.get(group._links.services.href)
         .then(function(res) {
           vm.serviceGroups[group.key].services = res.data._embedded.services.sort(alphaSort); 
-          vm.serviceGroupStatus = 'loaded';
+          group.status = 'loaded';
         }, function(err) {
           if (err) return console.log(err);
       });

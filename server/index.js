@@ -17,6 +17,7 @@ app.set('port', config.port);
 logger.format('access', logConfig.loggerFormat);
 app.use(logger('access', {stream: logConfig.accessLogStream}));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Routes
 

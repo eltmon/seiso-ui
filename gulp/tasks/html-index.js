@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     series = require('stream-series');
 
 gulp.task('cp:index', function() {
-  return gulp.src(config.client + '/index.html')
+  return gulp.src(config.client.all + '/index.html')
     .pipe(gulp.dest(config.out));
 });
 
