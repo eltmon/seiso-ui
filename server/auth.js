@@ -51,7 +51,7 @@ module.exports = function(app, router) {
       firstName: profile.givenName,
       lastName: profile.sn,
       department: profile.Department,
-      costCenter: profile['Cost Center']
+      costCenter: profile['Cost Center'],
       phone: profile['Phone']
     };
     return done(null, profileObj);
