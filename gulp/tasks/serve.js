@@ -6,14 +6,14 @@ var gulp = require('gulp'),
     path = require('path');
 
 function watchTask() {
-  var watchPath = config.client + '/**';
+  var watchPath = config.client.all + '/**';
 
   browserSync.init({
     proxy: 'localhost:3001',
     port: 3000
   });
 
-  gulp.watch(watchPath, ['watch:reload']);
+  gulp.watch(watchPath, ['build'], ['watch:reload']);
 }
 
 gulp.task('serve', ['build'], watchTask);
