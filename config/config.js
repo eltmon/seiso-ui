@@ -1,21 +1,20 @@
 
 module.exports = {
-  instances: {
-    self: {
+  instances: [
+    {
       name: 'Sandbox',
-      href: 'seiso-ui-sandbox.example.com'
+      href: 'https://thisappsandbox.test.example.com'   
     },
-    env: {
-      test: {
-        name: 'Test',
-        href: 'https://thisapp.test.example.com'
-      },
-      prod: {
-        name: 'Prod',
-        href: 'https://thisapp.prod.example.com'
-      }
+    {
+      name: 'Test',
+      href: 'https://thisapp.test.example.com'   
+    },
+    {
+      name: 'Prod',
+      href: 'https://thisapp.prod.example.com'
     }
-  },
+  ],
+  current_instance: 'Sandbox',
   apis: {
     seiso: 'http://localhost:8080'
   }

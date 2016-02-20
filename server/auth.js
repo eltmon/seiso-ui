@@ -52,6 +52,7 @@ module.exports = function(app, router) {
       lastName: profile.sn,
       department: profile.Department,
       costCenter: profile['Cost Center']
+      phone: profile['Phone']
     };
     return done(null, profileObj);
   }

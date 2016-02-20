@@ -1,7 +1,7 @@
 'use strict';
 
 var authControllers = require('../controllers').auth,
-	config = require('../../config');
+	  config = require('../../config');
 
 module.exports.init = function(router, passport, authenticationStrategy, config) {
 
