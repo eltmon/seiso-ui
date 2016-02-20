@@ -42,7 +42,10 @@ if (!exclusionsFile) {
   EXIT1();
 } else {
   fs.readFile(exclusionsFile, 'utf-8', function(err, data) {
-    if (err) return console.log(err);
+    if (err) {
+      EXIT1();
+      return console.log(err);
+    }
     exclusions = data.split('\n');
     console.log('Excluding these packages: \n', exclusions);
   });
