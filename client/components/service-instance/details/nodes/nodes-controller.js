@@ -11,8 +11,6 @@ module.exports = function(app) {
     var vm = this;
     vm.currentPage = 1;
     vm.pageSelected = function() {
-      console.log('thing');
-      console.log(vm.currentPage);
       vm.nodeListStatus = 'loading';
       var pageNumber = vm.currentPage;
       var apiPageNumber = pageNumber - 1;
