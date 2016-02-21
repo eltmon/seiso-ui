@@ -3,8 +3,9 @@ module.exports = function(app) {
   app.controller('NavbarController', NavbarController);
 
   /* @ngInject */
-  function NavbarController($scope, $http) {
+  function NavbarController($scope, $http, AuthService) {
     $scope.nav = {};
+    $scope.AuthService = AuthService;
     // Get instances for navbar instance navigation
     $http
       .get('/instances')
