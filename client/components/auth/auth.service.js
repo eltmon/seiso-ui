@@ -36,11 +36,10 @@ module.exports = function(app) {
         
 
         $http.get('/login')
-          .success(successHandler)
-          .error(errorHandler);
+          .then(successHandler, errorHandler);
 
         function successHandler() {
-          console.log('res from login');
+          console.log('Auth response');
           // This just means that the request succeeded, not that authentication succeeded.
           // Whether authentication succeeded or not, /login returns an HTTP 302 redirect.
           // So we still need to check.

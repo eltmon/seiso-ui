@@ -12,7 +12,7 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
 
   router.get('/login', login, passport.authenticate(config.auth.strategy, redirectConfig));
   function login(req, res, next) {
-    console.log(req);
+    console.log('login route hit');
     next();
   }
 
