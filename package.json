@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "start:prod": "npm run build:all && node index",
-    "serve": "gulp serve",
+    "start:prod": "npm run build:all & node index",
+    "start:dev": "export NODE_ENV=\"dev\" && gulp serve",
     "watch": "gulp watch",
     "test": "gulp test",
     "vet": "gulp vet",
@@ -89,6 +89,7 @@
   "dependencies": {
     "async": "^1.5.2",
     "body-parser": "^1.14.0",
+    "cli-color": "^1.1.0",
     "cookie-parser": "^1.4.1",
     "express": "^4.13.3",
     "express-session": "^1.13.0",
