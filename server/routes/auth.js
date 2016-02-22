@@ -11,8 +11,13 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
   };
 
   router.get('/', function(req, res, next) {
-   if (req.user !== undefined) console.log('there is a user.');
-   else console.log('there is not a user.');
+    if (req.user !== undefined) {
+      console.log('there is a user.');
+      res.authenticated = true;
+    } else {
+      console.log('there is not a user.');
+      res.authenticated = false;
+    }
    next();
   })
 
@@ -25,7 +30,7 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
 
   router.post('/saml/consume', saml, passport.authenticate(config.auth.strategy, redirectConfig));
   function saml(req, res, next) {
-    console.log('saml consume: ', req)
+
     next();
   }
   router.get('/login-failed', authControllers.loginFailed);
