@@ -10,6 +10,13 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
     failureRedirect: '/login-failed'
   };
 
+  router.get('/', function(req, res, next) {
+   if (req.user !== undefined) console.log('there is a user.');
+   else console.log('there is not a user.');
+   next();
+  })
+
+
   router.get('/login', login, passport.authenticate(config.auth.strategy, redirectConfig));
   function login(req, res, next) {
     console.log('login route hit');
