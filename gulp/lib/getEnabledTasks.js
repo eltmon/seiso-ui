@@ -3,17 +3,17 @@
 var config = require('../config');
 var _ = require('lodash');
 
-// Grouped by what can run in parallel.
-// Really I think all of these can run in parallel. Collapse? [WLW]
-// Exclude html:index since we have to do that after building all the CSS and JS.
+// The only task we have to wait for is html:index which depends on the output
+// file locations for files to inject. [IDM]
 var assetTasks = ['fontawesome', 'fonts', 'images'],
     codeTasks = ['html', 'less', 'css', 'webpack:build', 'vendor:js'],
     indexInject = ['html:index'];
 
+var parallelTasks = assetTasks.concat(codeTasks);
+
 module.exports = function(env) {
   return {
-    assetTasks: _.compact(assetTasks),
-    codeTasks: _.compact(codeTasks),
+    parallelTasks: _.compact(parallelTasks),
     indexInject: indexInject
   };
 };

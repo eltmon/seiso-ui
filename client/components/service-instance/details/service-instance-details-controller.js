@@ -3,7 +3,7 @@ module.exports = function(app) {
   app.controller('ServiceInstanceDetailsController', serviceInstanceDetailsController);
 
   /* @ngInject */
-  function serviceInstanceDetailsController($scope, dataService, $stateParams, Page) {
+  function serviceInstanceDetailsController(dataService, $stateParams, Page) {
     var vm = this;
     vm.serviceInstanceStatus = 'loading';
     var serviceInstanceKey = $stateParams.key;

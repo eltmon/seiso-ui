@@ -2,7 +2,6 @@
 
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')({ lazy: true }),
-    htmlmin = require('gulp-htmlmin'),
     config = require('../config');
 
 function htmlPartials() {

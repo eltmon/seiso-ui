@@ -10,9 +10,11 @@ module.exports = {
   server: server,
   client: {
     all: client,
-    js: client + '/js',
-    css: client + '/css',
-    images: client + '/images'
+    js: client + '/**/*.js',
+    css: client + '/**/*.css',
+    less: client + '/**/*.less',
+    images: client + '/images',
+    html: client + '/**/*.html'
   },
   components: client + '/components',
   out: './static',

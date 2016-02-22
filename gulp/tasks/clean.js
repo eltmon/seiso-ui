@@ -3,9 +3,7 @@ var gulp = require('gulp'),
   	config = require('../config');
 
 function cleanTask(cb) {
-  del([config.out]).then(function(paths) {
-    cb();
-  });
+  return del(['./static']);
 }
 
 gulp.task('clean', cleanTask);

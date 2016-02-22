@@ -10,9 +10,17 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
     failureRedirect: '/login-failed'
   };
 
-  router.get('/login', passport.authenticate(config.auth.strategy, redirectConfig));
+  router.get('/login', login, passport.authenticate(config.auth.strategy, redirectConfig));
+  function login(req, res, next) {
+    console.log(req);
+    next();
+  }
 
-  router.post('/saml/consume', passport.authenticate(config.auth.strategy, redirectConfig));
+  router.post('/saml/consume', saml, passport.authenticate(config.auth.strategy, redirectConfig));
+  function saml(req, res, next) {
+    console.log('saml consume: ', req)
+    next();
+  }
   router.get('/login-failed', authControllers.loginFailed);
   router.get('/logout', authControllers.logout);
   router.get('/sp/metadata.xml', authControllers.generateServiceProviderMetadataEndpoint(authenticationStrategy));

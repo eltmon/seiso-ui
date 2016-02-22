@@ -4,73 +4,43 @@ module.exports = function(app) {
   app.factory('AuthService', AuthService);
 
   /* @ngInject */
-  function AuthService($rootScope, $http, $location, $cookies) {
+  function AuthService( $http, $location, $cookies) {
+    var authenticated, 
+        isAnonymous, 
+        hasAdminRole,
+        authorities;
 
     var checkAuthentication = function(login) {
       console.log('Checking authentication');
-      var successHandler = function(data) {
-        $rootScope.authenticated = (data.name ? true : false);
-        console.log('Authenticated: ' + $rootScope.authenticated);
-        
-        var isAnonymous = true;
-        var hasAdminRole = false;
-        
-        if ($rootScope.authenticated) {
-          isAnonymous = false;
-          $rootScope.authorities = data.authorities;
-          for (var i = 0; i < data.authorities.length; i++) {
-            var authority = data.authorities[i];
-            if (authority.authority === 'ROLE_ADMIN') {
-              hasAdminRole = true;
-            }
-          }
-        }
-        
-        $rootScope.isAnonymous = isAnonymous;
-        $rootScope.hasAdminRole = hasAdminRole;
-        
-        if (login) {
-          if ($rootScope.authenticated) {
-            $rootScope.authenticationError = false;
-            $location.path('//');
-          } else {
-            $rootScope.authenticationError = true;
-          }
-        }
-      };
-      var errorHandler = function() {
-        console.log('Authentication check failed');
-        $rootScope.authenticated = false;
-      };
       $http.get('/login')
-          .success(successHandler)
-          .error(errorHandler);
+        .success(successHandler)
+        .error(errorHandler);
+      function successHandler(data) {
+        console.log('login response');
+        console.log('Authenticated: ' + authenticated);
+        console.log('res: ', data);
+      }
+      function errorHandler() {
+        console.log('Authentication check failed');
+        authenticated = false;
+      };
+
     };
 
     return {
 
       checkAuthentication: checkAuthentication,
 
-      login: function(credentials) {
+      login: function() {
         console.log('Authenticating');
         
-        var reqData = {
-          username: credentials.username,
-          password: credentials.password
-        };
-
-        var request = {
-          method: 'POST',
-          url: '/login',
-          headers: { 'Content-Type': 'application/json' },
-          data: reqData
-        };
 
         $http.get('/login')
           .success(successHandler)
           .error(errorHandler);
 
         function successHandler() {
+          console.log('res from login');
           // This just means that the request succeeded, not that authentication succeeded.
           // Whether authentication succeeded or not, /login returns an HTTP 302 redirect.
           // So we still need to check.
@@ -79,7 +49,7 @@ module.exports = function(app) {
 
         function errorHandler() {
           console.log('Authentication failed');
-          $rootScope.authenticated = false;
+          authenticated = false;
         }
       },
       
@@ -87,13 +57,13 @@ module.exports = function(app) {
         console.log('Logging out');
         var successHandler = function() {
           console.log('Logged out');
-          $rootScope.authenticated = false;
+          authenticated = false;
           $location.path('//');
         };
         var errorHandler = function(data) {
           // TODO Is this the right thing to do here?
           // Can't really assume that the user is logged out.
-          $rootScope.authenticated = false;
+          authenticated = false;
         };
         $http.post('logout', {})
             .success(successHandler)

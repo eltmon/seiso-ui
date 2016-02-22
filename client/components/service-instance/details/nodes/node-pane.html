@@ -25,13 +25,13 @@
       </div>
     </div>
     <div data-ng-switch-when="loaded">
-      <div data-ng-if="vm.nodeRows.length == 0">
+      <div data-ng-if="nodeRows.length == 0">
         <p><i class="fa fa-info-circle"></i> No nodes.</p>
       </div>
       <div data-ng-if="vm.nodeRows.length > 0">
         <!-- TODO Refactor this and node-alerts.html, which are almost exactly the same. -->
         <div class="pagination-wrapper" data-ng-if="vm.metadata.totalPages > 1">
-          <pagination total-items="vm.metadata.totalElements" data-ng-model="vm.nodes.currentPage" data-ng-change="vm.nodes.pageSelected()" />
+          <pagination data-total-items="vm.metadata.totalElements" data-ng-model="vm.currentPage" data-ng-change="vm.pageSelected()" />
         </div>
         <table class="table table-striped">
           <thead>
@@ -88,7 +88,7 @@
           </tbody>
         </table>
         <div class="pagination-wrapper" data-ng-if="vm.metadata.totalPages > 1">
-          <pagination total-items="vm.metadata.totalElements" data-ng-model="vm.nodes.currentPage" data-ng-change="vm.nodes.pageSelected()" />
+          <pagination total-items="vm.metadata.totalElements" data-ng-model="vm.currentPage" data-ng-change="vm.pageSelected()" />
         </div>
       </div>
     </div>
