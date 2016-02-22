@@ -4,27 +4,22 @@ module.exports = function(app) {
   app.factory('AuthService', AuthService);
 
   /* @ngInject */
-  function AuthService( $http, $location, $cookies) {
+  function AuthService($http, $location, $cookies) {
     var authenticated, 
         isAnonymous, 
         hasAdminRole,
         authorities;
 
-    var checkAuthentication = function(login) {
+    var checkAuthentication = function(res) {
       console.log('Checking authentication');
-      $http.get('/login')
-        .success(successHandler)
-        .error(errorHandler);
-      function successHandler(data) {
-        console.log('login response');
-        console.log('Authenticated: ' + authenticated);
-        console.log('res: ', data);
+      console.log('cookies: ', $cookies);
+      if (res.authenticated !== undefined) {
+        if (res.authenticated) authenticated = true;
+        else {
+          authenticated = false;
+          isAnonymous = true;
+        }
       }
-      function errorHandler() {
-        console.log('Authentication check failed');
-        authenticated = false;
-      };
-
     };
 
     return {

@@ -3,7 +3,7 @@ module.exports = function(app) {
   app.controller('HomeController', HomeController);
 
   /* @ngInject */
-  function HomeController($http, dataService, Page) {
+  function HomeController($http, dataService, Page, AuthService) {
 
     Page.setTitle('Home');
     var vm = this;
@@ -13,6 +13,7 @@ module.exports = function(app) {
       .then(successHandler, function(err) { return console.log(err);});
 
     function successHandler(res) {
+      AuthService.checkAuthentication(res);
       var serviceGroups = res.data._embedded.serviceGroups;
       var serviceGroupsMap = {};
       
