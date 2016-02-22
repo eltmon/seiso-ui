@@ -8,7 +8,7 @@ function htmlPartials() {
   return gulp.src(config.components + '/**/*.html')
       .pipe($.htmlmin({
         collapseWhiteSpace: true,
-        preserveLineBreaks: false,
+        preserveLineBreaks: true,
         removeComments: true
       }))
       .pipe(gulp.dest(config.out + '/view'));

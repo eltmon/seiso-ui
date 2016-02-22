@@ -5,9 +5,9 @@ var gulp = require('gulp'),
     path = require('path');
 
 function watchTask() {
-  var watchPath = config.client.all + '/**';
+  var watchPath = config.client.all + '/**/*.js';
   return gulp.watch([watchPath], ['build']);
 }
 
-gulp.task('watch', watchTask);
+gulp.task('watch', ['build'], watchTask);
 module.exports = watchTask;
