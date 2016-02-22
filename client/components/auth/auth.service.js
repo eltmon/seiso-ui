@@ -59,7 +59,7 @@ module.exports = function(app) {
       
       logout: function() {
         console.log('Logging out');
-        $http.post('logout')
+        $http.get('logout')
           .then(successHandler, errorHandler);
         function successHandler() {
           console.log('Logged out');
