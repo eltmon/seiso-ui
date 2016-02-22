@@ -10,26 +10,36 @@ module.exports = function(app) {
         hasAdminRole,
         authorities;
 
-    var checkAuthentication = function(res) {
-      console.log('Checking authentication');
-      console.log('cookies: ', $cookies);
-      if (res.authenticated !== undefined) {
-        if (res.authenticated) authenticated = true;
-        else {
-          authenticated = false;
-          isAnonymous = true;
-        }
-      }
+    var checkAuthentication = function() {
+      $http.get('/checkAuth')
+        .then(function(res) {
+          console.log('checkAuth: ', res);
+          if (res.data.authenticated !== undefined) {
+            if (res.data.authenticated) {
+              authenticated = true;
+              isAnonymous = false;
+              return;
+            } else {
+              authenticated = false;
+              isAnonymous = true;
+            }
+          }
+        }, function(res) {
+          return;
+        });
     };
 
     return {
 
       checkAuthentication: checkAuthentication,
 
+      authenticated: function() {
+        return authenticated;
+      },
+
       login: function() {
         console.log('Authenticating');
         
-
         $http.get('/login')
           .then(successHandler, errorHandler);
 
@@ -49,19 +59,19 @@ module.exports = function(app) {
       
       logout: function() {
         console.log('Logging out');
-        var successHandler = function() {
+        $http.post('logout')
+          .then(successHandler, errorHandler);
+        function successHandler() {
           console.log('Logged out');
           authenticated = false;
           $location.path('//');
-        };
-        var errorHandler = function(data) {
+        }
+        function errorHandler(data) {
           // TODO Is this the right thing to do here?
           // Can't really assume that the user is logged out.
           authenticated = false;
-        };
-        $http.post('logout', {})
-            .success(successHandler)
-            .error(errorHandler);
+        }
+
       }
     };
   }

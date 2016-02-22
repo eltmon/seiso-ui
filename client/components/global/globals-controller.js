@@ -6,10 +6,8 @@ module.exports = function(app) {
   function globalsController($scope, dataService, AuthService, $http, Page) {
     $scope.Page = Page;
     Page.setTitle('Seiso');
-    $scope.logout = AuthService.logout;
-    
-    // TODO: Set up Authentication here
+    $scope.AuthService = AuthService;
 
-    // AuthService.checkAuthentication(false);s
+    AuthService.checkAuthentication();
   }
 };

@@ -11,15 +11,9 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
   };
 
   router.get('/', function(req, res, next) {
-    if (req.user !== undefined) {
-      console.log('there is a user.');
-      res.authenticated = true;
-    } else {
-      console.log('there is not a user.');
-      res.authenticated = false;
-    }
+
    next();
-  })
+  });
 
 
   router.get('/login', login, passport.authenticate(config.auth.strategy, redirectConfig));
@@ -27,6 +21,16 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
     console.log('login route hit');
     next();
   }
+
+  router.get('/checkAuth', function(req, res) {
+    var body = {};
+    if (req.isAuthenticated()) {
+      body.authenticated = true;
+    } else {
+      body.authenticated = false;
+    }
+    res.status(200).json(body);
+  });
 
   router.post('/saml/consume', saml, passport.authenticate(config.auth.strategy, redirectConfig));
   function saml(req, res, next) {

@@ -3,7 +3,7 @@ module.exports = function(app) {
   app.controller('ServiceInstanceDetailsController', serviceInstanceDetailsController);
 
   /* @ngInject */
-  function serviceInstanceDetailsController(dataService, $stateParams, Page) {
+  function serviceInstanceDetailsController(dataService, $stateParams, Page, AuthService) {
     var vm = this;
     vm.serviceInstanceStatus = 'loading';
     var serviceInstanceKey = $stateParams.key;
@@ -33,14 +33,13 @@ module.exports = function(app) {
         vm.tabs = [
           { heading: 'Dashboard', content: 'dashboard/index' },
           { heading: 'All Nodes', content: 'nodes/node-pane' },
-          { heading: 'Details', content: 'details/index' },
+          { heading: 'Details', content: 'details/index' }
           // { heading: 'Dependencies', content: 'dependencies/dependencies-tables' },
-          { heading: 'Actions', content: 'eos-actions/index' }
         ];
 
-        // if (vm.globals.enableActions) {
-        //   vm.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
-        // }
+        if (AuthService.authenticated()) {
+          vm.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
+        }
         
         vm.setTabContent = function(name) {
           vm.tabContentUrl = 'view/service-instance/details/' + name + '.html';
