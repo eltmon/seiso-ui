@@ -26,6 +26,6 @@
     </tab>
   </tabset>
 </div>
-<div ng-show="!authenticated">
-  <p>Please <a href="#/login">sign in</a> to perform actions on this service instance.</p>
+<div ng-show="!AuthService.authenticated()">
+  <p>Please <a href="/login">sign in</a> to perform actions on this service instance.</p>
 </div>
