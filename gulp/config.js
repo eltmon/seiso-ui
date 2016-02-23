@@ -27,7 +27,6 @@ module.exports = {
   	'angular',
   	'async',
   	'angular-ui-router',
-    'angular-route',
   	'angular-sanitize',
     'angular-animate',
     'angular-cookies',
