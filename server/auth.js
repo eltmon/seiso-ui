@@ -3,24 +3,9 @@ var passport = require('passport'),
     session = require('express-session'),
     config = require('../config'),
     SamlStrategy = require('passport-saml').Strategy,
-    cookieParser = require('cookie-parser'),
     authRoutes = require('./routes').auth;
 
 module.exports = function(app, router) {
-  
-  var sessionConfig = {
-    secret: config.sessionSecret,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: true,
-    }
-  };
-
-  app.use(session(sessionConfig));
-
-  app.use(passport.initialize());
-  app.use(passport.session());
 
   passport.serializeUser(function(user, done) {
     done(null, user);
