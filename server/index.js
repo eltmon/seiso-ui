@@ -14,7 +14,9 @@ var express = require('express'),
 var config =  require('../config'),
     logConfig = require('./logging'),
     routes = require('./routes'),
-    configAuth = require('./auth');
+    configAuth = require('./auth'),
+    SamlStrategy = require('passport-saml').Strategy,
+    authRoutes = require('./routes').auth;
 
 app.set('port', config.port);
 logger.format('access', logConfig.loggerFormat);
@@ -27,22 +29,59 @@ var sessionConfig = {
   saveUninitialized: true,
   cookie: {
     key: 'express.sid',
-    secure: true,
+    secure: true
   }
 };
 
 app.use(session(sessionConfig));
 
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Routes
+var stratConfig = {
+  path: '/saml/consume',
+  protocol: config.auth.callbackProtocol + '://',
+  host: config.hostingEnvironment.externalHostname,
+  entryPoint: config.auth.identityProvider.spInitiatedUrl,
+  issuer: config.auth.serviceProvider.identity,
+  identifierFormat: config.auth.serviceProvider.desiredSubjectFormat,
+  cert: config.auth.identityProvider.signingCert,
+  acceptedClockSkewMs: config.auth.acceptableClockSkewInMs
+};
+
+function stratCb(profile, done) {
+  var profileObj = {
+    id: profile.NameID,
+    email: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+    displayName: profile.cn,
+    firstName: profile.givenName,
+    lastName: profile.sn,
+    department: profile.Department,
+    costCenter: profile['Cost Center'],
+    phone: profile['Phone']
+  };
+  return done(null, profileObj);
+}
+
+var authenticationStrategy = new SamlStrategy(stratConfig, stratCb);
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(config.auth.strategy, authenticationStrategy);
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 
 var authRouter = express.Router();
-configAuth(app, authRouter);
+authRoutes.init(authRouter, passport, authenticationStrategy, config);
 app.use('/', authRouter);
+
+// Routes
 
 var internalRouter = express.Router();
 routes.internal(internalRouter);
