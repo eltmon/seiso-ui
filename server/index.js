@@ -27,7 +27,7 @@ var sessionConfig = {
   saveUninitialized: true,
   cookie: {
     key: 'express.sid',
-    secure: false,
+    secure: true,
   }
 };
 
