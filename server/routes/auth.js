@@ -36,7 +36,7 @@ module.exports.init = function(app, passport, authenticationStrategy, config) {
 
   app.post('/saml/consume', saml, passport.authenticate(config.auth.strategy, redirectConfig));
   function saml(req, res, next) {
-
+      console.log('saml consume: ', req);
     next();
   }
   app.get('/login-failed', authControllers.loginFailed);
