@@ -1,6 +1,5 @@
 
 var passport = require('passport'),
-    session = require('express-session'),
     config = require('../config'),
     SamlStrategy = require('passport-saml').Strategy,
     authRoutes = require('./routes').auth;
