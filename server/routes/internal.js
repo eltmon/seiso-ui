@@ -1,11 +1,11 @@
 
 var controllers = require('../controllers');
 
-module.exports = function(router) {
+module.exports = function(app) {
 
-  router.get('/isactive', controllers.internal.isactive);
-  router.get('/buildinfo', controllers.internal.buildinfo);
+  app.get('/isactive', controllers.internal.isactive);
+  app.get('/buildinfo', controllers.internal.buildinfo);
 
-  router.get('/instances', controllers.instances);
-  router.get('/getApiConfig', controllers.apiEndpoint);
+  app.get('/instances', controllers.instances);
+  app.get('/getApiConfig', controllers.apiEndpoint);
 };
