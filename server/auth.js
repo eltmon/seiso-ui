@@ -8,14 +8,12 @@ var passport = require('passport'),
 
 module.exports = function(app, router) {
   
-  app.use(cookieParser());
-  
   var sessionConfig = {
     secret: config.sessionSecret,
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false,
+      secure: true,
     }
   };
 
