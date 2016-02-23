@@ -11,13 +11,14 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
   };
 
   router.get('/', function(req, res, next) {
+    console.log('sessionID: ', req.sessionID);
    next();
   });
 
 
   router.get('/login', login, passport.authenticate(config.auth.strategy, redirectConfig));
   function login(req, res, next) {
-    console.log('login route hit');
+    console.log('login route hit, sessionID: ', req.sessionID);
     next();
   }
 
