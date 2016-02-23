@@ -1,8 +1,10 @@
 
 var auth = require('./auth'),
-    internal = require('./internal');
+    internal = require('./internal'),
+    eos = require('./eos');
 
 module.exports = {
   auth: auth,
-  internal: internal
+  internal: internal,
+  eos: eos
 };
