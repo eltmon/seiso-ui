@@ -12,6 +12,7 @@ module.exports.init = function(app, passport, authenticationStrategy, config) {
 
   app.get('/', function(req, res, next) {
     console.log('sessionID: ', req.sessionID);
+    console.log('user: ', req.user);
    next();
   });
 
@@ -23,6 +24,7 @@ module.exports.init = function(app, passport, authenticationStrategy, config) {
   }
 
   app.get('/checkAuth', function(req, res) {
+    console.log('user: ', req.user);
     var body = {};
     if (req.isAuthenticated()) {
       body.authenticated = true;

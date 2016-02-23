@@ -27,6 +27,7 @@ module.exports = function(app) {
       costCenter: profile['Cost Center'],
       phone: profile['Phone']
     };
+    console.log('profile: ', profileObj);
     return done(null, profileObj);
   }
 
