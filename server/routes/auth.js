@@ -11,7 +11,6 @@ module.exports.init = function(router, passport, authenticationStrategy, config)
   };
 
   router.get('/', function(req, res, next) {
-
    next();
   });
 
