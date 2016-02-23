@@ -5,8 +5,8 @@ module.exports = function(app) {
 
   /* @ngInject */
   function AuthService($http, $location, $cookies) {
-    var authenticated, 
-        isAnonymous, 
+    var authenticated,
+        isAnonymous,
         hasAdminRole,
         authorities;
 
