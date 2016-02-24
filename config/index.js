@@ -13,5 +13,5 @@ try {
   console.log('Error reading config file: ', e);
 }
 
-module.exports = _.extend(all, envConfig, deployConfig, client Config);
+module.exports = _.extend(all, envConfig, deployConfig, clientConfig);
 
