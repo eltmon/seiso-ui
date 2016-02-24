@@ -71,7 +71,6 @@ var stratConfig = {
 };
 
 function stratCb(profile, done) {
-  console.log('raw profile: ', profile);
   var profileObj = {
     nameID: profile['NameID'],
     email: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
@@ -81,7 +80,6 @@ function stratCb(profile, done) {
     costCenter: profile['Cost Center'],
     phone: profile['Phone']
   };
-  console.log('profile: ', profileObj);
   return done(null, profileObj);
 }
 
