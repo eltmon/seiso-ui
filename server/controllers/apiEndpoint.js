@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('../config').clientConfig;
+var config = require('../../config').clientConfig;
 
 module.exports = function(req, res) {
   var responseBody = {};
