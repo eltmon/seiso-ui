@@ -10,8 +10,8 @@ module.exports = function(app) {
     // Get the api endpoint for this service to interact with
     $http.get('/getApiConfig')
       .then(function(res) {
-        BASE_URL = res.data.apiEndpoint;
-        API_BASE_URL = res.data.apiEndpoint + '/api';
+        BASE_URL = res.data.apiEndpoints.seiso;
+        API_BASE_URL = BASE_URL + '/api';
       }, function(res) {
         return console.log('err: ', res);
       });
