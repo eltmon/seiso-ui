@@ -8,18 +8,19 @@ module.exports = function(app) {
     $scope.submit = function() {
       console.log('Reloading');
       $scope.reloadStatus = 'loading';
-      var path = '/internal/service-instances/' + serviceInstanceKey + '/reload';
-      var successHandler = function(data) {
+      
+      $http.post('/eos/reload', {id: serviceInstanceKey})
+        .success(successHandler, errorHandler);
+
+      function successHandler(data) {
         console.log('Success');
         $scope.reloadStatus = 'success';
-      };
-      var errorHandler = function() {
+      }
+
+      function successHandler() {
         console.log('Error');
         $scope.reloadStatus = 'error';
-      };
-      $http.post(path)
-          .success(successHandler)
-          .error(errorHandler);
+      }
     };
   }
 };

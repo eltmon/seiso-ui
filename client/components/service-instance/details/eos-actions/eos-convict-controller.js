@@ -9,25 +9,28 @@ module.exports = function(app) {
     $scope.submit = function() {
       console.log('Interrogating');
       $scope.convictStatus = 'loading';
-      var path = '/internal/service-instances/' + serviceInstanceKey + '/convict';
       var requestBody = {
-        'nodeList' : $scope.form.nodeList,
-        'reason' : $scope.form.reason,
-        'overrideCapacity' : $scope.form.overrideCapacity,
-        'skipRotateIn' : $scope.form.skipRotateIn
+        id: serviceInstanceKey,
+        nodeList: $scope.form.nodeList,
+        reason: $scope.form.reason,
+        overrideCapacity: $scope.form.overrideCapacity,
+        skipRotateIn: $scope.form.skipRotateIn
       };
+      var path = '/eos/convict';
       console.log(requestBody);
-      var successHandler = function(data) {
+      
+      $http.post(path, requestBody)
+        .then(successHandler, errorHandler);
+
+      function successHandler(data) {
         console.log('Success');
         $scope.convictStatus = 'success';
-      };
-      var errorHandler = function() {
+      }
+
+      function errorHandler() {
         console.log('Error');
         $scope.convictStatus = 'error';
-      };
-      $http.post(path, requestBody)
-          .success(successHandler)
-          .error(errorHandler);
+      }
     };
   }
 };
