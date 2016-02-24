@@ -1,4 +1,4 @@
-var eosCtrls = require('../controllers/eos');
+var eos = require('../controllers/eos');
 
 module.exports = function(router) {
 	router.post('/convict', eos.convict);

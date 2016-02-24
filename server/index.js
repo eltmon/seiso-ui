@@ -105,6 +105,10 @@ configAuth(app);
 
 routes.internal(app);
 
+var eosRouter = express.Router();
+require('./routes').eos(eosRouter);
+app.use('/eos', eosRouter);
+
 app.use('*', function(req, res, next) {
   next();
 });
