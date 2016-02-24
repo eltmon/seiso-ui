@@ -24,7 +24,7 @@ var https = require('https'),
     privateKey = fs.readFileSync('keys/key.pem'),
     cert = fs.readFileSync('keys/cert.pem'),
     creds = {
-      key: privateKey, 
+      key: privateKey,
       cert: cert,
       rejectUnauthorized: false,
       requestCert: true,
@@ -71,17 +71,15 @@ var stratConfig = {
 };
 
 function stratCb(profile, done) {
-  console.log('raw profile: ', profile);
   var profileObj = {
-    nameID: profile.NameID,
+    nameID: profile['NameID'],
     email: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
     firstName: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'],
     lastName: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'],
-    department: profile.Department,
+    department: profile['Department'],
     costCenter: profile['Cost Center'],
     phone: profile['Phone']
   };
-  console.log('profile: ', profileObj);
   return done(null, profileObj);
 }
 
@@ -100,7 +98,6 @@ passport.deserializeUser(function(user, done) {
 });
 
 authRoutes.init(app, passport, authenticationStrategy, config);
-
 
 configAuth(app);
 

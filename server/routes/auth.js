@@ -11,22 +11,18 @@ module.exports.init = function(app, passport, authenticationStrategy, config) {
   };
 
   app.get('/', function(req, res, next) {
-    console.log('sessionID: ', req.sessionID);
-    console.log('user: ', req.user);
    next();
   });
 
 
   app.get('/login', login, passport.authenticate(config.auth.strategy, redirectConfig));
   function login(req, res, next) {
-    console.log('login route hit, sessionID: ', req.sessionID);
     next();
   }
 
   app.get('/checkAuth', function(req, res) {
-    console.log('user: ', req.user);
     var body = {};
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() && req.user) {
       body.authenticated = true;
     } else {
       body.authenticated = false;
@@ -36,7 +32,6 @@ module.exports.init = function(app, passport, authenticationStrategy, config) {
 
   app.post('/saml/consume', saml, passport.authenticate(config.auth.strategy, redirectConfig));
   function saml(req, res, next) {
-      console.log('saml consume: ', req);
     next();
   }
   app.get('/login-failed', authControllers.loginFailed);
