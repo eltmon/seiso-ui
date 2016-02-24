@@ -2,9 +2,10 @@
 
 var _ = require('lodash');
 
-var all = require('./env/all.js');
-var envConfig = require('./env/' + (process.env.NODE_ENV || 'test') + '.js') || {};
-var deployConfig = {};
+var all = require('./env/_all.js'),
+    envconfig = require('./env/' + (process.env.node_env || 'test') + '.js') || {},
+    deployconfig = {},
+    clientconfig = require('./config.js');
 
 try {
   deployConfig = require('./config');
@@ -12,4 +13,5 @@ try {
   console.log('Error reading config file: ', e);
 }
 
-module.exports = _.extend(all, envConfig, deployConfig);
+module.exports = _.extend(all, envConfig, deployConfig, client Config);
+
