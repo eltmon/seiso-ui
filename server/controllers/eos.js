@@ -1,57 +1,92 @@
 
-var http = require('http');
+var http = require('http'),
+    config = require('../../config/config');
+
+var eosEndpoint = require('../../config/config').apis.eos;
 
 module.exports = {
 
-  // "NodeList": "(remove field if all nodes)",
-  // "Reason": "reason",
-  // "OverrideCapacity": false,
-  // "SkipRotateIn": false
-  convict: function(req, res) {
-
+  convict: (req, res) => {
+    console.log(req.body);
+    var payload = req.body;
+    initiateRequest('Convict', payload, res);
   },
 
-  // "NodeNameList": "(remove field if all nodes)",
-  // "Version": "(required)",
-  // "Arguments": "(script arguments)",
-  // "DeploySameVersion": false,
-  // "OverrideStateRestriction": false,
-  // "SkipRotateOut": false,
-  // "SkipRotateIn": false,
-  // "SkipDvt": false,
-  // "SkipSetActive": false
   deploy: function(req, res) {
-
+    console.log(req.body);
+    var payload = req.body;
+    initiateRequest('Deploy', payload, res);
   },
 
-  // "Nodes": "(remove field if all nodes)",
-  // "DvtOption": false
   interrogate: function(req, res) {
-
+    console.log(req.body);
+    var payload = req.body;
+    initiateRequest('Interrogate', payload, res);
   },
 
-  // "Nodes": "(remove field if all nodes)",
-  // "Enable": true,
-  // "OverrideOthers": false,
-  // "RotateOutOnEnable": false,
-  // "Minutes": 480
   maintenanceMode: function(req, res) {
-
+    console.log(req.body);
+    var payload = req.body;
+    initiateRequest('MaintenanceMode', payload, res);
   },
 
-  // "id": "(service instance id)"
   reload: function(req, res) {
-
+    console.log(req.body);
+    var payload = req.body;
+    initiateRequest('Reload', payload, res);
   },
 
-  // "id": "(service instance id)"
   setActive: function(req, res) {
-
+    console.log(req.body);
+    var payload = req.body;
+    initiateRequest('SetActive', payload, res);
   },
 
-  // "Nodes": "(remove field if all nodes)",
-  // "Activate": true
   soak: function(req, res) {
-
+    console.log(req.body);
+    var payload = req.body;
+    initiateRequest('Soak', payload, res);
   }
 };
+
+function reqOptionsAtPath(path) {
+  return {
+    hostname: config.apis.eos,
+    port: 80,
+    path: '/eos/ServiceInstances' + path,
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    }
+  };
+}
+
+function initiateRequest(path, payload, res) {
+  var options = reqOptionsAtPath(`/${payload.id}/${path}`);
+  delete payload.id;
+  requestHandler(options, payload, (err, resData) => {
+    if (err) return res.sendStatus(500);
+    res.sendStatus(200).json(resData);
+  });
+}
+
+function requestHandler(options, payload, cb) {
+  var eosReq = http.request(options, (res) => {
+    console.log(`STATUS: ${res.statusCode}`);
+    res.setEncoding('utf8');
+    var resBody = '';
+    res.on('data', (chunk) => {
+      resBody += chunk;
+    });
+    res.on('end', () => {
+      cb(null, resBody);
+    });
+  });
+
+  eosReq.on('error', (e) => {
+    cb(e);
+  });
+
+  eosReq.write(payload);
+  eosReq.end();
+}

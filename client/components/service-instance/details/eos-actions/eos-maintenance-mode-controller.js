@@ -9,25 +9,27 @@ module.exports = function(app) {
     $scope.submit = function() {
       console.log('Setting maintenance mode');
       $scope.maintenanceModeStatus = 'loading';
-      var path = '/internal/service-instances/' + serviceInstanceKey + '/maintenance-mode';
       var requestBody = {
-        'nodeList' : $scope.form.nodeList,
-        'minutes' : $scope.form.minutes,
-        'enable' : $scope.form.enable,
-        'overrideOthers' : $scope.form.overrideOthers
+        id: serviceInstanceKey,
+        nodeList: $scope.form.nodeList,
+        minutes: $scope.form.minutes,
+        enable: $scope.form.enable,
+        overrideOthers: $scope.form.overrideOthers
       };
+      var path = '/eos/maintenanceMode'
       console.log(requestBody);
-      var successHandler = function(data) {
+      $http.post(path, requestBody)
+        .then(successHandler, errorHandler);
+
+      function successHandler(data) {
         console.log('Success');
         $scope.maintenanceModeStatus = 'success';
-      };
-      var errorHandler = function() {
+      }
+
+      function errorHandler() {
         console.log('Error');
         $scope.maintenanceModeStatus = 'error';
-      };
-      $http.post(path, requestBody)
-          .success(successHandler)
-          .error(errorHandler);
+      }
     };
   }
 };

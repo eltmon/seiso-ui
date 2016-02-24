@@ -8,18 +8,19 @@ module.exports = function(app) {
     $scope.submit = function() {
       console.log('Setting active');
       $scope.setActiveStatus = 'loading';
-      var path = '/internal/service-instances/' + serviceInstanceKey + '/set-active';
-      var successHandler = function(data) {
+      
+      $http.post('/eos/setActive', {id: serviceInstanceKey})
+        .then(successHandler, errorHandler);
+
+      function successHandler(data) {
         console.log('Success');
         $scope.setActiveStatus = 'success';
-      };
-      var errorHandler = function() {
+      }
+
+      function errorHandler() {
         console.log('Error');
         $scope.setActiveStatus = 'error';
-      };
-      $http.post(path)
-          .success(successHandler)
-          .error(errorHandler);
+      }
     };
   }
 };
