@@ -16,6 +16,7 @@ module.exports = {
   ],
   current_instance: 'Sandbox',
   apis: {
-    seiso: 'http://localhost:8080'
+    seiso: 'http://localhost:8080',
+    eos: 'http://eos-api.com'
   }
 };
