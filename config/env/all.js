@@ -31,5 +31,8 @@ module.exports = {
   client: {
     // Used for both server public directory and gulp build output directory.
     publicDir: path.resolve(__dirname + '/../../static')
+  },
+  externalApis: {
+    eos: ''
   }
 };

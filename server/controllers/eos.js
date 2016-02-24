@@ -1,8 +1,7 @@
 
 var http = require('http'),
-    config = require('../../config/config');
-
-var eosEndpoint = config.apis.eos;
+    config = require('../../config').externalApis,
+    eosEndpoint = config.eos;
 
 module.exports = {
 

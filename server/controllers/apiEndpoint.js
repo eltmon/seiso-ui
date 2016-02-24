@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('../../config');
+var config = require('../config').clientConfig;
 
 module.exports = function(req, res) {
   var responseBody = {};
@@ -10,7 +10,7 @@ module.exports = function(req, res) {
     };
   } else {
     responseBody = {
-      apiEndpoint: config.apis.seiso
+      apiEndpoints: config.apis
     };
   }
   res.status(200).json(responseBody);
