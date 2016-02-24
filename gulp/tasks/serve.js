@@ -20,14 +20,16 @@ function watchTask() {
   watchStreams.push(gulp.watch(config.client.js, ['webpack:build']));
   watchStreams.push(gulp.watch(config.client.css, ['css']));
   watchStreams.push(gulp.watch(config.client.less, ['less']));
-  
-  for (var i = 0; i < watchStreams.length; i++) {
-    watchStreams[i].on('change', function(event) {
-      console.log(clc.red(`File ${event.path} was ${event.type}.`));
-    });
+
+  function changeCb(event) {
+    console.log(clc.red(`File ${event.path} was ${event.type}.`));
   }
 
-  gulp.watch(config.out + '/**').on('change', function(){browserSync.reload()});
+  for (var i = 0; i < watchStreams.length; i++) {
+    watchStreams[i].on('change', changeCb);
+  }
+
+  gulp.watch(config.out + '/**').on('change', browserSync.reload);
 }
 
 gulp.task('serve', ['build'], watchTask);
