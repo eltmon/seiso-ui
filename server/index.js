@@ -20,10 +20,6 @@ var config =  require('../config'),
     SamlStrategy = require('passport-saml').Strategy,
     authRoutes = require('./routes').auth;
 
-
-var ;
-
-
 app.set('port', config.port);
 logger.format('access', logConfig.loggerFormat);
 app.use(logger('access', {stream: logConfig.accessLogStream}));
