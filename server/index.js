@@ -7,7 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
-    session = require('express-session'),
+    session = require('cookie-session'),
     passport = require('passport'),
     favicon = require('serve-favicon');
 
@@ -18,18 +18,41 @@ var config =  require('../config'),
     SamlStrategy = require('passport-saml').Strategy,
     authRoutes = require('./routes').auth;
 
+
+var https = require('https'),
+    fs = require('fs'),
+    privateKey = fs.readFileSync('keys/key.pem'),
+    cert = fs.readFileSync('keys/cert.pem'),
+    creds = {
+      key: privateKey, 
+      cert: cert,
+      rejectUnauthorized: false,
+      requestCert: true,
+      agent: false
+    };
+
+
 app.set('port', config.port);
 logger.format('access', logConfig.loggerFormat);
 app.use(logger('access', {stream: logConfig.accessLogStream}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(cookieParser());
 
+// var sessionConfig = {
+//   secret: config.sessionSecret,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//     key: 'express.sid',
+//     secure: true
+//   }
+// };
+
 var sessionConfig = {
   secret: config.sessionSecret,
-  resave: false,
-  saveUninitialized: true,
   cookie: {
-    key: 'express.sid',
     secure: true
   }
 };
@@ -50,11 +73,10 @@ var stratConfig = {
 function stratCb(profile, done) {
   console.log('raw profile: ', profile);
   var profileObj = {
-    id: profile.NameID,
+    nameID: profile.NameID,
     email: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
-    displayName: profile.cn,
-    firstName: profile.givenName,
-    lastName: profile.sn,
+    firstName: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'],
+    lastName: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'],
     department: profile.Department,
     costCenter: profile['Cost Center'],
     phone: profile['Phone']
@@ -78,15 +100,13 @@ passport.deserializeUser(function(user, done) {
 });
 
 authRoutes.init(app, passport, authenticationStrategy, config);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+
 
 configAuth(app);
 
 // Routes
 
 routes.internal(app);
-
 
 app.use('*', function(req, res, next) {
   next();
@@ -102,11 +122,21 @@ function start() {
     if (env === 'dev') {
       console.log('------------------------------');
       console.log('Configuration: \n', JSON.stringify(config, null, 2));
-      console.log('------------------------------');   
+      console.log('------------------------------');
     }
   });
 }
 
+var httpsServer = https.createServer(creds, app);
+function startHttps() {
+  httpsServer.listen(443, function(err, data) {
+    if (err) return console.log(err);
+    console.log(data);
+    console.log('https started on port: ', 443);
+  });
+}
+
 module.exports = {
-  start: start
+  start: start,
+  https: startHttps
 };
