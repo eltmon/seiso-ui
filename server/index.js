@@ -2,7 +2,9 @@
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'test';
 
-var express = require('express'),
+var https = require('https'),
+    fs = require('fs'),
+    express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     logger = require('morgan'),
@@ -19,17 +21,7 @@ var config =  require('../config'),
     authRoutes = require('./routes').auth;
 
 
-var https = require('https'),
-    fs = require('fs'),
-    privateKey = fs.readFileSync('keys/key.pem'),
-    cert = fs.readFileSync('keys/cert.pem'),
-    creds = {
-      key: privateKey,
-      cert: cert,
-      rejectUnauthorized: false,
-      requestCert: true,
-      agent: false
-    };
+var ;
 
 
 app.set('port', config.port);
@@ -128,8 +120,18 @@ function start() {
   });
 }
 
-var httpsServer = https.createServer(creds, app);
 function startHttps() {
+  var privateKey = fs.readFileSync('keys/key.pem'),
+      cert = fs.readFileSync('keys/cert.pem'),
+      creds = {
+        key: privateKey,
+        cert: cert,
+        rejectUnauthorized: false,
+        requestCert: true,
+        agent: false
+      };
+      
+  var httpsServer = https.createServer(creds, app);
   httpsServer.listen(443, function(err, data) {
     if (err) return console.log(err);
     console.log(data);
