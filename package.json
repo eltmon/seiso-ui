@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index",
     "start:prod": "npm run build:all & node index",
-    "start:dev": "export NODE_ENV=\"dev\" && gulp serve",
+    "start:dev": "export NODE_ENV=\"dev\" && npm run start",
     "watch": "gulp watch",
     "test": "gulp test",
     "vet": "gulp vet",
