@@ -11,6 +11,8 @@ module.exports = function(app) {
     vm.nodeStatsStatus = 'loading';
     
     var successHandler = function(res) {
+      vm.serviceInstance = res.data;
+      vm.serviceInstance.minCapacityDeploy = vm.serviceInstance.minCapacityDeploy === null ? 'unknown' : vm.serviceInstance.minCapacityDeploy;
       var siUrl = res.data._links.self.href + '/nodeSummary';
       dataService.get(siUrl)
         .then(nodeSummarySuccess, function(err) {return console.log(err);});

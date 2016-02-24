@@ -3,6 +3,8 @@ var http = require('http'),
     config = require('../../config').externalApis,
     eosEndpoint = config.eos;
 
+    console.log('eos: ', config);
+
 module.exports = {
 
   convict: (req, res) => {
