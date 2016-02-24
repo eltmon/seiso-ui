@@ -33,6 +33,6 @@ module.exports = {
     publicDir: path.resolve(__dirname + '/../../static')
   },
   externalApis: {
-    eos: ''
+    eos: []
   }
 };
