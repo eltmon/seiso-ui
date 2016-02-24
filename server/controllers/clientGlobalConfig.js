@@ -1,5 +1,5 @@
 
-var config = require('../../config');
+var config = require('../../config').clientConfig;
 
 module.exports = function(req, res) {
   var responseBody = {};
