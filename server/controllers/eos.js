@@ -2,7 +2,7 @@
 var http = require('http'),
     config = require('../../config/config');
 
-var eosEndpoint = require('../../config/config').apis.eos;
+var eosEndpoint = config.apis.eos;
 
 module.exports = {
 
@@ -12,37 +12,37 @@ module.exports = {
     initiateRequest('Convict', payload, res);
   },
 
-  deploy: function(req, res) {
+  deploy: (req, res) => {
     console.log(req.body);
     var payload = req.body;
     initiateRequest('Deploy', payload, res);
   },
 
-  interrogate: function(req, res) {
+  interrogate: (req, res) => {
     console.log(req.body);
     var payload = req.body;
     initiateRequest('Interrogate', payload, res);
   },
 
-  maintenanceMode: function(req, res) {
+  maintenanceMode: (req, res) => {
     console.log(req.body);
     var payload = req.body;
     initiateRequest('MaintenanceMode', payload, res);
   },
 
-  reload: function(req, res) {
+  reload: (req, res) => {
     console.log(req.body);
     var payload = req.body;
     initiateRequest('Reload', payload, res);
   },
 
-  setActive: function(req, res) {
+  setActive: (req, res) => {
     console.log(req.body);
     var payload = req.body;
     initiateRequest('SetActive', payload, res);
   },
 
-  soak: function(req, res) {
+  soak: (req, res) => {
     console.log(req.body);
     var payload = req.body;
     initiateRequest('Soak', payload, res);
