@@ -11,9 +11,12 @@ var vLibs = {
 };
 
 function cssTask() {
-  var srcPath = vLibs.bs;
+  var srcPaths = [vLibs.bs, vLibs.material];
   var destPath = config.out + '/css';
-  gulp.src(srcPath)
+  gulp.src(srcPaths)
+  	.pipe($.uncss({
+  		html: [config.client.html]
+  	}))
     .pipe($.cssnano())
     .pipe(gulp.dest(destPath));
 }

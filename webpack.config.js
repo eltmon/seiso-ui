@@ -3,6 +3,47 @@
 var path = require('path'),
     webpack = require('webpack'),
     ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
+    
+process.env.NODE_ENV = 'test';
+var env = process.env.NODE_ENV;
+var config = {};
+var plugins = [
+  new ngAnnotatePlugin({
+    add: true
+  })
+];
+if (env === 'dev') {
+  config = {
+    UglifyJsPlugin: {}
+  };
+} else {
+  config = {
+    UglifyJsPlugin: {
+      minimize: true,
+      compress: {
+        sequences: true,
+        dead_code: true,
+        conditionals: true,
+        booleans: true,
+        unused: true,
+        if_return: true,
+        join_vars: true,
+        drop_console: true
+      },
+      // sourceMap: false,
+      // // Don't mangle for now, as angular doesn't play well with obsfucation of directive names. [IDM]
+      // // See: https://stackoverflow.com/questions/17238759/angular-module-minification-bug
+      mangle: true,
+      output: {
+        comments: false
+      }
+    }
+  };
+
+  plugins.push(new webpack.optimize.UglifyJsPlugin(config.UglifyJsPlugin))
+}
+
+console.log(config);
 
 module.exports = {
   cache: true,
@@ -27,37 +68,8 @@ module.exports = {
     'angular': 'angular',
     'async': 'async'
   },
-  plugins: [
-    // new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js', Infinity),
-    // new webpack.ProvidePlugin({
-    //   $: 'jquery',
-    //   jQuery: 'jquery',
-    //   'window.jquery': 'jquery'
-    // }),
-    new ngAnnotatePlugin({
-      add: true
-    })
-    // new webpack.optimize.UglifyJsPlugin({
-    //   minimize: false,
-    //   // compress: {
-    //   //   sequences: true,
-    //   //   dead_code: true,
-    //   //   conditionals: true,
-    //   //   booleans: true,
-    //   //   unused: true,
-    //   //   if_return: true,
-    //   //   join_vars: true,
-    //   //   drop_console: true
-    //   // },
-    //   // sourceMap: false,
-    //   // // Don't mangle for now, as angular doesn't play well with obsfucation of directive names. [IDM]
-    //   // // See: https://stackoverflow.com/questions/17238759/angular-module-minification-bug
-    //   mangle: false,
-    //   output: {
-    //     comments: false
-    //   }
-    // })
-  ]
+  plugins: plugins
+    // new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js', Infinity)
   // devServer: {
   //   contentBase: './static',
   //   hot: true,
