@@ -20,7 +20,6 @@ module.exports = function(app) {
 
       $http.get('/instances')
         .then(function(res) {
-          console.log(res);
           showActions = res.data.show_actions;
         }, function(res) {
           console.log('err: ', res);

@@ -13,7 +13,6 @@ module.exports = function(app) {
     var checkAuthentication = function() {
       $http.get('/checkAuth')
         .then(function(res) {
-          console.log('checkAuth: ', res);
           if (res.data.authenticated !== undefined) {
             if (res.data.authenticated) {
               authenticated = true;
