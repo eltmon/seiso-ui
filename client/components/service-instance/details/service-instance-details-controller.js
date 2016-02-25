@@ -37,7 +37,7 @@ module.exports = function(app) {
           // { heading: 'Dependencies', content: 'dependencies/dependencies-tables' },
         ];
 
-        if (AuthService.authenticated()) {
+        if (AuthService.authenticated() && dataService.showActions()) {
           vm.tabs.push({ heading: 'Actions', content: 'eos-actions/index' });
         }
         
