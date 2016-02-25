@@ -1,8 +1,6 @@
 #!/bin/bash
 
-npm install --production
+npm install
 
 # Build static assets
 gulp build
-
-

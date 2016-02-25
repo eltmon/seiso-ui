@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="seiso" data-ng-controller="GlobalsController">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-ng-bind="Page.title()"></title>
+    <base href="/" />
+    <!-- inject:css -->
+    <!-- endinject -->
+    <link rel="icon" type="image/png" href="images/favicon.ico">
+  </head>
+  <body data-ng-class="{wait: model.wait}">
+    <ng-include src="'view/home/navbar.html'"></ng-include>
+    <div class="page-content">
+      <div class="container">
+        <div ui-view></div>
+      </div>
+    </div>
+    <ng-include src="'view/home/footer.html'"></ng-include>
+    <!-- inject:js -->
+    <!-- endinject -->
+  </body>
+</html>

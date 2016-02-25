@@ -1,11 +1,4 @@
-//#!/usr/bin/env node
-
-/**
- * 'npm install' without a set of excluded packages.
- * 
- * Author: Ian McCunn <imccunn@expedia.com>
- *
- */
+#!/usr/bin/env node
 
 'use strict';
 
@@ -49,59 +42,70 @@ if (!exclusionsFile) {
   EXIT1();
 } else {
   fs.readFile(exclusionsFile, 'utf-8', function(err, data) {
-    if (err) return console.log(err);
+    if (err) {
+      console.log(err);
+      EXIT1();
+    }
     exclusions = data.split('\n');
     console.log('Excluding these packages: \n', exclusions);
+    start();
   });
 }
 
-// Read package.json dependencies list.
-fs.readFile(packageFile, 'utf-8', function(err, data) {
-  if (err) return console.log(err);
-  var originalPackage = JSON.parse(data),
-      deployPackage = originalPackage;
-  
-  // Remove dependency from dependencies object if matched by exclusions list.
-  for (var packKey in deployPackage.devDependencies) {
-    if (exclusions.indexOf(packKey) !== -1) {
-      delete deployPackage.devDependencies[packKey];
-    }
-  }
-  // Remove original package.json.
-  fs.unlink(packageFile, function(err) {
+function start() {
+  // Read package.json dependencies list.
+  fs.readFile(packageFile, 'utf-8', function(err, data) {
     if (err) return console.log(err);
+    var originalPackage = JSON.parse(data),
+        deployPackage = originalPackage;
     
-    // Write package.json with dependencies list which has exclusions removed. 
-    fs.writeFile(packageFile, JSON.stringify(deployPackage, null, 2), 'utf-8', function(err) {
-      if (err) return console.log(err);
-
-      if (installPackages) {
-        // Run 'npm install' with deployment dependencies
-        console.log('Installing dependencies...');
-        exec('npm install', function(err, stdout, stderr) {
-          if (err) return console.log(err);
-          console.log(stdout, stderr);
-
-          // Optionally reinstate original package.json.
-          if (preservePackage) { 
-            fs.writeFile('package.json', JSON.stringify(originalPackage, null, 2), function(err) { 
-              if (err) return console.log(err);
-              console.log('Original package.json restored.');
-            }) 
-          } else {
-            // Otherwise remove package.json from deployment artifact.
-            fs.unlink('package.json', function(err) {
-              if (err) return console.log(err);
-              console.log('Deploy packages installed. package.json removed.');
-            });
-          }
-        });
-      } else {
-        console.log('Deploy package.json created. Packages not installed.');
+    // Remove dependency from dependencies object if matched by exclusions list.
+    for (var packKey in deployPackage.devDependencies) {
+      try {
+        if (exclusions.indexOf(packKey) !== -1) {
+          delete deployPackage.devDependencies[packKey];
+        }      
+      } catch (e) {
+        EXIT1();
       }
+
+    }
+    // Remove original package.json.
+    fs.unlink(packageFile, function(err) {
+      if (err) return console.log(err);
+      
+      // Write package.json with dependencies list which has exclusions removed. 
+      fs.writeFile(packageFile, JSON.stringify(deployPackage, null, 2), 'utf-8', function(err) {
+        if (err) return console.log(err);
+
+        if (installPackages) {
+          // Run 'npm install' with deployment dependencies
+          console.log('Installing dependencies...');
+          exec('npm install', function(err, stdout, stderr) {
+            if (err) return console.log(err);
+            console.log(stdout, stderr);
+
+            // Optionally reinstate original package.json.
+            if (preservePackage) { 
+              fs.writeFile('package.json', JSON.stringify(originalPackage, null, 2), function(err) { 
+                if (err) return console.log(err);
+                console.log('Original package.json restored.');
+              }) 
+            } else {
+              // Otherwise remove package.json from deployment artifact.
+              fs.unlink('package.json', function(err) {
+                if (err) return console.log(err);
+                console.log('Deploy packages installed. package.json removed.');
+              });
+            }
+          });
+        } else {
+          console.log('Deploy package.json created. Packages not installed.');
+        }
+      });
     });
   });
-});
+}
 
 function EXIT1(){
   process.exit(1);

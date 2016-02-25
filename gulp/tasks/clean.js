@@ -1,12 +1,13 @@
 var gulp = require('gulp'),
-  del = require('del'),
-  config = require('../config');
+  	config = require('../config'),
+  	exec = require('child_process').exec;
 
+const path = config.out;
 
 function cleanTask(cb) {
-  del([config.out]).then(function(paths) {
-    cb();
-  });
+	exec('rm -rfv ' + path, (err, stdout, stderr) => {
+		cb();
+	});
 }
 
 gulp.task('clean', cleanTask);

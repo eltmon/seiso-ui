@@ -1,0 +1,50 @@
+<div ng-switch="vm.serviceStatus">
+  <div ng-switch-when="loading">
+    <div id="page-spinner-panel"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+  </div>
+  <div ng-switch-when="error">
+    <p><i class="fa fa-exclamation-triangle"></i> Couldn't load service.</p>
+  </div>
+  <div ng-switch-when="loaded">
+    <div class="page-header">
+      <ul class="breadcrumb">
+        <li><a ng-href="{{uri()}}">Home</a></li>
+        <li><a ng-href="{{uri('services')}}">Services</a></li>
+      </ul>
+      <h1 ng-bind="vm.service.name"></h1>
+      <p class="lead" ng-if="service.description" ng-bind="vm.service.description"></p>
+      <p ng-if="vm.service.scmRepository">
+        <a ng-href="{{service.scmRepository}}" ng-bind="vm.service.scmRepository"></a>
+      </p>
+    </div>
+    <ul class="field-list">
+      <li>
+        <div>Key:</div>
+        <div ng-bind="vm.service.key"></div>
+      </li>
+      <li>
+        <div>Group:</div>
+        <div ng-bind="vm.serviceGroup.name || '-'"></div>
+      </li>
+      <li>
+        <div>Type:</div>
+        <div ng-bind="vm.serviceType.key || '-'"></div>
+      </li>
+      <li>
+        <div>Platform:</div>
+        <div ng-bind="vm.service.platform || '-'"></div>
+      </li>
+      <li>
+        <div>Owner:</div>
+        <div>
+          <span ng-if="vm.serviceOwner"><a ng-href="{{uri('people', vm.serviceOwner.username)}}" ng-bind="displayName(vm.serviceOwner)"></a></span>
+          <span ng-if="!vm.serviceOwner">-</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <ng-include src="'view/service/details/service-instances-pane.html'"></ng-include>
+  <ng-include src="'view/service/details/service-documentation-pane.html'"></ng-include>  
+</div>
+

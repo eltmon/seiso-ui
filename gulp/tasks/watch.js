@@ -1,13 +1,13 @@
 'use strict';
 
 var gulp = require('gulp'),
-  config = require('../config'),
-  path = require('path');
+    config = require('../config'),
+    path = require('path');
 
 function watchTask() {
-  var watchPath = config.client + '/**';
-  return gulp.watch([watchPath], ['watch:reload']);
+  var watchPath = config.client.all + '/**/*.js';
+  return gulp.watch([watchPath], ['build']);
 }
 
-gulp.task('watch', watchTask);
+gulp.task('watch', ['build'], watchTask);
 module.exports = watchTask;

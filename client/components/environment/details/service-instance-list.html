@@ -1,0 +1,53 @@
+<section data-ng-switch="serviceInstanceListStatus">
+  <!-- No need for spinner here since context already provides one -->
+  <div data-ng-switch-when="error">
+    <div class="alert alert-warning">
+      <i class="fa fa-times-circle"></i> Couldn't get service instances.
+    </div>
+  </div>
+  <div data-ng-switch-when="loaded">
+    <div data-ng-if="serviceInstances.length == 0">
+      <p><i class="fa fa-info-circle"></i> No service instances.</p>
+    </div>
+    <div data-ng-if="serviceInstances.length > 0">
+      <div class="pagination-wrapper" data-ng-if="serviceInstanceMetadata.totalPages > 1">
+        <pagination total-items="serviceInstanceMetadata.totalItems" data-ng-model="model.serviceInstances.currentPage" data-ng-change="model.serviceInstances.pageSelected()" />
+      </div>
+      <table class="table">
+        <colgroup>
+          <col style="width:25%">
+          <col style="width:25%">
+          <col style="width:25%">
+          <col style="width:25%">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Service Instance</th>
+            <th>Healthy Nodes</th>
+            <th>Service</th>
+            <th>Data Center</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="serviceInstance in serviceInstances" data-ng-init="
+              service = serviceInstance.service;
+              dataCenter = serviceInstance.dataCenter;">
+            
+            <td><a data-ng-href="{{uri('service-instances', serviceInstance.key)}}">{{serviceInstance.key}}</a></td>
+            <td><i class="fa fa-circle fa-circle-{{serviceInstance.nodesDetails.healthKey}}"></i> {{serviceInstance.nodesDetails.percentHealthy}} ({{serviceInstance.nodesDetails.numHealthy}} of {{serviceInstance.nodesDetails.numNodes}})</td>
+            <td><a data-ng-href="{{uri('services', service.key)}}">{{serviceInstance.service.name}}</a></td>
+            <td>
+              <span data-ng-if="dataCenter">
+                <a data-ng-href="{{uri('data-centers', dataCenter.key)}}">{{serviceInstance.dataCenter.name}}</a>
+              </span>
+              <span data-ng-if="!dataCenter">-</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination-wrapper" data-ng-if="serviceInstanceMetadata.totalPages > 1">
+        <pagination total-items="serviceInstanceMetadata.totalItems" data-ng-model="model.serviceInstances.currentPage" data-ng-change="model.serviceInstances.pageSelected()" />
+      </div>
+    </div>
+  </div>
+</section>

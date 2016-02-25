@@ -1,0 +1,109 @@
+<div id="page-spinner-panel" data-ng-hide="vm.person">
+  <i class="fa fa-spinner fa-spin fa-5x"></i>
+</div>
+<div data-ng-show="vm.person">
+  <div class="page-header">
+    <ul class="breadcrumb">
+      <li><a data-ng-href="{{uri()}}">Home</a></li>
+      <li><a data-ng-href="{{uri('people')}}">People</a></li>
+    </ul>
+    <h1><i class="fa fa-user"></i> {{vm.person.firstNameLastName}} <small>({{vm.person.username}})</small></h1>
+    <div class="lead" data-ng-if="vm.person.title">{{vm.person.title}}</div>
+  </div>
+  <section>
+    <div class="row">
+      <div class="col-md-6">
+        <section>
+          <h1>Organization</h1>
+          <table class="table">
+            <colgroup>
+              <col style="width:33%">
+              <col style="width:67%">
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>Company</td>
+                <td>{{vm.person.company || '-'}}</td>
+              </tr>
+              <tr>
+                <td>Division</td>
+                <td>{{vm.person.division || '-'}}</td>
+              </tr>
+              <tr>
+                <td>Subdivision</td>
+                <td>{{vm.person.subdivision || '-'}}</td>
+              </tr>
+              <tr>
+                <td>Department</td>
+                <td>{{vm.person.department || '-'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h1>Reporting</h1>
+          <table class="table">
+            <colgroup>
+              <col style="width:33%">
+              <col style="width:67%">
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>Manager</td>
+                <td>
+                  <div data-ng-if="vm.person.manager">
+                    <a data-ng-href="{{uri('people', vm.person.manager.username)}}">{{vm.person.manager.displayName}}</a>
+                  </div>
+                  <div data-ng-if="!vm.person.manager">-</div>
+                </td>
+              </tr>
+              <tr>
+                <td>Direct Reports</td>
+                <td>
+                  <div data-ng-if="vm.person.directReports.length === 0">None.</div>
+                  <div data-ng-if="vm.person.directReports.length > 0">
+                    <ul class="list-unstyled">
+                      <li data-ng-repeat="directReport in vm.person.directReports">
+                        <a data-ng-href="{{uri('people', vm.directReport.username)}}">{{vm.directReport.displayName}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+      <div class="col-md-6">
+        <section>
+          <h1>Contact</h1>
+          <table class="table">
+            <colgroup>
+              <col style="width:33%">
+              <col style="width:67%">
+            </colgroup>
+            <tbody>
+              <tr>
+                <td>Street Address</td>
+                <td>{{vm.person.streetAddress || '-'}}</td>
+              </tr>
+              <tr>
+                <td>Location</td>
+                <td>{{vm.person.location || '-'}}</td>
+              </tr>
+              <tr>
+                <td>Work Phone</td>
+                <td>{{vm.person.workPhone || '-'}}</td>
+              </tr>
+              <tr data-ng-switch="vm.person.email">
+                <td>E-mail</td>
+                <td data-ng-switch-when="">-</td>
+                <td data-ng-switch-default><a href="mailto:{{ vm.person.email }}">{{ vm.person.email }}</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </section>
+</div>

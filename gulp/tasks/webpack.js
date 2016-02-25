@@ -3,7 +3,7 @@
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')({ lazy: true }),
     config = require('../config'),
-    wpConfig = Object.create(require('../../webpack.config.js')),
+    wpConfig = require('../../webpack.config.js'),
     webpack = require('webpack');
 
 function webpackBuildTask(cb) {

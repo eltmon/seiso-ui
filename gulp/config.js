@@ -1,14 +1,21 @@
 'use strict';
 
-var client = './src/client';
-var server = './src/server';
+var client = './client';
+var server = './server';
 
 // Gulp config
 module.exports = {
   self: __dirname,
   nodeModules: './node_modules',
   server: server,
-  client: client,
+  client: {
+    all: client,
+    js: client + '/**/*.js',
+    css: client + '/**/*.css',
+    less: client + '/**/*.less',
+    images: client + '/images',
+    html: client + '/**/*.html'
+  },
   components: client + '/components',
   out: './static',
   index: client + '/index.html',
@@ -20,9 +27,9 @@ module.exports = {
   	'angular',
   	'async',
   	'angular-ui-router',
-    'angular-route',
   	'angular-sanitize',
     'angular-animate',
+    'angular-cookies',
     'ui-bootstrap-tpls',
   	'd3'
   ]

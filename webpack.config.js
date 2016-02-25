@@ -7,7 +7,7 @@ var path = require('path'),
 module.exports = {
   cache: true,
   entry: {
-    build: './src/client/app.js'
+    build: './client/app.js'
   },
   output: {
     path: __dirname + '/static/js/',

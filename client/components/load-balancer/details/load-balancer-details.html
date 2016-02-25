@@ -1,0 +1,35 @@
+<div id="page-spinner-panel" ng-hide="vm.loadBalancer">
+  <i class="fa fa-spinner fa-spin fa-5x"></i>
+</div>
+<div ng-show="vm.loadBalancer">
+  <div class="page-header">
+    <ul class="breadcrumb">
+      <li><a ng-href="{{uri()}}">Home</a></li>
+      <li><a ng-href="{{uri('load-balancers')}}">Load Balancers</a></li>
+    </ul>
+    <h1>{{loadBalancer.name}}</h1>
+  </div>
+  <ul class="field-list">
+    <li>
+      <div>Data Center:</div>
+      <div ng-if="vm.loadBalancer.dataCenter"><a ng-href="{{uri('data-centers', vm.dataCenter.key)}}">{{vm.loadBalancer.dataCenter.name}}</a></div>
+      <div ng-if="!vm.loadBalancer.dataCenter">-</div>
+    </li>
+    <li>
+      <div>Type:</div>
+      <div ng-if="vm.loadBalancer.type">{{vm.loadBalancer.type}}</div>
+      <div ng-if="!vm.loadBalancer.type">-</div>
+    </li>
+    <li>
+      <div>IP Address:</div>
+      <div ng-if="vm.loadBalancer.ipAddress">{{vm.loadBalancer.ipAddress}}</div>
+      <div ng-if="!vm.loadBalancer.ipAddress">-</div>
+    </li>
+    <li>
+      <div>API URI:</div>
+      <div ng-if="vm.loadBalancer.apiUrl"><a data-ng-href="{{vm.loadBalancer.apiUrl}}" target="_blank">{{vm.loadBalancer.apiUrl}}</a></div>
+      <div ng-if="!vm.loadBalancer.apiUrl">-</div>
+    </li>
+  </ul>
+  <ng-include src="'view/load-balancer/details/service-instances-pane.html'"></ng-include>
+</div>

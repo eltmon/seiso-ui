@@ -1,0 +1,98 @@
+<section data-ng-controller="ServiceInstanceNodesController as vm">
+  <header>
+    <h1>
+      Nodes
+      <span data-ng-show="vm.nodeListStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+      <span data-ng-show="vm.nodeListStatus == 'loaded'">
+        <!-- TODO Scope metadata to the node list, since we could conceivably have other pages here as well. -->
+        <span data-ng-if="vm.metadata.totalElements == 0">
+          <small>(0)</small>
+        </span>
+        <span data-ng-if="vm.metadata.totalElements > 0">
+          <small>
+            ({{(vm.metadata.number * vm.metadata.size) + 1}}-{{((vm.metadata.number) * vm.metadata.size) + vm.nodes.length}} of 
+            {{vm.metadata.totalElements}})
+          </small>
+        </span>
+      </span>
+    </h1>
+  </header>
+  <div data-ng-switch="vm.nodeListStatus">
+    <!-- No need for spinner here since context already provides one -->
+    <div data-ng-switch-when="error">
+      <div class="alert alert-warning">
+        <i class="fa fa-times-circle"></i> Couldn't get nodes.
+      </div>
+    </div>
+    <div data-ng-switch-when="loaded">
+      <div data-ng-if="nodeRows.length == 0">
+        <p><i class="fa fa-info-circle"></i> No nodes.</p>
+      </div>
+      <div data-ng-if="vm.nodeRows.length > 0">
+        <!-- TODO Refactor this and node-alerts.html, which are almost exactly the same. -->
+        <div class="pagination-wrapper" data-ng-if="vm.metadata.totalPages > 1">
+          <pagination data-total-items="vm.metadata.totalElements" data-ng-model="vm.currentPage" data-ng-change="vm.pageSelected()" />
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th style="width:20.0%">Node</th>
+              <th style="width:20.0%">Version</th>
+              <th style="width:20.0%">Health</th>
+              <!--th style="width:17%">Node Rotation <a href="" tooltip="Node rotation status, aggregated across all IPs and ports."><i class="fa fa-question-circle fa-lg"></i></a></th-->
+              <th style="width:20.0%" colspan="2">IP Address</th>
+              <th style="width:20.0%">IP Rotation <a href="" tooltip="IP rotation status, aggregated across all ports."><i class="fa fa-question-circle fa-lg"></i></a></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="nodeRow in vm.nodeRows" data-ng-init="
+                firstRow = nodeRow.displayName;
+                healthStatusTypeKey = nodeRow.healthStatus._embedded.statusType.key;
+                nodeAggregateRotationStatusTypeKey = nodeRow.nodeAggregateRotationStatus._embedded.statusType.key;
+                ipAggregateRotationStatusTypeKey = nodeRow.ipAggregateRotationStatus.statusType.key;">
+                
+              <td>
+                <div data-ng-if="firstRow">
+                  <a data-ng-href="{{uri('nodes', nodeRow.name)}}">{{nodeRow.displayName}}</a>
+                </div>
+              </td>
+              <td>
+                <div data-ng-if="firstRow">{{nodeRow.version}}</div>
+              </td>
+  
+              <td style="white-space:nowrap;">
+                <div ng-if="firstRow">
+                  <i class="fa fa-circle fa-circle-{{healthStatusTypeKey}}"></i>
+                  {{nodeRow.healthStatus.name}}<br>
+                  <a href="{{nodeRow.details}}" target="_blank">Details</a>
+                </div>
+              </td>
+              
+              <!--
+              <td style="white-space:nowrap;">
+                <div data-ng-if="firstRow">
+                  <i class="fa fa-circle fa-circle-{{nodeAggregateRotationStatusTypeKey}}"></i>
+                  {{nodeRow.nodeAggregateRotationStatus.name}}
+                </div>
+              </td>
+              -->
+              <td><span data-ng-if="nodeRow.ipAddress" data-ng-bind="nodeRow.ipAddress"></span></td>
+              <td><span data-ng-if="ipAddressRoles.length > 1" data-ng-bind="nodeRow.ipAddressRole"></span></td>
+              <td style="white-space:nowrap;">
+                <span data-ng-if="nodeRow.ipAddress">
+                  <i class="fa fa-circle fa-circle-{{ipAggregateRotationStatusTypeKey}}"></i>
+                  <a rotation-details-popover node-name="{{nodeRow.name}}" node-ip="{{nodeRow.ipAddress}}" style="cursor: pointer;">
+                    {{nodeRow.ipAggregateRotationStatus.name}}
+                  </a>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination-wrapper" data-ng-if="vm.metadata.totalPages > 1">
+          <pagination total-items="vm.metadata.totalElements" data-ng-model="vm.currentPage" data-ng-change="vm.pageSelected()" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

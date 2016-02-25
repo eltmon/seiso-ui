@@ -1,0 +1,89 @@
+<div ng-switch="vm.serviceInstanceStatus">
+  <div ng-switch-when="loading">
+    <div id="page-spinner-panel"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+  </div>
+  <div ng-switch-when="error">
+    <p><i class="fa fa-exclamation-triangle"></i> Couldn't get service instance.</p>
+  </div>
+  <div ng-switch-when="loaded">
+    <div class="page-header">
+      <ul class="breadcrumb">
+        <li><a ng-href="{{uri()}}">Home</a></li>
+        <li><a ng-href="{{uri('services')}}">Services</a></li>
+        <li><a ng-href="{{uri('services', vm.service.key)}}" ng-bind="vm.service.name"></a></li>
+        <li>Service instances</li>
+      </ul>
+      <h1 ng-bind="vm.serviceInstance.key"></h1>
+      <p class="lead" ng-if="vm.serviceInstance.description" ng-bind="vm.serviceInstance.description"></p>
+    </div>
+    <section>
+      <!-- Also Mike is going to want to see the Eos-enabled flag, but we need a way to do this without hardcoding it
+           into Seiso. [WLW] -->
+      <ul class="field-list">
+        <li>
+          <div>Service:</div>
+          <div ng-if="vm.service"><a ng-href="{{uri('services', vm.service.key)}}">{{vm.service.name}}</a></div>
+          <div ng-if="!vm.service">-</div>
+        </li>
+        <li>
+          <div>Environment:</div>
+          <div ng-if="vm.environment"><a ng-href="{{uri('environments', vm.environment.key)}}">{{vm.environment.name}}</a></div>
+          <div ng-if="!vm.environment">-</div>
+        </li>
+        <li>
+          <div>Data Center:</div>
+          <div ng-if="vm.dataCenter"><a ng-href="{{uri('data-centers', vm.dataCenter.key)}}">{{vm.dataCenter.name}}</a></div>
+          <div ng-if="!vm.dataCenter">-</div>
+        </li>
+        <li>
+          <div>Owner:</div>
+          <span ng-if="vm.owner"><a ng-href="{{uri('people', vm.owner.username)}}">{{vm.displayName(owner)}}</a></span>
+          <span ng-if="!vm.owner">-</span>
+        </li>
+        <li>
+          <div>Load Balancer:</div>
+          <div ng-if="vm.loadBalancer"><a ng-href="{{uri('load-balancers', vm.loadBalancer.name)}}">{{vm.loadBalancer.name}}</a></div>
+          <div ng-if="!vm.loadBalancer">-</div>
+        </li>
+      </ul>
+    </section>
+    <div>
+      <tabset>
+        <tab ng-repeat="tab in vm.tabs" heading="{{tab.heading}}" select="vm.setTabContent(tab.content)"></tab>
+      </tabset>
+      <ng-include src="vm.tabContentUrl"></ng-include>
+    </div>
+  </div>
+</div>
+
+<!-- This supports both the node alerts and node list. -->
+<!-- http://stackoverflow.com/questions/21362712/html-file-as-content-in-bootstrap-popover-in-angularjs-directive -->
+<script id="rotationDetailsPopover.html" type="text/ng-template">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>IP Address</th>
+        <th>Port</th>
+        <th>Rotation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ipAddress.ipAddress}}</td>
+        <td></td>
+        <td>
+          <i class="fa fa-circle fa-circle-{{ipAddress.rotationStatus.statusType.key}}"></i>
+          {{ipAddress.rotationStatus.name}}
+        </td>
+      </tr>
+      <tr ng-repeat="endpoint in ipAddress.endpoints" ng-init="rotationStatusTypeKey = endpoint.rotationStatus.statusType.key">
+        <td>{{ipAddress.ipAddress}}</td>
+        <td>{{endpoint.port.number}}</td>
+        <td>
+          <i class="fa fa-circle fa-circle-{{rotationStatusTypeKey}}"></i>
+          {{endpoint.rotationStatus.name}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</script>

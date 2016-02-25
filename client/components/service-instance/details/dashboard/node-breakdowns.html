@@ -1,0 +1,61 @@
+<!-- TODO DRY up the health and rotation breakdowns -->
+<div data-ng-controller="NodeBreakdownController as vm" class="row">
+  <div class="col-md-6">
+    <section>
+      <header>
+        <h1>
+          Nodes by Health
+          <span data-ng-show="vm.healthBreakdownStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+        </h1>
+      </header>
+      <div data-ng-switch="vm.healthBreakdownStatus">
+        <div data-ng-switch-when="error">
+          <p><i class="fa fa-exclamation-triangle"></i> Couldn't get health breakdown.</p>
+        </div>
+        <div data-ng-switch-when="loaded">
+          <div data-ng-if="vm.healthBreakdown.length == 0">
+            <p><i class="fa fa-info-circle"></i> No nodes.</p>
+          </div>
+          <div data-ng-if="vm.healthBreakdown.length > 0">
+            <ul class="list-inline well well-sm">
+              <li data-ng-repeat="item in vm.healthBreakdown" style="margin-right:10px">
+                <i class="fa fa-circle fa-circle-{{item.statusType}}"></i>
+                <span data-ng-bind="item.count"></span>
+                <span data-ng-bind="item.statusName"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="col-md-6">
+    <section>
+      <header>
+        <h1>
+          Nodes by Rotation
+          <span data-ng-show="vm.rotationBreakdownStatus == 'loading'"><i class="fa fa-spinner fa-spin"></i></span>
+        </h1>
+      </header>
+      <div data-ng-switch="vm.rotationBreakdownStatus">
+        <div data-ng-switch-when="error">
+          <p><i class="fa fa-exclamation-triangle"></i> Couldn't get rotation breakdown.</p>
+        </div>
+        <div data-ng-switch-when="loaded">
+          <div data-ng-if="vm.rotationBreakdown.length === 0">
+            <p><i class="fa fa-info-circle"></i> No nodes.</p>
+          </div>
+          <div data-ng-if="vm.rotationBreakdown.length > 0">
+            <ul class="list-inline well well-sm">
+              <li data-ng-repeat="item in vm.rotationBreakdown" style="margin-right:10px">
+                <i class="fa fa-circle fa-circle-{{item.statusType}}"></i>
+                <span data-ng-bind="item.count"></span>
+                <span data-ng-bind="item.statusName"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

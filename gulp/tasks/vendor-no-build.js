@@ -14,10 +14,10 @@ var libs = {
   bootstrap: '/dist/js/',
   angular: '/',
   async: '/dist/',
-  angular_route: '/',
   angular_ui_router: '/release/',
   angular_sanitize: '/',
   angular_animate: '/',
+  angular_cookies: '/',
   d3: '/'
 };
 
