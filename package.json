@@ -58,6 +58,7 @@
     "gulp-print": "^2.0.1",
     "gulp-size": "^2.0.0",
     "gulp-strip-comments": "^1.0.1",
+    "gulp-uncss": "^1.0.4",
     "gulp-util": "^3.0.7",
     "jasmine": "^2.3.2",
     "jasmine-core": "^2.3.4",
