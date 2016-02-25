@@ -10,7 +10,8 @@ module.exports = function(req, res) {
   } else {
     responseBody = {
       instances: config.instances,
-      current_instance: config.current_instance
+      current_instance: config.current_instance,
+      show_actions: config.show_actions
     };
   }
   res.status(200).json(responseBody);

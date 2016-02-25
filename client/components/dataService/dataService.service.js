@@ -6,6 +6,8 @@ module.exports = function(app) {
     var API_BASE_URL;
     var BASE_URL;
     var FULL_URL_REGEX = /https?:\/\//;
+    var showActions;
+
 
     // Get the api endpoint for this service to interact with
     $http.get('/getApiConfig')
@@ -16,10 +18,21 @@ module.exports = function(app) {
         return console.log('err: ', res);
       });
 
+      $http.get('/instances')
+        .then(function(res) {
+          console.log(res);
+          showActions = res.data.show_actions;
+        }, function(res) {
+          console.log('err: ', res);
+        });
+
     return {
       get: get,
       getBaseUrl: function() {
         return BASE_URL;
+      },
+      showActions: function() {
+        return showActions;
       }
     };
 
