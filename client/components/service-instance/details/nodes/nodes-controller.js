@@ -20,12 +20,24 @@ module.exports = function(app) {
           '&sort=name' +
           '&projection=serviceInstanceNodes';
 
-      var successHandler = function(res) {
+      dataService.get(requestUrl)
+        .then(successHandler, errorHandler);
+        
+      function successHandler(res) {
         console.log(res);
         vm.metadata = res.data.page;
         vm.nodes = res.data._embedded.nodes;
 
         async.each(vm.nodes, function(node, cb) {
+
+          // Get statusType
+          dataService.get(node._links.healthStatus.href)
+            .then(function(res) {
+              dataService.get(res.data._links.statusType.href)
+                .then(function(res) {
+                  node = res.data;
+                });
+            });
           dataService.get(node._links.ipAddresses.href + '?projection=ipAddressDetails')
             .then(function(res) {
               node.ipAddresses = res.data._embedded.nodeIpAddresses;
@@ -49,14 +61,11 @@ module.exports = function(app) {
           vm.nodeRows = nodePageToNodeRows(nodePage);
           vm.nodeListStatus = 'loaded';
         });
-      };
+      }
 
-      var errorHandler = function(err) {
+      function errorHandler(err) {
         return console.log(err);
-      };
-
-      dataService.get(requestUrl)
-        .then(successHandler, errorHandler);
+      }
     };
 
     vm.pageSelected();
