@@ -32,11 +32,6 @@ module.exports = function(app) {
       function errorHandler() { vm.nodeAlertsStatus = 'error'; }
     }
 
-    vm.nodeAlerts = {
-      currentPage: 1,
-      pageSelected: 
-    };
-    
     vm.pageSelected();
   }
 };
