@@ -32,7 +32,7 @@ if (env === 'dev') {
       // sourceMap: false,
       // // Don't mangle for now, as angular doesn't play well with obsfucation of directive names. [IDM]
       // // See: https://stackoverflow.com/questions/17238759/angular-module-minification-bug
-      mangle: true,
+      mangle: false,
       output: {
         comments: false
       }
