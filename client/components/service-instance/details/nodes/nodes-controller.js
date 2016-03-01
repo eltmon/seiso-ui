@@ -36,7 +36,6 @@ module.exports = function(app) {
               return dataService.get(res.data._links.statusType.href);
             })
             .then(function(res) {
-              console.log(`status: ${res}`);
               node.healthStatus.statusType = res.data;
             });
           dataService.get(node._links.ipAddresses.href + '?projection=ipAddressDetails')
