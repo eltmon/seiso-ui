@@ -52,8 +52,8 @@ exports.nodePageToNodeRows = function(nodePage) {
       node.healthStatus = {
         key: 'unknown',
         name: 'Unknown',
-        _embedded: {
-          statusType: { 'key' : 'warning' }
+        statusType: { 
+          key: 'warning' 
         }
       };
     }
@@ -66,8 +66,7 @@ exports.nodePageToNodeRows = function(nodePage) {
         name: node.name,
         displayName: node.name,
         version: node.version || '-',
-        healthStatus: node.healthStatus,
-        showActions: true
+        healthStatus: node.healthStatus
       };
       nodeRows.push(nodeRow);
     } else {

@@ -24,20 +24,22 @@ module.exports = function(app) {
         .then(successHandler, errorHandler);
 
       function successHandler(res) {
-        console.log(res);
         vm.metadata = res.data.page;
         vm.nodes = res.data._embedded.nodes;
 
         async.each(vm.nodes, function(node, cb) {
 
-          // Get statusType
-          dataService.get(node._links.healthStatus.href)
-            .then(function(res) {
-              return dataService.get(res.data._links.statusType.href);
-            })
-            .then(function(res) {
-              node.healthStatus.statusType = res.data;
-            });
+          // Get healthStatus, statusType
+          if (node.healthStatus !== null) {
+            dataService.get(node._links.healthStatus.href)
+              .then(function(res) {
+                return dataService.get(res.data._links.statusType.href)
+              })
+              .then(function(res) {
+                node.healthStatus.statusType = res.data;
+              });
+          }
+
           dataService.get(node._links.ipAddresses.href + '?projection=ipAddressDetails')
             .then(function(res) {
               node.ipAddresses = res.data._embedded.nodeIpAddresses;
