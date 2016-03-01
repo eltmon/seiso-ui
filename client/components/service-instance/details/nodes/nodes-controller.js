@@ -22,7 +22,7 @@ module.exports = function(app) {
 
       dataService.get(requestUrl)
         .then(successHandler, errorHandler);
-        
+
       function successHandler(res) {
         console.log(res);
         vm.metadata = res.data.page;
@@ -33,10 +33,11 @@ module.exports = function(app) {
           // Get statusType
           dataService.get(node._links.healthStatus.href)
             .then(function(res) {
-              dataService.get(res.data._links.statusType.href)
-                .then(function(res) {
-                  node = res.data;
-                });
+              return dataService.get(res.data._links.statusType.href);
+            })
+            .then(function(res) {
+              console.log(`status: ${res}`);
+              node.healthStatus.statusType = res.data;
             });
           dataService.get(node._links.ipAddresses.href + '?projection=ipAddressDetails')
             .then(function(res) {
