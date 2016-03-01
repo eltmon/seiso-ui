@@ -4,7 +4,6 @@ var path = require('path'),
     webpack = require('webpack'),
     ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
     
-process.env.NODE_ENV = 'test';
 var env = process.env.NODE_ENV;
 var config = {};
 var plugins = [
