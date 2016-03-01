@@ -18,12 +18,12 @@ module.exports = function(app) {
         return console.log('err: ', res);
       });
 
-      $http.get('/instances')
-        .then(function(res) {
-          showActions = res.data.show_actions;
-        }, function(res) {
-          console.log('err: ', res);
-        });
+    $http.get('/instances')
+      .then(function(res) {
+        showActions = res.data.show_actions;
+      }, function(res) {
+        console.log('err: ', res);
+      });
 
     return {
       get: get,

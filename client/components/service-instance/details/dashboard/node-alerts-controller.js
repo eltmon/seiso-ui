@@ -10,7 +10,7 @@ module.exports = function(app) {
     vm.currentPage = 1;
     vm.pageSelected = function() {
       vm.nodeAlertsStatus = 'loading';
-      var pageNumber = vm.nodeAlerts.currentPage;
+      var pageNumber = vm.currentPage;
       var apiPageNumber = pageNumber - 1;
       var path = '/nodes/search/findNodeAlertsByServiceInstance?key=' + $stateParams.key + 
           '&view=serviceInstanceNodes' + 
