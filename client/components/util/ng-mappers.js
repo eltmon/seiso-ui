@@ -53,7 +53,7 @@ exports.nodePageToNodeRows = function(nodePage) {
         key: 'unknown',
         name: 'Unknown',
         statusType: { 
-          key: 'warning' 
+          key: 'warning'
         }
       };
     }
