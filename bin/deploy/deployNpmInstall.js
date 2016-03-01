@@ -90,7 +90,7 @@ function start() {
               fs.writeFile('package.json', JSON.stringify(originalPackage, null, 2), function(err) { 
                 if (err) return console.log(err);
                 console.log('Original package.json restored.');
-              }) 
+              });
             } else {
               // Otherwise remove package.json from deployment artifact.
               fs.unlink('package.json', function(err) {

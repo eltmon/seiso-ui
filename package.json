@@ -4,7 +4,7 @@
   "description": "UI for Seiso, DevOps data hub.",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "node index.js",
     "start:prod": "npm run build:all & node index",
     "start:dev": "export NODE_ENV=\"dev\" && npm run start",
     "build:dev": "export NODE_ENV=\"dev\" && npm run build:all",
