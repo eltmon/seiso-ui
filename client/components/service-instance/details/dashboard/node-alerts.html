@@ -83,7 +83,7 @@
           </tbody>
         </table>
         <div class="pagination-wrapper" ng-if="vm.metadata.totalPages > 1">
-          <pagination total-items="vm.metadata.totalElements" ng-model="vm.nodeAlerts.currentPage" ng-change="vm.nodeAlerts.pageSelected()" />
+          <pagination total-items="vm.metadata.totalElements" ng-model="vm.currentPage" ng-change="vm.pageSelected()" />
         </div>
       </div>
     </div>
