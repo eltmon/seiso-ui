@@ -6,7 +6,6 @@ var depOrder = require('./gulp/config.js').vendorLibs;
 
 var paths = [];
 var files = fs.readdirSync('./static/js');
-console.log(files);
 for (var i = 0; i < depOrder.length; i++) {
   paths.push('./static/js/' + depOrder[i] + '.min.js');
 }
@@ -20,8 +19,6 @@ paths = paths.concat([
   'test/*.spec.js',
   'test/**/*.spec.js'
 ]);
-console.log(paths);
-
 
 module.exports = function(config) {
   config.set({
