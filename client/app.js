@@ -68,7 +68,7 @@ require('./components/service-instance/list/service-instance-list-controller')(a
 require('./components/service-instance/details/dashboard/node-alerts-controller')(app);
 require('./components/service-instance/details/dashboard/node-breakdown-controller')(app);
 require('./components/service-instance/details/dashboard/node-summary-controller')(app);
-require('./components/service-instance/details/dashboard/node-details-controller')(app);
+require('./components/service-instance/details/nodes/node-details-controller')(app);
 
 // Service
 require('./components/service/details/service-details-controller')(app);
