@@ -45,7 +45,7 @@
             <tr ng-repeat="nodeRow in vm.nodeRows" ng-init="
                 firstRow = nodeRow.displayName;
                 healthStatusTypeKey = nodeRow.healthStatus.statusType.key;
-                nodeAggregateRotationStatusTypeKey = nodeRow.nodeAggregateRotationStatus.statusType.key;
+                nodeAggregateRotationStatusTypeKey = nodeRow.nodeAggregateRotationStatus._embedded.statusType.key;
                 ipAggregateRotationStatusTypeKey = nodeRow.ipAggregateRotationStatus.statusType.key;">
                 
               <td>
