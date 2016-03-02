@@ -9,7 +9,7 @@
     "start:dev": "export NODE_ENV=\"dev\" && npm run start",
     "build:dev": "export NODE_ENV=\"dev\" && npm run build:all",
     "watch": "gulp watch",
-    "test": "gulp test",
+    "test:client": "karma start karma.conf.js",
     "vet": "gulp vet",
     "build:all": "gulp build"
   },
@@ -73,6 +73,7 @@
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
+    "karma-webpack": "^1.7.0",
     "less": "^2.5.3",
     "mocha": "^2.3.3",
     "ng-annotate-webpack-plugin": "^0.1.2",
