@@ -16,16 +16,16 @@
         <div class="alert alert-{{node.healthStatus.statusType.key}}" ng-if="node.healthStatus">
           <div class="metric">
             <div class="metric-percentage">
-              <div ng-if="node.healthStatus.statusType.key === 'success'">
+              <div ng-show="node.healthStatus.statusType.key == 'success'">
                 <i class="fa fa-check-circle fa-lg"></i>
               </div>
-              <div ng-if="node.healthStatus.statusType.key === 'info'">
+              <div ng-show="node.healthStatus.statusType.key == 'info'">
                 <i class="fa fa-info-circle fa-lg"></i>
               </div>
-              <div ng-if="node.healthStatus.statusType.key === 'warning'">
+              <div ng-show="node.healthStatus.statusType.key == 'warning'">
                 <i class="fa fa-exclamation-triangle fa-lg"></i>
               </div>
-              <div ng-if="node.healthStatus.statusType.key === 'danger'">
+              <div ng-show="node.healthStatus.statusType.key == 'danger'">
                 <i class="fa fa-times-circle fa-lg"></i>
               </div>
             </div>

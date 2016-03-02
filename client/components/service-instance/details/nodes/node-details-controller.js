@@ -65,7 +65,7 @@ module.exports = function(app) {
           dataService.get(healthStatusHref)
             .then(function(res) {
               console.log('healthStatus: ', res.data);
-              $scope.node.healthStatus = hs = res.data;
+              $scope.node.healthStatus = res.data;
             });
         }
       }
