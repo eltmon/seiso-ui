@@ -17,7 +17,7 @@ module.exports = function(app) {
           '&page=' + apiPageNumber + 
           '&size=' + paginationConfig.itemsPerPage + 
           '&sort=name';
-          
+
       dataService.get(path)
         .then(successHandler, errorHandler);
 
