@@ -7,6 +7,7 @@ module.exports = function(app) {
   /* @ngInject */
   function nodeAlertsController(dataService, paginationConfig, $stateParams) {
     var vm = this;
+    // vm.nodeAlerts = [];
     vm.currentPage = 1;
     vm.pageSelected = function() {
       vm.nodeAlertsStatus = 'loading';
@@ -23,7 +24,7 @@ module.exports = function(app) {
 
       function successHandler(res) {
         vm.nodeAlertsPage = res.data._embedded;
-        vm.metadata = vm.nodeAlertsPage.metadata;
+        vm.metadata = vm.nodeAlertsPage.page;
         vm.nodeRows = nodePageToNodeRows(vm.nodeAlertsPage);
         vm.nodeAlerts = vm.nodeAlertsPage.nodes;
         vm.nodeAlertsStatus = 'loaded';
