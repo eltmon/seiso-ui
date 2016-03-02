@@ -10,19 +10,19 @@ var gulp = require('gulp'),
 
 gulp.task('build:test', function() {
   
-  gulp.src('./spec/spec.html')
-    .pipe(gulp.dest('./spec/build/'));
+  gulp.src('./test/spec.html')
+    .pipe(gulp.dest('./test/build/'));
 
-  gulp.src('./spec/*.js')
+  gulp.src('./test/*.js')
     .pipe(webpack({
-      context: 'spec/',
+      context: 'test/',
       entry: './test.spec.js',
       output: {
-        path: __dirname + '/../spec/build',
+        path: __dirname + '/test/build',
         filename: 'test_build.js'
       }
     }))
-    .pipe(gulp.dest('./spec/build'));
+    .pipe(gulp.dest('./test/build'));
 });
 
 function karmaStart(done) {
