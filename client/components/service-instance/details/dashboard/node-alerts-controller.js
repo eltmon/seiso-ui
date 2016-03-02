@@ -25,9 +25,44 @@ module.exports = function(app) {
       function successHandler(res) {
         vm.nodeAlertsPage = res.data._embedded;
         vm.metadata = vm.nodeAlertsPage.page;
-        vm.nodeRows = nodePageToNodeRows(vm.nodeAlertsPage);
-        vm.nodeAlerts = vm.nodeAlertsPage.nodes;
-        vm.nodeAlertsStatus = 'loaded';
+
+        if (vm.nodeAlertsPage.length > 0) {
+          async.each(vm.nodeAlertsPage, function(node, cb) {
+
+            // Get healthStatus, statusType
+            if (node.healthStatus !== null) {
+              dataService.get(node._links.healthStatus.href + '?projection=healthStatusDetails')
+                .then(function(res) {
+                  node.healthStatus = res.data;
+                });
+            }
+
+            dataService.get(node._links.ipAddresses.href + '?projection=ipAddressDetails')
+              .then(function(res) {
+                node.ipAddresses = res.data._embedded.nodeIpAddresses;
+                async.each(node.ipAddresses, function(nIp, cb2) {
+                  dataService.get(nIp._links.aggregateRotationStatus.href + '?projection=rotationStatusDetails')
+                    .then(function(res) {
+                      nIp.aggregateRotationStatus = res.data;
+                      cb2();
+                    });
+                }, function(err) {
+                  if (err) {
+                    cb(err);
+                  } else {
+                    cb();
+                  }
+                });
+              });
+          }, function(err) {
+            if (err) return console.log(err);
+            vm.nodeRows = nodePageToNodeRows(vm.nodeAlertsPage);
+            vm.nodeAlerts = vm.nodeAlertsPage.nodes;
+            vm.nodeAlertsStatus = 'loaded';
+          });          
+        } else {
+          vm.nodeAlertsStatus = 'loaded';
+        }
       }
       
       function errorHandler() { vm.nodeAlertsStatus = 'error'; }
