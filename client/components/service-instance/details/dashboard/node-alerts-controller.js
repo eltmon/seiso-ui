@@ -23,7 +23,7 @@ module.exports = function(app) {
         .then(successHandler, errorHandler);
 
       function successHandler(res) {
-        vm.nodeAlertsPage = res.data._embedded;
+        vm.nodeAlertsPage = res.data._embedded.nodes;
         vm.metadata = vm.nodeAlertsPage.page;
 
         if (vm.nodeAlertsPage.length > 0) {
@@ -57,7 +57,7 @@ module.exports = function(app) {
           }, function(err) {
             if (err) return console.log(err);
             vm.nodeRows = nodePageToNodeRows(vm.nodeAlertsPage);
-            vm.nodeAlerts = vm.nodeAlertsPage.nodes;
+            vm.nodeAlerts = vm.nodeAlertsPage;
             vm.nodeAlertsStatus = 'loaded';
           });          
         } else {
