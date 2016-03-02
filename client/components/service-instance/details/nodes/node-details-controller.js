@@ -7,11 +7,13 @@ module.exports = function(app) {
     var successHandler = function(res) {
       Page.setTitle(res.data.name);
       $scope.node = res.data;
+
       if ($scope.node !== null) {
         var nodeSIHref = $scope.node._links.serviceInstance.href;
         dataService.get(nodeSIHref + '?projection=serviceInstanceDetails')
           .then(function(res) {
             $scope.serviceInstance = res.data;
+
             if ($scope.serviceInstance !== null) {
               var siServiceHref = $scope.serviceInstance._links.service.href;
               $scope.environment = res.data.environment;
@@ -19,6 +21,7 @@ module.exports = function(app) {
               dataService.get(siServiceHref + '?projection=serviceDetails')
                 .then(function(res) {
                   $scope.service = res.data;
+
                   if ($scope.dataCenter !== null) {
                     dataService.get($scope.serviceInstance._links.dataCenter.href)
                       .then(function(res) {
@@ -56,6 +59,14 @@ module.exports = function(app) {
           }, function(err) {
             if (err) return console.log(err);
           });
+
+        if ($scope.node.healthStatus !== null) {
+          var healthStatusHref = $scope.node._links.healthStatus.href + '?projection=healthStatusDetails';
+          dataService.get(healthStatusHref)
+            .then(funcion(res) {
+              $scope.node.healthStatus = hs = res.data;
+            });
+        }
       }
     };
     
