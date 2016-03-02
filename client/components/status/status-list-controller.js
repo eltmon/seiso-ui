@@ -17,7 +17,7 @@ module.exports = function(app) {
   
     dataService.get('/healthStatuses?projection=healthStatusDetails')
       .then(function(res) {
-        console.log(res);
+          console.log(res);
           vm.healthStatuses = res.data._embedded.healthStatuses;
         }, errorHandler);
 

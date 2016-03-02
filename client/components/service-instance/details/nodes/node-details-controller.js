@@ -64,6 +64,7 @@ module.exports = function(app) {
           var healthStatusHref = $scope.node._links.healthStatus.href + '?projection=healthStatusDetails';
           dataService.get(healthStatusHref)
             .then(function(res) {
+              console.log('healthStatus: ', res.data);
               $scope.node.healthStatus = hs = res.data;
             });
         }
