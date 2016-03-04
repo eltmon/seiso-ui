@@ -2,11 +2,11 @@
 
 module.exports = {
 
-  loginFailed: function (req, res) {
+  loginFailed: function(req, res) {
     res.redirect('/');
   },
 
-  logout: function (req, res) {
+  logout: function(req, res) {
     req.logout();
     res.sendStatus(200);
   },
