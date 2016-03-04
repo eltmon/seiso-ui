@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "4.1"
+  - "4.0"
+  - "iojs"
+before_install:
+install:
+  - npm install
+before_script:
+script:
+  - "npm run test:server"
+  - "npm run test:client"
+after_success:
+
