@@ -2,6 +2,7 @@
   "node": true,
   "sub": true,
   "esversion": 6,
+  "expr": true,
   "globals": {
     "describe": true,
     "$": true,

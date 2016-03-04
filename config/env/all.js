@@ -2,7 +2,7 @@
 var path = require('path');
 
 module.exports = {
-  applicationName: '',
+  applicationName: 'seiso-ui',
   accessLog: {
     fileSize: '1m',
     keep: 10,
@@ -26,7 +26,7 @@ module.exports = {
       desiredSubjectFormat: ''
     }
   },
-  hostingEnvironment: '',
+  hostingEnvironment: 'http',
   sessionSecret: 'secret',
   client: {
     // Used for both server public directory and gulp build output directory.

@@ -4,6 +4,7 @@
 const fs = require('fs');
 var depOrder = require('./gulp/config.js').vendorLibs;
 
+// Set up paths of files to be loaded into the browser. See 'files' prop below.
 var paths = [];
 var files = fs.readdirSync('./static/js');
 for (var i = 0; i < depOrder.length; i++) {
@@ -12,12 +13,9 @@ for (var i = 0; i < depOrder.length; i++) {
 paths.push('./static/js/build.bundle.js');
 paths.push('./node_modules/angular-mocks/angular-mocks.js');
 
-// paths = files.map((fileName) => {
-//     return './static/js/' + fileName;
-// });
 paths = paths.concat([
-  'test/*.spec.js',
-  'test/**/*.spec.js'
+  './client/test/*.spec.js',
+  './client/test/**/*.spec.js'
 ]);
 
 module.exports = function(config) {
@@ -28,7 +26,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'chai'],
 
     // list of files / patterns to load in the browser
     files: paths,
@@ -40,7 +38,6 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/*.spec.js': ['webpack'],
       'test/**/*.spec.js': ['webpack']
     },
 
@@ -64,7 +61,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'PhantomJS'],
+    browsers: ['PhantomJS'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

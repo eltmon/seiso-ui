@@ -136,6 +136,7 @@ function startHttps() {
 }
 
 module.exports = {
+  app: app,
   start: start,
   https: startHttps
 };

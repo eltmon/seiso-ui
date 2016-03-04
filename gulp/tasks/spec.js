@@ -4,9 +4,7 @@ var gulp = require('gulp'),
     config = require('../config'),
     webpack = require('webpack-stream'),
     path = require('path'),
-    KarmaServer = require('karma').Server,
-    reporters = require('jasmine-reporters'),
-    jasmine = require('gulp-jasmine');
+    KarmaServer = require('karma').Server;
 
 gulp.task('build:test', function() {
   

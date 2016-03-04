@@ -1,7 +1,7 @@
 
 var config = require('../../config').clientConfig;
 
-module.exports = function(req, res) {
+module.exports = function clientGlobalConfig(req, res) {
   var responseBody = {};
   if (!config.instances) {
     responseBody = {

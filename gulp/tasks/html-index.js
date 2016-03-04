@@ -17,7 +17,7 @@ function htmlIndexTask() {
     ], { read: false });
 
   function sourceStream(path) {
-    return gulp.src([config.out + path], {read: false});
+    return gulp.src([config.out + path]);
   }
 
   var sourceStreams = [];

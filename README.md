@@ -1,6 +1,6 @@
 # seiso-ui
 
-## Client side user interface for Seiso.
+> Web UI for Seiso data.
 
 *This project is currently in progress and not ready for general use.*
 
