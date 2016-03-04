@@ -10,7 +10,7 @@ var gulp = require('gulp'),
  */
 function vetTask() {
   var allJS = '/**/*.js';
-  var filesToVet = [config.client + allJS, config.server + allJS, config.spec + allJS, config.self + allJS, '!/**/*_build.js'];
+  var filesToVet = [config.client + allJS, config.client + '/test' + allJS, config.server + allJS, config.spec + allJS, config.self + allJS, '!/**/*_build.js'];
   return gulp.src(filesToVet)
       .pipe($.if(args.verbose, $.print()))
       .pipe($.jscs({ fix: true }))
