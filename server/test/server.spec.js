@@ -5,7 +5,6 @@ var chai = require('chai'),
   chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
-process.env.NODE_ENV = 'test';
 var app = require('../index.js').app;
 
 describe('Seiso UI API Specification', () => {
@@ -15,7 +14,7 @@ describe('Seiso UI API Specification', () => {
     it('configuration should have set values', (done) => {
       for (var k in config) {
         expect(config[k]).to.be.ok;
-      }  
+      }
       done();
     });
   });
@@ -155,4 +154,4 @@ describe('Seiso UI API Specification', () => {
   });
 });
 
-
+require('./eosApi.spec.js')(app);
