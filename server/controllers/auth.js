@@ -2,7 +2,7 @@
 
 module.exports = {
 
-  loginFailed: function(req, res) {
+  loginFailed: function loginFailed(req, res) {
     res.redirect('/');
   },
 
