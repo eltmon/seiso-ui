@@ -3,7 +3,9 @@ module.exports = function(app) {
 
   /* @ngInject */
   function Run($rootScope, $http) {
+    $rootScope.model = {
 
+    };
     $rootScope.uri = function(repoKey, itemKey) {
       if (!repoKey) {
         return '#/';

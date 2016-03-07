@@ -39,6 +39,16 @@ With browser-sync:
 
 For additional build and run scripts check the scripts section of the package.json file.
 
+### Running Tests
+
+    $ npm run test:server
+    $ npm run test:client
+
+#### Coverage
+
+    $ npm run cover:server
+    $ npm run cover:client
+
 ### Tools Used/Stack
 
 * [Node.js](https://nodejs.org/)

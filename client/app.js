@@ -8,7 +8,7 @@ var dependencies = [
   'ui.bootstrap',
   'ngCookies',
   'seisoFilters',
-  'seisoServices',
+  'seisoServices'
 ];
 
 var app = angular.module('seiso', dependencies);
