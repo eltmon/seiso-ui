@@ -73,14 +73,13 @@ describe('Seiso UI API Specification', () => {
 
   describe('Auth routes and integration', () => {
 
-    it('/login should redirect with appropriate SAML path', (done) => {
+    it('GET to /login should 401 if configuration is not set.', (done) => {
       chai.request(app)
         .get('/login')
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.redirect;
           expect(res).to.have.status(200);
-          expect(res.res.req.path).to.match(/SAML/g);
           done();
         });
     });

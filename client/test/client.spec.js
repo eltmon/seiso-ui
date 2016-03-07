@@ -1,4 +1,5 @@
 'use strict';
+
 var chai = require('chai'),
     assert = chai.assert,
     expect = chai.expect;
