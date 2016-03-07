@@ -40,6 +40,12 @@ With browser-sync:
 
 For additional build and run scripts check the scripts section of the package.json file.
 
+### Production Start
+
+Build the static assets, then start the run script...
+
+    $ npm run start:prod
+
 ### Running Tests
 
     $ npm run test:server
