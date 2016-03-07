@@ -17,7 +17,11 @@ module.exports.init = function(app, passport, authenticationStrategy, config) {
 
   app.get('/login', login, passport.authenticate(config.auth.strategy, redirectConfig));
   function login(req, res, next) {
-    next();
+    if (authControllers.isAuthConfigured()) {
+      next();
+    } else {
+      res.redirect('/');
+    }
   }
 
   app.get('/checkAuth', function(req, res) {

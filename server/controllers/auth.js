@@ -1,5 +1,7 @@
 'use strict';
 
+var config = require('../../config');
+
 module.exports = {
 
   loginFailed: function loginFailed(req, res) {
@@ -16,5 +18,19 @@ module.exports = {
       res.setHeader('content-type', 'application/xml');
       res.send(authenticationStrategy.generateServiceProviderMetadata());
     };
+  },
+
+  isAuthConfigured: function() {
+    var auth = config.auth,
+        idp = auth.identityProvider,
+        sp = auth.serviceProvider;
+    if (!idp.identity ||
+        !idp.spInitiatedUrl ||
+        !idp.signingCert ||
+        !sp.identity ||
+        !sp.desiredSubjectFormat) {
+      return false;
+    }
+    return true;
   }
 };
