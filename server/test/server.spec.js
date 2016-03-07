@@ -73,7 +73,7 @@ describe('Seiso UI API Specification', () => {
 
   describe('Auth routes and integration', () => {
 
-    it('GET to /login should 401 if configuration is not set.', (done) => {
+    it('GET to /login should redirect to index if auth configuration is not set.', (done) => {
       chai.request(app)
         .get('/login')
         .end((err, res) => {
