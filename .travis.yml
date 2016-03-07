@@ -5,6 +5,7 @@ before_install:
 install:
   - npm install
 before_script:
+  - npm run build:all
 script:
   - "npm run test:server"
   - "npm run test:client"
