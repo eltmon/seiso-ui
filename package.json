@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "./bin/www",
-    "start:prod": "npm run build:all && node index",
+    "start:prod": "npm run build:all && npm run start",
     "start:dev": "export NODE_ENV=\"dev\" && npm run start",
     "build:dev": "export NODE_ENV=\"dev\" && npm run build:all",
     "watch": "gulp watch",
@@ -86,7 +86,6 @@
     "raw-loader": "^0.5.1",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.4",
-    "serve-favicon": "^2.3.0",
     "stream-series": "^0.1.1",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1",
