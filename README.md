@@ -1,4 +1,5 @@
 # seiso-ui
+[![Travis](https://img.shields.io/travis/rust-lang/rust.svg)](https://travis-ci.org/ExpediaDotCom/seiso-ui)
 
 > Web UI for Seiso data.
 
