@@ -4,7 +4,7 @@ module.exports = function(app) {
   /* @ngInject */
   function AppConfig($httpProvider, paginationConfig) {
     $httpProvider.defaults.headers.common = {
-      Accept: 'application/hal+json'
+      Accept: 'application/hal+json, application/json'
     };
     
     // Pagination configuration. Is this the right place to do this?
