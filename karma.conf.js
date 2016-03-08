@@ -34,7 +34,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-        './client/test/e2e'
+        './client/test/e2e/main.spec.js'
     ],
 
     // preprocess matching files before serving them to the browser
