@@ -7,6 +7,13 @@ var chai = require('chai'),
 
 var selfAddress = 'http://localhost:3001';
 
+// TO RUN:
+// $ webdriver-manager start
+// $ npm run build:dev
+// $ npm run start:dev
+// $ protractor client/test/e2e/config.js
+
+
 console.log(selfAddress);
 chai.use(chaiAsPromised);
 
