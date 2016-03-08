@@ -15,7 +15,7 @@ module.exports = function(router) {
     if (req.isAuthenticated() && req.user) {
       next();
     } else {
-      res.status(401).json({msg: 'Not Authorized.'})
+      res.status(401).json({msg: 'Not Authorized.'});
     }
   }
 };
