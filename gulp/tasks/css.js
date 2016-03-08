@@ -11,7 +11,7 @@ var vLibs = {
 };
 
 function cssTask() {
-  var srcPaths = [vLibs.bs, vLibs.material];
+  var srcPaths = [vLibs.bs, vLibs.material, './client/css/styles.css'];
   var destPath = config.out + '/css';
   gulp.src(srcPaths)
     .pipe($.cssnano())
