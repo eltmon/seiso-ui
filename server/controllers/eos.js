@@ -71,7 +71,6 @@ function initiateRequest(path, payload, res) {
 
 function requestHandler(options, payload, cb) {
   var eosReq = http.request(options, (res) => {
-    console.log(`STATUS: ${res.statusCode}`);
     res.setEncoding('utf8');
     var resBody = '';
     res.on('data', (chunk) => {

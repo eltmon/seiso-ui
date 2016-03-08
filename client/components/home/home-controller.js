@@ -3,14 +3,18 @@ module.exports = function(app) {
   app.controller('HomeController', HomeController);
 
   /* @ngInject */
-  function HomeController($http, dataService, Page, AuthService) {
+  function HomeController($scope, $http, dataService, Page, AuthService) {
 
     Page.setTitle('Home');
     var vm = this;
     vm.serviceStatus = 'loading';
 
-    dataService.get('/serviceGroups')
-      .then(successHandler, function(err) { return console.log(err);});
+    // Need to wait here since dataService retrieves the seiso api base url
+    // before using to make api calls. [IDM]
+    $scope.$watch('dataService.getBaseUrl()', function(oldVal, newVal) {
+      dataService.get('/serviceGroups')
+        .then(successHandler, function(err) { return console.log(err);});
+    });
 
     function successHandler(res) {
       AuthService.checkAuthentication(res);
