@@ -44,10 +44,6 @@ module.exports = function(app) {
 
         function successHandler() {
           console.log('Auth response');
-          // This just means that the request succeeded, not that authentication succeeded.
-          // Whether authentication succeeded or not, /login returns an HTTP 302 redirect.
-          // So we still need to check.
-          checkAuthentication(true);
         }
 
         function errorHandler() {
@@ -58,7 +54,7 @@ module.exports = function(app) {
       
       logout: function() {
         console.log('Logging out');
-        $http.get('logout')
+        $http.get('/logout')
           .then(successHandler, errorHandler);
         function successHandler() {
           console.log('Logged out');
