@@ -65,7 +65,7 @@ exports.nodePageToNodeRows = function(nodePage) {
       nodeRow = {
         name: node.name,
         displayName: node.name,
-        version: node.version || '-',
+        buildVersion: node.buildVersion || '-',
         healthStatus: node.healthStatus
       };
       nodeRows.push(nodeRow);
@@ -83,7 +83,7 @@ exports.nodePageToNodeRows = function(nodePage) {
         if (j === 0) {
           // Distinguish name from display name. We want to filter by name, but display by displayName.
           nodeRow.displayName = node.name;
-          nodeRow.version = node.version || '-';
+          nodeRow.buildVersion = node.buildVersion || '-';
           nodeRow.healthStatus = node.healthStatus;
           nodeRow.nodeAggregateRotationStatus = node.aggregateRotationStatus;
         }
