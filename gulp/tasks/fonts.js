@@ -10,7 +10,7 @@ function fontsTask() {
       .pipe(gulp.dest(config.out + '/fonts')); 
  
   gulp.src(config.nodeModules + '/bootstrap/fonts/' + exts)
-      .pipe(gulp.dest(config.out + '/css/fonts'));
+      .pipe(gulp.dest(config.out + '/fonts'));
 
 }
 
