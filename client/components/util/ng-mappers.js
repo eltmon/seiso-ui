@@ -9,8 +9,8 @@ exports.organizeDataCenters = function(srcProviders, generalRegions) {
     var srcProvider = srcProviders[i];
     var providerKey = srcProvider.key;
     destProviders[providerKey] = {
-      'name' : srcProvider.name,
-      'specialRegions' : {}
+      name: srcProvider.name,
+      specialRegions: {}
     };
     var destProvider = destProviders[providerKey];
     for (var j = 0; j < generalRegions.length; j++) {
