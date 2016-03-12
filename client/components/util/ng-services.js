@@ -21,9 +21,9 @@ module.exports = function(app) {
     // TODO replace concat with URI template?
     this.buildSearchUrl = function() { return baseUrl + query.value; };
     this.getQuery = function() { return query; };
-    this.setQuery = function(newQuery) { query = { value : newQuery }; };
+    this.setQuery = function(newQuery) { query = { value: newQuery }; };
     this.getResults = function() { return results; };
-    this.setResults = function(newResults) { results = { value : newResults }; };
+    this.setResults = function(newResults) { results = { value: newResults }; };
     this.search = function(callback) {
       self.searchUrl = this.buildSearchUrl();
       dataService.get(self.searchUrl)
