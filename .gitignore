@@ -7,3 +7,6 @@
 **/*.log
 /npm-debug.log
 logs/
+coverage/
+keys/
+config/**/_*.*
