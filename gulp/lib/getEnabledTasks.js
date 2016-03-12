@@ -5,7 +5,7 @@ var _ = require('lodash');
 
 // The only task we have to wait for is html:index which depends on the output
 // file locations for files to inject. [IDM]
-var assetTasks = ['fontawesome', 'fonts', 'images'],
+var assetTasks = ['fontawesome', 'fonts', 'images', 'icons'],
     codeTasks = ['html', 'less', 'css', 'webpack:build', 'vendor:js'],
     indexInject = ['html:index'];
 

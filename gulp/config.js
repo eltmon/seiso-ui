@@ -31,6 +31,8 @@ module.exports = {
     'angular-animate',
     'angular-cookies',
     'ui-bootstrap-tpls',
+    'angular-aria',
+    'angular-material',
   	'd3'
   ]
 };
