@@ -18,6 +18,8 @@ var libs = {
   angular_sanitize: '/',
   angular_animate: '/',
   angular_cookies: '/',
+  angular_aria: '/',
+  angular_material: '/',
   d3: '/'
 };
 

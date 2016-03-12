@@ -79,6 +79,7 @@
     "karma-safari-launcher": "^0.1.1",
     "karma-webpack": "^1.7.0",
     "less": "^2.5.3",
+    "material-design-icons": "^2.2.0",
     "mocha": "^2.3.3",
     "ng-annotate-webpack-plugin": "^0.1.2",
     "phantom": "^0.7.2",

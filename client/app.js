@@ -5,10 +5,14 @@ var async = require('async');
 var dependencies = [
   'ui.router',
   'ngAnimate',
+  'ngAria',
+  'ngMaterial',
+  // 'ngMessages',
   'ui.bootstrap',
   'ngCookies',
   'seisoFilters',
-  'seisoServices'
+  'seisoServices',
+  'external.eos'
 ];
 
 var app = angular.module('seiso', dependencies);
@@ -30,13 +34,8 @@ require('./components/home/search-controller')(app);
 require('./components/search/search-results-controller')(app);
 
 // Eos Actions
-require('./components/service-instance/details/eos-actions/eos-convict-controller')(app);
-require('./components/service-instance/details/eos-actions/eos-deploy-controller')(app);
-require('./components/service-instance/details/eos-actions/eos-interrogate-controller')(app);
-require('./components/service-instance/details/eos-actions/eos-maintenance-mode-controller')(app);
-require('./components/service-instance/details/eos-actions/eos-reload-controller')(app);
-require('./components/service-instance/details/eos-actions/eos-set-active-controller')(app);
-require('./components/service-instance/details/eos-actions/eos-soak-controller')(app);
+require('./components/service-instance/details/eos-actions')(angular);
+
 
 // Data-center
 require('./components/data-center/details/data-center-details-controller')(app);
