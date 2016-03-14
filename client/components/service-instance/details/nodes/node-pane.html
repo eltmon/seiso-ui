@@ -45,12 +45,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-ng-repeat="nodeRow in vm.nodeRows" data-ng-init="
-                firstRow = nodeRow.displayName;
-                healthStatusTypeKey = nodeRow.healthStatus.statusType.key;
-                nodeAggregateRotationStatusTypeKey = nodeRow.nodeAggregateRotationStatus._embedded.statusType.key;
-                ipAggregateRotationStatusTypeKey = nodeRow.ipAggregateRotationStatus.statusType.key;">
-                
+            <tr data-ng-repeat="nodeRow in vm.nodeRows" 
+                data-ng-init="
+                  firstRow = nodeRow.displayName;
+                  healthStatusTypeKey = nodeRow.healthStatus.statusType.key;
+                  nodeAggregateRotationStatusTypeKey = nodeRow.nodeAggregateRotationStatus._embedded.statusType.key;
+                  ipAggregateRotationStatusTypeKey = nodeRow.ipAggregateRotationStatus.statusType.key;">
               <td>
                 <div data-ng-if="firstRow">
                   <a data-ng-href="{{uri('nodes', nodeRow.name)}}">{{nodeRow.displayName}}</a>
