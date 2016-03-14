@@ -5,8 +5,8 @@ var gulp = require('gulp'),
     path = require('path');
 
 function watchTask() {
-  var watchPath = config.client.all + '/**/*.js';
-  return gulp.watch([watchPath], ['build']);
+  var watchPath = config.client.js;
+  return gulp.watch([watchPath, config.client.html], ['build']);
 }
 
 gulp.task('watch', ['build'], watchTask);

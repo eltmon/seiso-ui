@@ -94,3 +94,51 @@ exports.nodePageToNodeRows = function(nodePage) {
     
   return nodeRows;
 };
+
+exports.statusTypeMapper = function(healthStatus) {
+  var statusType;
+  switch(healthStatus) {
+    case 'endabled':
+    case 'Healthy': statusType = 'success';
+      break;
+    case 'excluded':
+    case 'New':
+    case 'DowngradeNeeded':
+    case 'PatchNeeded':
+    case 'UpgradeNeeded':
+    case 'Deploy': statusType = 'info';
+      break;
+    case 'DeploymentCancelled':
+    case 'ManualIntervention':
+    case 'PatchCancelled':
+    case 'PatchFailed':
+    case 'Retribution':
+    case 'Victim':
+    case 'disabled':
+    case 'partial':
+    case 'unknown':
+    case 'DeploymentFailed': statusType = 'warning';
+      break;
+    case 'Dead':
+    case 'Perpetrator':
+    case 'Purgatory': statusType = 'danger';
+      break;
+    case 'no-endpoints':
+    case 'Discovery':
+    case 'Inactive': statusType = 'default';
+      break;
+    default : statusType = undefined;
+      break; 
+  }
+  return {
+    key: statusType
+  };
+};
+
+exports.objectToParams = function(obj) {
+  var paramString = '?';
+  for (var k in obj) {
+    paramString += k + obj[k]
+  }
+};
+

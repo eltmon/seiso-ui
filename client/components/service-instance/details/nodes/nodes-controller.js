@@ -1,7 +1,9 @@
 'use strict';
 
 var async = require('async'),
-    nodePageToNodeRows = require('../../../util/ng-mappers.js').nodePageToNodeRows;
+    mappers = require('../../../util/ng-mappers.js'),
+    nodePageToNodeRows = mappers.nodePageToNodeRows,
+    statusTypeMapper = mappers.statusTypeMapper;
 
 module.exports = function(app) {
   app.controller('ServiceInstanceNodesController', serviceInstanceNodesController);
@@ -33,10 +35,7 @@ module.exports = function(app) {
           if (node.healthStatus !== null) {
             dataService.get(node._links.healthStatus.href)
               .then(function(res) {
-                return dataService.get(res.data._links.statusType.href)
-              })
-              .then(function(res) {
-                node.healthStatus.statusType = res.data;
+                node.healthStatus.statusType = statusTypeMapper(res.data.key);
               });
           }
 

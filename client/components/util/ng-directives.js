@@ -132,11 +132,39 @@ var rotationDetailsPopoverDirective = function() {
   return [ '$compile', '$templateCache', 'dataService', '$http', directive ];
 };
 
+var healthStatusPopoverDirective = function() {
+  var directive = function($compile, $templateCache, dataService, $http) {
+    return {
+      restrict: 'A',
+      link: function($scope, $element, $attrs) {
+        $http.get('view/service-instance/details/dashboard/healthStatusPopover.html', {cache: $templateCache})
+          .then(function(res) {
+            // var template = $templateCache.get('healthStatusPopover.html');
+            var template = res.data;
+            template = angular.element(template);
+            $scope.healthStatus = $attrs.healthStatus;
+            $scope.healthStatusReason = $attrs.healthStatusReason;
+            $scope.healthStatusLink = $attrs.healthStatusLink;
+            var popoverContent = $compile(template)($scope);
+            $($element).popover({
+              title: 'Health Status',
+              content: popoverContent,
+              placement: 'top',
+              html: true,
+              date: $scope.date
+            });
+          });
+      }
+    };
+  };
+  return [ '$compile', '$templateCache', 'dataService', '$http', directive ];
+};
+
 // Register directives
 module.exports = function(app) {
   app.directive('ngEnter', enterDirective())
     .directive('focus', focusDirective())
     .directive('pieChart', pieChartDirective())
-    .directive('rotationDetailsPopover', rotationDetailsPopoverDirective());
+    .directive('rotationDetailsPopover', rotationDetailsPopoverDirective())
+    .directive('healthStatusPopover', healthStatusPopoverDirective());
 };
-
