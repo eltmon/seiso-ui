@@ -39,7 +39,7 @@ if (env === 'dev') {
     }
   };
 
-  plugins.push(new webpack.optimize.UglifyJsPlugin(config.UglifyJsPlugin))
+  plugins.push(new webpack.optimize.UglifyJsPlugin(config.UglifyJsPlugin));
 }
 
 console.log(config);
