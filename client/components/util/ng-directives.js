@@ -1,6 +1,4 @@
 
-var async = require('async');
-
 var enterDirective = function() {
   var directive = function() {
     return function(scope, element, attrs) {

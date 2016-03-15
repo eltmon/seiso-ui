@@ -8,7 +8,7 @@ var depOrder = require('./gulp/config.js').vendorLibs;
 var paths = [];
 var files = fs.readdirSync('./static/js');
 for (var i = 0; i < depOrder.length; i++) {
-  paths.push('./static/js/' + depOrder[i] + '.min.js');
+  paths.push('./static/js/vendor.bundle.js');
 }
 paths.push('./static/js/build.bundle.js');
 paths.push('./node_modules/angular-mocks/angular-mocks.js');

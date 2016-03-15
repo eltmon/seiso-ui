@@ -27,12 +27,12 @@ module.exports = {
   	'angular',
   	'async',
   	'angular-ui-router',
-  	'angular-sanitize',
-    'angular-animate',
-    'angular-cookies',
+  	// 'angular-sanitize',
+   //  'angular-animate',
+   //  'angular-cookies',
     'ui-bootstrap-tpls',
-    'angular-aria',
-    'angular-material',
+    // 'angular-aria',
+    // 'angular-material',
   	'd3'
   ]
 };
