@@ -2,7 +2,7 @@ module.exports = function(app) {
   app.config(AppConfig);
 
   /* @ngInject */
-  function AppConfig($httpProvider, paginationConfig, $mdIconProvider) {
+  function AppConfig($httpProvider, paginationConfig) {
     $httpProvider.defaults.headers.common = {
       Accept: 'application/hal+json, application/json'
     };
@@ -17,9 +17,10 @@ module.exports = function(app) {
     paginationConfig.lastText = '»';
 
 
-    $mdIconProvider
+    // ng.material
+    // $mdIconProvider
       // .iconSet("call", 'img/icons/sets/communication-icons.svg', 24)
       // .iconSet("social", 'img/icons/sets/social-icons.svg', 24)
-      .icon('call1', 'icons/ic_call_24px.svg');
+      // .icon('call1', 'icons/ic_call_24px.svg');
   }
 };

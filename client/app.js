@@ -4,12 +4,12 @@ var async = require('async');
 
 var dependencies = [
   'ui.router',
-  'ngAnimate',
-  'ngAria',
-  'ngMaterial',
+  // 'ngAnimate',
+  // 'ngAria',
+  // 'ngMaterial',
   // 'ngMessages',
   'ui.bootstrap',
-  'ngCookies',
+  // 'ngCookies',
   'seisoFilters',
   'seisoServices',
   'external.eos'

@@ -3,7 +3,7 @@ module.exports = function(app) {
   app.controller('NavbarController', NavbarController);
 
   /* @ngInject */
-  function NavbarController($scope, $http, AuthService, $mdMenu) {
+  function NavbarController($scope, $http, AuthService) {
     $scope.nav = {};
     $scope.AuthService = AuthService;
     // Get instances for navbar instance navigation
@@ -21,6 +21,9 @@ module.exports = function(app) {
         $scope.nav.self = self;
         $scope.nav.seisoInstances = instances;
       });
+
+
+    // Inject $mdMenu to Make this work. [IDM]
 
     // var originatorEv;
 

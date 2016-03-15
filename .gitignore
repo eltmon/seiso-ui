@@ -10,3 +10,4 @@ logs/
 coverage/
 keys/
 config/**/_*.*
+**/*_*.*

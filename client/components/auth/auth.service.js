@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.factory('AuthService', AuthService);
 
   /* @ngInject */
-  function AuthService($http, $location, $cookies) {
+  function AuthService($http, $location) {
     var authenticated,
         isAnonymous,
         hasAdminRole,
