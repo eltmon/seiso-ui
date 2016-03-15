@@ -2,7 +2,6 @@
 
 var gulp = require('gulp'),
     concat = require('gulp-concat'),
-		stripComments = require('gulp-strip-comments'),
     config = require('../config');
 
 /*
@@ -34,11 +33,9 @@ function vendorTask() {
 
   // special case because the lib dir doesn't match the lib filename. [IDM]
   sources.push(config.nodeModules + '/angular-ui-bootstrap/ui-bootstrap-tpls.min.js');
-  console.log(sources);
 
   var destPath = config.out + '/js';
   gulp.src(sources)
-  	// .pipe(stripComments())
     .pipe(concat('vendor.bundle.js'))
     .pipe(gulp.dest(destPath));
 }

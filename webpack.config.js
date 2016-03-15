@@ -64,8 +64,8 @@ module.exports = {
   externals: {
     'jquery': 'jQuery',
     '$': 'jQuery',
-    'angular': 'angular',
-    'async': 'async'
+    'angular': 'angular'
+    // 'async': 'async'
   },
   plugins: plugins
     // new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'vendor.js', Infinity)

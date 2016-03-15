@@ -1,6 +1,5 @@
 var EE = require('events').EventEmitter;
 var ee = new EE();
-var async = require('async');
 
 module.exports = function(app) {
 
