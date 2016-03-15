@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
+    concat = require('gulp-concat'),
 		stripComments = require('gulp-strip-comments'),
     config = require('../config');
 
@@ -15,28 +16,30 @@ var libs = {
   angular: '/',
   async: '/dist/',
   angular_ui_router: '/release/',
-  angular_sanitize: '/',
-  angular_animate: '/',
-  angular_cookies: '/',
-  angular_aria: '/',
-  angular_material: '/',
+  // angular_sanitize: '/',
+  // angular_animate: '/',
+  // angular_cookies: '/',
+  // angular_aria: '/',
+  // angular_material: '/',
   d3: '/'
 };
 
 function vendorTask() {
 	var sources = [];
 
-  // special case because the lib dir doesn't match the lib filename. [IDM]
-  sources.push(config.nodeModules + '/angular-ui-bootstrap/ui-bootstrap-tpls.min.js');
-
 	for (var k in libs) {
 		var libName = k.replace(/_/g, '-');
 		sources.push(config.nodeModules + '/' + libName + libs[k] + libName + '.min.js');
 	}
 
+  // special case because the lib dir doesn't match the lib filename. [IDM]
+  sources.push(config.nodeModules + '/angular-ui-bootstrap/ui-bootstrap-tpls.min.js');
+  console.log(sources);
+
   var destPath = config.out + '/js';
   gulp.src(sources)
   	// .pipe(stripComments())
+    .pipe(concat('vendor.bundle.js'))
     .pipe(gulp.dest(destPath));
 }
 

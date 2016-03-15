@@ -27,6 +27,7 @@ function htmlIndexTask() {
       sourceStream('/js/' + config.vendorLibs[k] + '.min.js')
     );
   }
+  sourceStreams.push(sourceStream('/js/vendor.bundle.js'));
   sourceStreams.push(sourceStream('/js/build.bundle.js'));
 
   var target = gulp.src(config.out + '/index.html');
