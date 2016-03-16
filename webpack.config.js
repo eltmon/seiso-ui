@@ -27,7 +27,8 @@ if (env === 'dev') {
         unused: true,
         if_return: true,
         join_vars: true,
-        drop_console: true
+        drop_console: true,
+        keep_fnames: true
       },
       // sourceMap: false,
       // // Don't mangle for now, as angular doesn't play well with obsfucation of directive names. [IDM]
