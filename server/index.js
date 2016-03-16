@@ -11,7 +11,8 @@ var https = require('https'),
     cookieParser = require('cookie-parser'),
     session = require('cookie-session'),
     passport = require('passport'),
-    favicon = require('serve-favicon');
+    favicon = require('serve-favicon'),
+    compression = require('compression');
 
 var config =  require('../config'),
     logConfig = require('./logging'),
@@ -23,6 +24,15 @@ var config =  require('../config'),
 app.set('port', config.port);
 logger.format('access', logConfig.loggerFormat);
 app.use(logger('access', {stream: logConfig.accessLogStream}));
+
+app.use(compression({filter: shouldCompress}));
+function shouldCompress(req, res) {
+  // Add compression filters here
+  
+  // default compression filter
+  return compression.filter(req, res);
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
