@@ -36,6 +36,6 @@ function htmlIndexTask() {
     .pipe(gulp.dest(config.out));
 }
 
-gulp.task('html:index', ['cp:index', 'rmTemp'], htmlIndexTask);
+gulp.task('html:index', ['cp:index'], htmlIndexTask);
 
 module.exports = htmlIndexTask;
