@@ -43,8 +43,6 @@ if (env === 'dev') {
   plugins.push(new webpack.optimize.UglifyJsPlugin(config.UglifyJsPlugin));
 }
 
-console.log(config);
-
 module.exports = {
   cache: true,
   entry: {

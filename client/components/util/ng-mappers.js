@@ -138,7 +138,7 @@ exports.statusTypeMapper = function(healthStatus) {
 exports.objectToParams = function(obj) {
   var paramString = '?';
   for (var k in obj) {
-    paramString += k + obj[k]
+    paramString += k + obj[k];
   }
 };
 
