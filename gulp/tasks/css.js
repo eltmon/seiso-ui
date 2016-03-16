@@ -6,12 +6,11 @@ var gulp = require('gulp'),
 
 // Using this in case there are multiple CSS libs that need to be copied. [IDM]
 var vLibs = {
-  bs: config.nodeModules + '/bootstrap/dist/css/bootstrap.min.css',
   material: config.nodeModules + '/angular-material/angular-material.min.css'
 };
 
 function cssTask() {
-  var srcPaths = [vLibs.bs, './client/css/styles.css'];
+  var srcPaths = ['./client/css/styles.css'];
   var destPath = config.out + '/css';
   gulp.src(srcPaths)
   	.pipe($.concat('styles.css'))

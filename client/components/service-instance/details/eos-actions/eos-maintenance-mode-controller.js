@@ -15,7 +15,7 @@ function eosMaintenanceModeController($scope, $http, $stateParams) {
       enable: $scope.form.enable,
       overrideOthers: $scope.form.overrideOthers
     };
-    var path = '/eos/maintenanceMode'
+    var path = '/eos/maintenanceMode';
     console.log(requestBody);
     $http.post(path, requestBody)
       .then(successHandler, errorHandler);

@@ -66,7 +66,7 @@ module.exports = function(app) {
       }
       
       function errorHandler() { vm.nodeAlertsStatus = 'error'; }
-    }
+    };
 
     vm.pageSelected();
   }

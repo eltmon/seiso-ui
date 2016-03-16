@@ -57,11 +57,11 @@ module.exports = function(app) {
               }, function(err) {
                 if (err) return console.log(err);
               });
-            };
+            }
 
             function errorHandler(res) {
               vm.serviceInstanceListStatus = 'error';
-            };
+            }
 
 
             function getNodeSummary(si, cb) {

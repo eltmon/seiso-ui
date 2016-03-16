@@ -1,4 +1,3 @@
-'use strict';
 
 var async = require('async'),
     mappers = require('../../../util/ng-mappers.js'),
