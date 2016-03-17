@@ -8,21 +8,24 @@ var gulp = require('gulp'),
  *  Copy vendor minified libraries directly.
  *  Check the main app.js entry file for additional deps that might
  *  be bundled with the app code. [IDM]
+ *
+ *  If a CDN is being used for a particular vendor asset, we can remove it from here.
  */
-var libs = {
-  jquery: '/dist/',
-  bootstrap: '/dist/js/',
-  angular: '/',
-  async: '/dist/',
-  angular_ui_router: '/release/',
-  // angular_sanitize: '/',
-  // angular_animate: '/',
-  // angular_cookies: '/',
-  // angular_aria: '/',
-  // angular_material: '/',
-  d3: '/'
-};
+// var libs = {
+//   jquery: '/dist/',
+//   bootstrap: '/dist/js/',
+//   angular: '/',
+//   async: '/dist/',
+//   angular_ui_router: '/release/',
+//   // angular_sanitize: '/',
+//   // angular_animate: '/',
+//   // angular_cookies: '/',
+//   // angular_aria: '/',
+//   // angular_material: '/',
+//   d3: '/'
+// };
 
+var libs = [];
 function vendorTask() {
 	var sources = [];
 

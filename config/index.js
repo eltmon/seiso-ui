@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 
-var all = require('./env/all.js'),
+var all = require('./env/_allll.js'),
     envConfig = require('./env/' + (process.env.NODE_ENV || 'test') + '.js') || {},
     deployConfig = {},
     clientConfig = {clientConfig: require('./config.js')};

@@ -5,8 +5,8 @@ var _ = require('lodash');
 
 // The only task we have to wait for is html:index which depends on the output
 // file locations for files to inject. [IDM]
-var assetTasks = ['fonts', 'images'],
-    codeTasks = ['html', 'less', 'css', 'webpack:build', 'vendor:js'],
+var assetTasks = ['fonts', 'images', 'vendor:js'],
+    codeTasks = ['html', 'less', 'css', 'webpack:build'],
     indexInject = ['html:index'];
 
 var parallelTasks = assetTasks.concat(codeTasks);

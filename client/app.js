@@ -1,14 +1,14 @@
 'use strict';
 
-// var async = require('async');
+var async = require('async');
 
 var dependencies = [
+  'ui.bootstrap',
   'ui.router',
   // 'ngAnimate',
   // 'ngAria',
   // 'ngMaterial',
   // 'ngMessages',
-  'ui.bootstrap',
   // 'ngCookies',
   'seisoFilters',
   'seisoServices',
