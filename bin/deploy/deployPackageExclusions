@@ -6,6 +6,7 @@ jasmine-node
 jasmine-reporters
 karma
 karma-chrome-launcher
+karma-chai
 karma-firefox-launcher
 karma-safari-launcher
 karma-jasmine
@@ -13,3 +14,7 @@ karma-phantomjs-launcher
 phantom
 phantomjs
 webpack-dev-server
+istanbul
+angular-material
+material-design-icons
+

@@ -10,10 +10,6 @@ module.exports.init = function(app, passport, authenticationStrategy, config) {
     failureRedirect: '/login-failed'
   };
 
-  app.get('/', function(req, res, next) {
-   next();
-  });
-
 
   app.get('/login', login, passport.authenticate(config.auth.strategy, redirectConfig));
   function login(req, res, next) {
