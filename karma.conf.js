@@ -8,10 +8,17 @@ var depOrder = require('./gulp/config.js').vendorLibs;
 var paths = [];
 var files = fs.readdirSync('./static/js');
 for (var i = 0; i < depOrder.length; i++) {
-  paths.push('./static/js/vendor.bundle.js');
 }
-paths.push('./static/js/build.bundle.js');
-paths.push('./node_modules/angular-mocks/angular-mocks.js');
+
+paths = [
+  './node_modules/jquery/dist/jquery.min.js',
+  './node_modules/angular/angular.min.js',
+  './node_modules/angular-ui-router/release/angular-ui-router.min.js',
+  './node_modules/async/dist/async.min.js',
+  './static/js/vendor.bundle.js',
+  './static/js/build.bundle.js',
+  './node_modules/angular-mocks/angular-mocks.js'
+];
 
 paths = paths.concat([
   './client/test/*.spec.js',

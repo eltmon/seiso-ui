@@ -12,6 +12,7 @@ module.exports = function(app) {
     // Need to wait here since dataService retrieves the seiso api base url
     // before using to make api calls. [IDM]
     $scope.$watch('dataService.getBaseUrl()', function(oldVal, newVal) {
+      if (!dataService.getBaseUrl()) return;
       dataService.get('/serviceGroups')
         .then(successHandler, function(err) { return console.log(err);});
     });
