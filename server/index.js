@@ -22,8 +22,6 @@ var config =  require('../config'),
     authRoutes = require('./routes').auth;
 
 app.set('port', config.port);
-logger.format('access', logConfig.loggerFormat);
-app.use(logger('access', {stream: logConfig.accessLogStream}));
 
 app.use(compression({filter: shouldCompress}));
 function shouldCompress(req, res) {
@@ -33,9 +31,11 @@ function shouldCompress(req, res) {
   return compression.filter(req, res);
 }
 
+logger.format('access', logConfig.loggerFormat);
+app.use(logger('access', {stream: logConfig.accessLogStream}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(cookieParser());
 
 // var sessionConfig = {
@@ -111,8 +111,34 @@ app.use('*', function(req, res, next) {
   next();
 });
 
-app.use(express.static(config.client.publicDir));
+// app.use(function(req, res, next) {
+//   res.setHeader('Cache-Control', 'public, max-age=86400000');
+//   next();
+// });
+
+var staticOptions = {
+  dotfiles: 'ignore',
+  etag: false,
+  // extensions: ['html'],
+  index: ['index.html'],
+  maxAge: '1d',
+  redirect: false,
+  setHeaders: function(res, path, stat) {
+    res.set('x-timestamp', Date.now())
+  }
+};
+app.use(express.static(config.client.publicDir, staticOptions));
 app.use(favicon(config.client.publicDir + '/images/favicon.ico'));
+
+// Error Handling
+app.use(function (err, req, res, next) {
+  console.log(err);
+  res.status(err.status || 500);
+  res.json({
+    message: err.message,
+    error: {}
+  });
+});
 
 function start() {
   app.listen(config.port, function() {
